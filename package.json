@@ -1,0 +1,51 @@
+{
+  "name": "austere-med-interactives",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack --mode production",
+    "runserver": "webpack serve",
+    "test": "jest",
+    "test:watch": "jest --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ccnmtl/austere-med-interactives.git"
+  },
+  "author": "Nick Buonincontri",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ccnmtl/austere-med-interactives/issues"
+  },
+  "homepage": "https://github.com/ccnmtl/austere-med-interactives#readme",
+  "devDependencies": {
+    "@babel/cli": "^7.13.0",
+    "@babel/core": "^7.13.8",
+    "@babel/plugin-proposal-class-properties": "^7.13.0",
+    "@babel/preset-env": "^7.13.9",
+    "@babel/preset-react": "^7.12.13",
+    "@babel/preset-typescript": "^7.13.0",
+    "@testing-library/jest-dom": "^5.11.9",
+    "@testing-library/react": "^11.2.5",
+    "@types/jest": "^26.0.20",
+    "@types/react": "^17.0.2",
+    "@types/react-dom": "^17.0.1",
+    "cypress": "^6.6.0",
+    "jest": "^26.6.3",
+    "node-sass": "^5.0.0",
+    "npm": "^7.6.0",
+    "sass": "^1.32.8",
+    "sass-loader": "^11.0.1",
+    "ts-jest": "^26.5.2",
+    "typescript": "^4.2.2",
+    "webpack": "^5.24.2",
+    "webpack-cli": "^4.5.0",
+    "webpack-dev-server": "^3.11.2"
+  },
+  "dependencies": {
+    "babel-loader": "^8.2.2",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1"
+  }
+}
