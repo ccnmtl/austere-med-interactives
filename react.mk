@@ -31,13 +31,13 @@ snapshot: $(JS_SENTINAL)
 
 deploy-stage: $(JS_SENTINAL) 
 	npm run build:stage \
-	&& cp src/images/* dist/images/. \
+	&& mkdir dist && mkdir dist/images && cp src/images/* dist/images/. \
 	&& $(INTERMEDIATE_STEPS) \
 	&& $(S3CMD) $(S3_FLAGS) sync --exclude-from='.s3ignore' . s3://$(STAGING_BUCKET)/
 
 deploy-prod: $(JS_SENTINAL) 
 	npm run build:prod \
-	&& cp src/images/* dist/images/. \
+	&& mkdir dist && mkdir dist/images && cp src/images/* dist/images/. \
 	&& $(INTERMEDIATE_STEPS) \
 	&& $(S3CMD) $(S3_FLAGS) sync --exclude-from='.s3ignore' . s3://$(PROD_BUCKET)/
 
