@@ -19,6 +19,6 @@ install:
 	make $(JS_SENTINAL)
 
 clean:
-	rm -rf $(NODE_MODULES) $(DIST) 
+	rm -rf $(NODE_MODULES) $(DIST) $(DATA_SENTINAL)
 
 .PHONY: clean install
