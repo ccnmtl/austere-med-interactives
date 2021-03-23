@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import ReactDOM from 'react-dom';
 import { Nav } from '../nav';
-import { PatientSet, Patient } from './index';
+import { PatientSet } from './index';
 import { DATA } from '../data/triage';
 
 export const Triage: React.FC = () => {
