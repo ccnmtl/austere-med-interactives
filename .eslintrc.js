@@ -103,6 +103,7 @@ module.exports = {
         'security/detect-pseudoRandomBytes': 1,
         'security/detect-unsafe-regex': 1
     },
+    "ignorePatterns": ["triage.js", "medkit.js"],
     "overrides": [{
         "files": ["*.{ts,tsx}"],
         "rules": {

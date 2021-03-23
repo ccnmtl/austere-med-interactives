@@ -1,12 +1,11 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import { Nav } from '../nav';
 
 export const Medkit: React.FC = () => {
     return (
         <>
             <Nav />
-            <div className={'container'}>
+            <div className={'container'} data-testid='medkit'>
                 <h1>Medkit sim</h1>
             </div>
         </>

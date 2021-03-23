@@ -25,9 +25,9 @@ export const Triage: React.FC = () => {
             <div className={'container'}>
                 <h1>Triage sim</h1>
             </div>
-            <div className={'container'}>
+            <div className={'container'} data-testid='triage'>
                 {!simStarted && !simFinished && (
-                    <button onClick={handleStart}>Start Sim</button>
+                    <button onClick={handleStart} data-testid='triage-start'>Start Sim</button>
                 )}
                 {simStarted && !simFinished && (
                     <PatientSet patients={DATA} setSimFinished={setSimFinished} />

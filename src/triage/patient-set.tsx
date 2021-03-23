@@ -49,7 +49,7 @@ export const PatientSet: React.FC<PatientSetProps> = ({
     }, []);
 
     return (
-        <div>
+        <div data-testid='patient-set'>
             <h2>Counter: {countdownClock}</h2>
             <h2>Pantient Idx: {currentPatient}</h2>
             {currentPatient >= 0 && currentPatient < patients.length &&
