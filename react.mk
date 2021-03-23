@@ -4,18 +4,18 @@ INTERMEDIATE_STEPS ?= echo nothing
 DATA_SENTINAL = src/data/triage.js src/data/medkit.js
 
 src/data/triage.js: data/triage.csv
-	cd data && python3 databuild.py triage.csv
+	cd data && ./databuild.py triage.csv
 
 src/data/medkit.js: data/medkit.csv
-	cd data && python3 databuild.py medkit.csv
+	cd data && ./databuild.py medkit.csv
 
 runserver: $(JS_SENTINAL) $(DATA_SENTINAL)
 	-cp src/images/* dist/images/.
 	npm run serve
 
 build: $(JS_SENTINAL) $(DATA_SENTINAL)
-	npm run build
-	cp src/images/* dist/images/.
+	npm run build:dev
+	-cp src/images/* dist/images/.
 
 dev: $(JS_SENTINAL) $(DATA_SENTINAL) 
 	npm run dev 
@@ -37,7 +37,7 @@ snapshot: $(JS_SENTINAL) $(DATA_SENTINAL)
 	npm run test:snapshot
 
 deploy-stage: $(JS_SENTINAL $(DATA_SENTINAL)) 
-	npm run build:stage \
+	npm run build:prod \
 	&& $(INTERMEDIATE_STEPS) \
 	&& $(S3CMD) $(S3_FLAGS) sync --exclude-from='.s3ignore' . s3://$(STAGING_BUCKET)/
 
