@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Nav } from '../nav';
 import { PatientSet } from './index';
-import { DATA } from '../data/triage';
+import * as DATA from '../data/triage.json';
 
 export const Triage: React.FC = () => {
     const [simStarted, setSimStarted] = useState<boolean>(false);

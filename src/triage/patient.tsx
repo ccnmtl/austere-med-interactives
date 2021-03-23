@@ -2,7 +2,7 @@ import React from 'react';
 
 // NOTE: this interface needs to match the column headings in the data csv
 export interface Patient {
-    countdown: number;
+    countdown: string;
     promptText: string;
     promptAudio: string;
     q1Text: string;

@@ -32,7 +32,7 @@ export const PatientSet: React.FC<PatientSetProps> = ({
 
     const startPatientPanel = (idx: number): void => {
         setCurrentPatient(idx);
-        setCountdownClock(patients[idx].countdown);
+        setCountdownClock(Number(patients[idx].countdown));
         // Now start timer, and countdown clock
         // eslint-disable-next-line scanjs-rules/call_setInterval
         interval.current = window.setInterval(countdown, 1000, idx);

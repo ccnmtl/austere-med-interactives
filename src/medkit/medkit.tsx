@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { Nav } from '../nav';
-import { DATA } from '../data/medkit';
+import DATA from '../data/medkit.json';
 
 interface MedkitItem {
     item: string;
-    value: number;
+    value: string;
 }
 
 export const Medkit: React.FC = () => {
@@ -29,14 +29,14 @@ export const Medkit: React.FC = () => {
                 <div className="row">
                     <div className="col-6">
                         <form>
-                            {DATA.map((el, idx) => {
+                            {DATA.map((el: MedkitItem, idx) => {
                                 return (
                                     <div className={'form-check'} key={idx}>
                                         <label className={'form-check-label'}>
                                             <input
                                                 className={'form-check-input'}
                                                 type='checkbox'
-                                                id={idx}
+                                                id={String(idx)}
                                                 onChange={handlePickItem}
                                                 checked={itemsPicked[idx]}/>
                                             Item name: {el.item} Item value: {el.value}

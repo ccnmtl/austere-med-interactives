@@ -1,13 +1,18 @@
 S3CMD ?= s3cmd
 S3_FLAGS ?= --acl-public --delete-removed --no-progress --no-mime-magic --guess-mime-type
 INTERMEDIATE_STEPS ?= echo nothing
-DATA_SENTINAL = src/data/triage.js src/data/medkit.js
+DATA_SENTINAL = src/data/triage.json src/data/medkit.json
 
-src/data/triage.js: data/triage.csv
+src/data/triage.json: data/triage.csv
 	cd data && ./databuild.py triage.csv
 
-src/data/medkit.js: data/medkit.csv
+src/data/medkit.json: data/medkit.csv
 	cd data && ./databuild.py medkit.csv
+
+data: $(DATA_SENTINAL)
+	touch $(DATA_SENTINAL)
+	make src/data/triage.json
+	make src/data/medkit.json
 
 runserver: $(JS_SENTINAL) $(DATA_SENTINAL)
 	-cp src/images/* dist/images/.
@@ -46,4 +51,4 @@ deploy-prod: $(JS_SENTINAL) $(DATA_SENTINAL)
 	&& $(INTERMEDIATE_STEPS) \
 	&& $(S3CMD) $(S3_FLAGS) sync --exclude-from='.s3ignore' . s3://$(PROD_BUCKET)/
 
-.PHONY: runserver build dev eslint test cypress deploy-stage deploy-prod cypress demo
+.PHONY: runserver build dev eslint test cypress deploy-stage deploy-prod cypress data
