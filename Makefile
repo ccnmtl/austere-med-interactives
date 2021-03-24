@@ -9,6 +9,8 @@ JS_SENTINAL ?= $(NODE_MODULES)/sentinal
 
 include *.mk
 
+.DEFAULT_GOAL = build
+
 $(JS_SENTINAL): package.json
 	rm -rf $(NODE_MODULES)
 	npm install
@@ -19,6 +21,6 @@ install:
 	make $(JS_SENTINAL)
 
 clean:
-	rm -rf $(NODE_MODULES) $(DIST) 
+	rm -rf $(NODE_MODULES) $(DIST) $(DATA_SENTINAL)
 
 .PHONY: clean install
