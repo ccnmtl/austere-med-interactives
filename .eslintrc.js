@@ -103,7 +103,6 @@ module.exports = {
         'security/detect-pseudoRandomBytes': 1,
         'security/detect-unsafe-regex': 1
     },
-    "ignorePatterns": ["triage.js", "medkit.js"],
     "overrides": [{
         "files": ["*.{ts,tsx}"],
         "rules": {
@@ -119,5 +118,6 @@ module.exports = {
             "plugin:@typescript-eslint/recommended",
             "plugin:@typescript-eslint/recommended-requiring-type-checking",
         ],
-    }]
+    }],
+    "ignorePatterns": ["*.json"]
 };

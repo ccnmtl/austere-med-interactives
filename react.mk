@@ -25,7 +25,7 @@ build: $(JS_SENTINAL) $(DATA_SENTINAL)
 dev: $(JS_SENTINAL) $(DATA_SENTINAL) 
 	npm run dev 
 
-eslint: $(JS_SENTINAL)
+eslint: $(JS_SENTINAL) $(DATA_SENTINAL)
 	npm run eslint
 
 test: $(JS_SENTINAL) eslint $(DATA_SENTINAL)
