@@ -9,7 +9,7 @@ JS_SENTINAL ?= $(NODE_MODULES)/sentinal
 
 include *.mk
 
-.DEFAULT_GOAL = build
+.DEFAULT_GOAL = install
 
 $(JS_SENTINAL): package.json
 	rm -rf $(NODE_MODULES)
