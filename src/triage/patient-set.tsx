@@ -33,6 +33,15 @@ export const PatientSet: React.FC<PatientSetProps> = ({
     const startPatientPanel = (idx: number): void => {
         setCurrentPatient(idx);
         setCountdownClock(Number(patients[idx].countdown));
+        // Start the first audio
+        const a = new Audio();
+        // eslint-disable-next-line scanjs-rules/call_addEventListener
+        a.addEventListener('canplaythrough', () => {
+            void a.play();
+        });
+        // eslint-disable-next-line scanjs-rules/assign_to_src
+        a.src = patients[idx].q1Audio;
+
         // Now start timer, and countdown clock
         // eslint-disable-next-line scanjs-rules/call_setInterval
         interval.current = window.setInterval(countdown, 1000, idx);
