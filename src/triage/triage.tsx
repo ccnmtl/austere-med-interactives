@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Nav } from '../nav';
 import { PatientSet } from './index';
 import * as DATA from '../data/triage.json';
@@ -6,6 +6,14 @@ import * as DATA from '../data/triage.json';
 export const Triage: React.FC = () => {
     const [simStarted, setSimStarted] = useState<boolean>(false);
     const [simFinished, setSimFinished] = useState<boolean>(false);
+
+    useEffect(() => {
+        const bodyEl = document.querySelector('body');
+        bodyEl.classList.add('triage__body');
+        return () => {
+            bodyEl.classList.remove('triage__body');
+        };
+    }, []);
 
     const handleStart = (evt: React.MouseEvent<HTMLButtonElement>): void => {
         evt.preventDefault();
@@ -21,10 +29,7 @@ export const Triage: React.FC = () => {
     return (
         <>
             <Nav />
-            <div className={'container'}>
-                <h1>Triage sim</h1>
-            </div>
-            <div className={'container'} data-testid='triage'>
+            <div className={'container triage__content'} data-testid='triage'>
                 {!simStarted && !simFinished && (
                     <button onClick={handleStart} data-testid='triage-start'>Start Sim</button>
                 )}

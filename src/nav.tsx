@@ -1,20 +1,41 @@
-import React from 'react';
-import {Link} from 'react-router-dom';
+import React, { useState } from 'react';
 
-export const Nav: React.FC = () => (
-    <>
-        <nav className='navbar navbar-expand-lg navbar-dark bg-dark' data-testid='nav'>
-            <Link className='navbar-brand' to='/'>
-                Austere Med Sim
-            </Link>
-            <div className='navbar-nav-scroll'>
-                <ul className='navbar-nav bd-navbar-nav flex-row'>
-                    <li className='nav-item'>
-                        <Link to='/' className='nav-link'>
-                        &larr; Back to the home page
-                        </Link>
-                    </li>
-                </ul>
+export const Nav: React.FC = () => {
+    const [showDropdown, setShowDropdown] = useState<boolean>(false);
+
+    return (<>
+        <nav id={'am-nav'}
+            className={'navbar navbar-expand-lg navbar-dark bg-dark'}
+            data-testid={'nav'}>
+            <div className={'container-fluid'}>
+                <a className={'navbar-brand'} href={'/'}>
+                    <span id={'am-nav__logotype-outer'}>
+                        <span id={'am-nav__logotype-inner'}>AUSTERE</span>MEDICINE</span>
+                        Outbreak Simulation
+                </a>
+                <button
+                    className={'navbar-toggler'}
+                    type='button'
+                    onClick={() => setShowDropdown((prev) => !prev)}
+                    aria-controls='navbarSupportedContent'
+                    aria-expanded='false'
+                    aria-label='Toggle navigation'>
+                    <span className='navbar-toggler-icon'></span>
+                </button>
+                <div id='navbarSupportedContent'
+                    className={`collapse navbar-collapse${showDropdown ? ' show' : ''}`}>
+                    <ul className='navbar-nav me-auto mb-2 mb-lg-0'>
+                        <li className='nav-item'>
+                            <a className='nav-link' aria-current='page' href='#'>Introduction</a>
+                        </li>
+                        <li className='nav-item'>
+                            <a className='nav-link' aria-current='page' href='#'>Medkit</a>
+                        </li>
+                        <li className='nav-item'>
+                            <a className='nav-link' aria-current='page' href='#'>Triage</a>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </nav>
         <div className={'container'}>
@@ -24,6 +45,5 @@ export const Nav: React.FC = () => (
             switch to a desktop computer, or expand your browser size.
             </div>
         </div>
-    </>
-);
-
+    </>);
+};
