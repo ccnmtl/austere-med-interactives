@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { setTriageData } from './triage';
 import Nurse from '../images/iStock-155705146.jpg';
 
 // NOTE: this interface needs to match the column headings in the data csv
@@ -81,12 +82,14 @@ interface PatientAssignmentChoiceProps {
     questionId: string;
     state: string;
     setState: React.Dispatch<React.SetStateAction<string>>;
+    currentPatient: number;
 }
 
 const PatientAssignmentChoice: React.FC<PatientAssignmentChoiceProps> = (
-    {choices, heading, questionId, state, setState}: PatientAssignmentChoiceProps) => {
+    {choices, heading, questionId, state, setState, currentPatient}: PatientAssignmentChoiceProps) => {
     const changeHandler: React.ChangeEventHandler<HTMLInputElement> = (evt) => {
         setState(evt.target.value);
+        setTriageData(currentPatient, questionId, evt.target.value);
     };
     return (
         <div className="form-group">
@@ -118,9 +121,11 @@ const PatientAssignmentChoice: React.FC<PatientAssignmentChoiceProps> = (
 
 interface PatientPanelProps {
     patient: Patient;
+    currentPatient: number;
 }
 
-export const PatientPanel: React.FC<PatientPanelProps> = ({patient}: PatientPanelProps) => {
+export const PatientPanel: React.FC<PatientPanelProps> = (
+    {patient, currentPatient}: PatientPanelProps) => {
     const audioRef = useRef<HTMLAudioElement[]>([]);
     const [activePrompt, setActivePrompt] = useState<number>(0);
     const [esiState, setEsiState] = useState<string>(ESI[0].text);
@@ -144,34 +149,44 @@ export const PatientPanel: React.FC<PatientPanelProps> = ({patient}: PatientPane
         }
     };
 
+    const handleActivePrompt = (activePrompt: number): void => {
+        const c = ['q1', 'q2', 'q3', 'q4', 'q5', 'q6'];
+        setTriageData(currentPatient, c[activePrompt - 1], true);
+        setActivePrompt(activePrompt);
+    };
+
     const outcomeMenuItems: PatientAssignmentChoiceProps[] = [
         {
             heading: 'ESI Level Assignment',
             choices: ESI,
-            questionId: 'esi-question-id',
+            questionId: 'esi',
             state: esiState,
-            setState: setEsiState
+            setState: setEsiState,
+            currentPatient: currentPatient
         },
         {
             heading: 'Location Assignment',
             choices: LOCATION,
-            questionId: 'location-question-id',
+            questionId: 'location',
             state: locationState,
-            setState: setLocationState
+            setState: setLocationState,
+            currentPatient: currentPatient
         },
         {
             heading: 'Airway Decision',
             choices: AIRWAY,
-            questionId: 'airway-question-id',
+            questionId: 'airway',
             state: airwayState,
-            setState: setAirwayState
+            setState: setAirwayState,
+            currentPatient: currentPatient
         },
         {
             heading: 'Additional Intervention/Consultation with',
             choices: CONSULTATION,
-            questionId: 'consult-question-id',
+            questionId: 'consult',
             state: consultState,
-            setState: setConsultState
+            setState: setConsultState,
+            currentPatient: currentPatient
         }
     ];
 
@@ -206,7 +221,7 @@ export const PatientPanel: React.FC<PatientPanelProps> = ({patient}: PatientPane
                                 role="tab"
                                 aria-controls="v-pills-ems"
                                 aria-selected={activePrompt == idx}
-                                onClick={() => setActivePrompt(idx)}>
+                                onClick={() => handleActivePrompt(idx)}>
                                 {patient[prompt[0]]}
                             </button>
                         );
@@ -247,7 +262,8 @@ export const PatientPanel: React.FC<PatientPanelProps> = ({patient}: PatientPane
                                 choices={el.choices}
                                 questionId={el.questionId}
                                 state={el.state}
-                                setState={el.setState}/>);
+                                setState={el.setState}
+                                currentPatient={currentPatient}/>);
                     })}
                 </form>
             </div>

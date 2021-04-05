@@ -102,7 +102,9 @@ export const PatientSet: React.FC<PatientSetProps> = ({
                     </div>
                 )}
 
-                <PatientPanel patient={patients[currentPatient]}/>
+                <PatientPanel
+                    patient={patients[currentPatient]}
+                    currentPatient={currentPatient}/>
             </>)}
         </div>
     );
