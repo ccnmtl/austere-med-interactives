@@ -22,13 +22,16 @@ export const Medkit: React.FC = () => {
         return acc;
     }, [0, 0]);
 
-    const handlePickItem = (evt: React.ChangeEvent<HTMLInputElement> | React.MouseEvent<HTMLButtonElement>): void => {
-        const idx = Number(evt.target.id);
-        setItemsPicked((prev) => {
-            const newList = [...prev];
-            newList[idx] = !newList[idx];
-            return newList;
-        });
+    const handlePickItem = (
+        evt: React.ChangeEvent<HTMLInputElement> | React.MouseEvent<HTMLButtonElement>): void => {
+        if (evt.currentTarget.id) {
+            const idx = Number(evt.currentTarget.id);
+            setItemsPicked((prev) => {
+                const newList = [...prev];
+                newList[idx] = !newList[idx];
+                return newList;
+            });
+        }
     };
     return (
         <>
@@ -93,7 +96,9 @@ export const Medkit: React.FC = () => {
                                 <tbody>
                                     {itemsPicked.every((el) => !el) ? (
                                         <tr>
-                                            <th scope={'row'} colSpan={4}>Your kit has not been packed yet.</th>
+                                            <th scope={'row'} colSpan={4}>
+                                                Your kit has not been packed yet.
+                                            </th>
                                         </tr>
                                     ) : (
                                         <>
