@@ -1,19 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Nav } from '../nav';
+import { Background } from '../background';
+import BackgroundImage from '../images/iStock-1217878707.jpg';
 import { PatientSet } from './index';
 import * as DATA from '../data/triage.json';
 
 export const Triage: React.FC = () => {
     const [simStarted, setSimStarted] = useState<boolean>(false);
     const [simFinished, setSimFinished] = useState<boolean>(false);
-
-    useEffect(() => {
-        const bodyEl = document.querySelector('body');
-        bodyEl.classList.add('triage__body');
-        return () => {
-            bodyEl.classList.remove('triage__body');
-        };
-    }, []);
 
     const handleStart = (evt: React.MouseEvent<HTMLButtonElement>): void => {
         evt.preventDefault();
@@ -40,6 +34,7 @@ export const Triage: React.FC = () => {
                     <button onClick={handleRestart}>Restart Sim</button>
                 )}
             </div>
+            <Background backgroundImageSrc={BackgroundImage as string}/>
         </>
     );
 };

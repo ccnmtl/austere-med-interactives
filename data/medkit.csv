@@ -1,5 +1,99 @@
-item,value
-"Item 1",1
-"Item 2",1
-"Item 3",1
-"Item 4",1
+category,item,points
+PPE,Latex gloves,1
+PPE,CPR mask,1
+PPE,Fluid resistant gown,2
+PPE,Eye shield,3
+PPE,N95 mask,3
+Hemorrhage Control / Trauma,CAT tourniquet,5
+Hemorrhage Control / Trauma,Pelvic binder,5
+Hemorrhage Control / Trauma,Israeli bandage,5
+Hemorrhage Control / Trauma,Quick clot gauze,3
+Hemorrhage Control / Trauma,Trauma shears,3
+Hemorrhage Control / Trauma,Chest tube 36F,6
+Wound Care,Kerlex gauze,1
+Wound Care,4x4 gauze,1
+Wound Care,ABD pads,1
+Wound Care,Band-aids,1
+Wound Care,Tegaderm,2
+Wound Care,Vaseline gauze (xeroform),2
+Wound Care,1” tape,1
+Wound Care,Tissue adhesive (dermabond),2
+Wound Care,Alcohol swabs,1
+Wound Care,Betadine,2
+Wound Care,Topical antibiotic,2
+Orthopedic Injuries,SAM splint,5
+Orthopedic Injuries,Rigid C collar,3
+Orthopedic Injuries,Soft cervical collar,2
+Orthopedic Injuries,Roll of plaster for splints,4
+Orthopedic Injuries,Ace bandages 4”,2
+Orthopedic Injuries,Upper extremity sling,4
+Orthopedic Injuries,Femoral traction splint,6
+ENT,Penlight,1
+ENT,Nasal packing device,2
+ENT,Tongue depressor,1
+ENT,Cotton swabs,1
+Ophtho,Snellen card,6
+Ophtho,Tetracaine,6
+Ophtho,Fluroscein strip,5
+Ophtho,Woods lamp (battery powered),6
+Ophtho,Ophthalmic antibiotic,4
+Ophtho,Ophthalmoscope,6
+Ophtho,Morgan lens,5
+Dental,Tooth repair kit,6
+Pulm / CV,Stethoscope,1
+Pulm / CV,BP cuff,1
+Pulm / CV,Peak flow meter,3
+Pulm / CV,IV tubing,3
+Pulm / CV,2L NS,3
+GI,Guaiac card and developer,1
+GI,Anoscope,1
+GU / GYN,Urine pregnancy test,1
+GU / GYN,Foley catheter,5
+GU / GYN,Urine dipstick,1
+Misc,Duct tape,1
+Misc,Portable ultrasound device,6
+Misc,Ultrasound gel,5
+Misc,Woods lamp,6
+Misc,11 blade scalpel,2
+Misc,Suture kit,3
+Misc,Suction snake venom extractor,4
+Misc,Thermometer,2
+Misc,Pulse oximeter,2
+Misc,IV start kit,2
+Misc,EZ-IO,3
+Misc,Glucometer and test strips,3
+Misc,Reflex hammer,2
+Misc,"10cc & 20cc syringe, needles",2
+Antibiotics,Amox / clav,2
+Antibiotics,TMP / SMX,2
+Antibiotics,Doxycycline,2
+Antibiotics,Clindamycin,2
+Antibiotics,Azithromycin 5d pack,2
+Antibiotics,Fluconazole,2
+Antibiotics,Levofloxacin,3
+Antibiotics,Ceftriaxone IV,4
+Antibiotics,HIV PEP kit,5
+Pain Control,Ibuprofen po,2
+Pain Control,Acetaminophen po,2
+Pain Control,Oxycodone po,3
+Pain Control,Fentanyl oral ‘lollipop’,3
+Pain Control,Ketamine IV,5
+Pain Control,Fentanyl IV,5
+Pain Control,Lidocaine for local infiltration,3
+GI Medication,Pepto bismol,3
+GI Medication,Tums / rolaids,2
+GI Medication,Famotidine po,3
+GI Medication,Maalox / mylanta po,2
+GI Medication,Immodium,2
+Respiratory Medication,Albuterol MDI,3
+Respiratory Medication,Fluticasone MDI,3
+Steroids,Dexamethasone po,5
+CV Medication,Nifedipine,5
+CV Medication,Epinehprine auto-injector,5
+CV Medication,Metoprolol,5
+CV Medication,Aspirin,1
+CV Medication,Salmeterol PO,4
+CV Medication,Sildenafil po,5
+CV Medication,Atropine,5
+Additional Medication,Naloxone IN,4
+Additional Medication,PO glucose ge,3
