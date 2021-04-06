@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+// eslint-disable-next-line max-len
+/* eslint-disable scanjs-rules/identifier_localStorage, scanjs-rules/property_localStorage */
+import React, { useState, useEffect } from 'react';
 import { Nav } from '../nav';
 import { Background } from '../background';
 import BackgroundImage from '../images/iStock-1217277545.jpg';
@@ -9,6 +11,28 @@ interface MedkitItem {
     item: string;
     points: string;
 }
+
+const resetMedkitData = (): void => {
+    const initList = (new Array<boolean>(DATA.length)).fill(false);
+    window.localStorage.setItem('medkit', JSON.stringify(initList));
+};
+
+export const initMedkitData = (): void => {
+    if (window.localStorage.getItem('medkit')) {
+        return;
+    }
+    resetMedkitData();
+};
+
+export const getMedkitData = (): boolean[] => {
+    return JSON.parse(window.localStorage.getItem('medkit')) as boolean[];
+};
+
+export const setMedkitData = (idx: number, value: boolean): void => {
+    const data = JSON.parse(window.localStorage.getItem('medkit')) as boolean[];
+    data[idx] = value;
+    window.localStorage.setItem('medkit', JSON.stringify(data));
+};
 
 export const Medkit: React.FC = () => {
     const [itemsPicked, setItemsPicked] =
@@ -29,10 +53,17 @@ export const Medkit: React.FC = () => {
             setItemsPicked((prev) => {
                 const newList = [...prev];
                 newList[idx] = !newList[idx];
+                // update local storage
+                setMedkitData(idx, newList[idx]);
                 return newList;
             });
         }
     };
+
+    useEffect(() => {
+        initMedkitData();
+    }, []);
+
     return (
         <>
             <Nav />
