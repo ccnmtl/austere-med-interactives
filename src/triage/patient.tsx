@@ -86,7 +86,9 @@ interface PatientAssignmentChoiceProps {
 }
 
 const PatientAssignmentChoice: React.FC<PatientAssignmentChoiceProps> = (
-    {choices, heading, questionId, state, setState, currentPatient}: PatientAssignmentChoiceProps) => {
+    {
+        choices, heading, questionId, state, setState, currentPatient
+    }: PatientAssignmentChoiceProps) => {
     const changeHandler: React.ChangeEventHandler<HTMLInputElement> = (evt) => {
         setState(evt.target.value);
         setTriageData(currentPatient, questionId, evt.target.value);
