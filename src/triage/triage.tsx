@@ -7,7 +7,7 @@ import BackgroundImage from '../images/iStock-1217878707.jpg';
 import { PatientSet } from './index';
 import DATA from '../data/triage.json';
 
-interface TriageData {
+interface TriageSelectionData {
     q1: boolean;
     q2: boolean;
     q3: boolean;
@@ -20,8 +20,8 @@ interface TriageData {
     consult: string;
 }
 
-const resetTriageData = (): void => {
-    const initialData: TriageData = {
+const resetTriageSelectionData = (): void => {
+    const initialData: TriageSelectionData = {
         q1: false,
         q2: false,
         q3: false,
@@ -34,30 +34,24 @@ const resetTriageData = (): void => {
         consult: 'Anesthesia'
     };
 
-    const initList = [...new Array<TriageData>(DATA.length)].map(() => initialData);
+    const initList = [...new Array<TriageSelectionData>(DATA.length)].fill(initialData);
     window.localStorage.setItem('triage', JSON.stringify(initList));
 };
 
-export const initTriageData = (): void => {
+export const initTriageSelectionData = (): void => {
     if (window.localStorage.getItem('triage')) {
         return;
     }
-    resetTriageData();
+    resetTriageSelectionData();
 };
 
 
-export const getTriageData = (idx: number, key: string): string => {
-    const data = JSON.parse(window.localStorage.getItem('triage')) as TriageData[];
-    if (key in data[idx]) {
-        return String(data[idx][key]);
-    } else {
-        throw Error(
-            `getTriageData called with key: ${key}. This key is not present in Triage object`);
-    }
+export const getTriageSelectionData = (): TriageSelectionData[] => {
+    return JSON.parse(window.localStorage.getItem('triage')) as TriageSelectionData[];
 };
 
-export const setTriageData = (idx: number, key: string, value: string | boolean): void => {
-    const data = JSON.parse(window.localStorage.getItem('triage')) as TriageData[];
+export const setTriageSelectionData = (idx: number, key: string, value: string | boolean): void => {
+    const data = JSON.parse(window.localStorage.getItem('triage')) as TriageSelectionData[];
     if (key in data[idx]) {
         data[idx][key] = value;
         window.localStorage.setItem('triage', JSON.stringify(data));
@@ -82,7 +76,7 @@ export const Triage: React.FC = () => {
         setSimFinished(false);
     };
 
-    initTriageData();
+    initTriageSelectionData();
 
     return (
         <>
