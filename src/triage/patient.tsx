@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { setTriageData } from './triage';
+import { setTriageSelectionData } from './triage';
 import Nurse from '../images/iStock-155705146.jpg';
 
 // NOTE: this interface needs to match the column headings in the data csv
@@ -91,7 +91,7 @@ const PatientAssignmentChoice: React.FC<PatientAssignmentChoiceProps> = (
     }: PatientAssignmentChoiceProps) => {
     const changeHandler: React.ChangeEventHandler<HTMLInputElement> = (evt) => {
         setState(evt.target.value);
-        setTriageData(currentPatient, questionId, evt.target.value);
+        setTriageSelectionData(currentPatient, questionId, evt.target.value);
     };
     return (
         <div className="form-group">
@@ -153,7 +153,7 @@ export const PatientPanel: React.FC<PatientPanelProps> = (
 
     const handleActivePrompt = (activePrompt: number): void => {
         const c = ['q1', 'q2', 'q3', 'q4', 'q5', 'q6'];
-        setTriageData(currentPatient, c[activePrompt - 1], true);
+        setTriageSelectionData(currentPatient, c[activePrompt - 1], true);
         setActivePrompt(activePrompt);
     };
 
