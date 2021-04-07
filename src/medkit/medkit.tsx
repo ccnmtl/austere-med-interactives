@@ -12,29 +12,34 @@ interface MedkitItem {
     points: string;
 }
 
-const resetMedkitData = (): void => {
+const resetMedkitData = (medkitId: string): boolean[] => {
     const initList = (new Array<boolean>(DATA.length)).fill(false);
-    window.localStorage.setItem('medkit', JSON.stringify(initList));
+    window.localStorage.setItem('medkit-' + medkitId, JSON.stringify(initList));
+    return initList;
 };
 
-export const initMedkitData = (): void => {
-    if (window.localStorage.getItem('medkit')) {
-        return;
-    }
-    resetMedkitData();
+export const getMedkitData = (medkitId: string): boolean[] => {
+    return JSON.parse(window.localStorage.getItem('medkit-' + medkitId)) as boolean[];
 };
 
-export const getMedkitData = (): boolean[] => {
-    return JSON.parse(window.localStorage.getItem('medkit')) as boolean[];
-};
-
-export const setMedkitData = (idx: number, value: boolean): void => {
-    const data = JSON.parse(window.localStorage.getItem('medkit')) as boolean[];
+export const setMedkitData = (medkitId: string, idx: number, value: boolean): void => {
+    const data = JSON.parse(window.localStorage.getItem('medkit-' + medkitId)) as boolean[];
     data[idx] = value;
-    window.localStorage.setItem('medkit', JSON.stringify(data));
+    window.localStorage.setItem('medkit-' + medkitId, JSON.stringify(data));
 };
 
-export const Medkit: React.FC = () => {
+export const initMedkitData = (medkitId: string): boolean[] => {
+    const data = getMedkitData(medkitId);
+    return data ? data : resetMedkitData(medkitId);
+};
+
+interface MedkitParams {
+    scenario: string;
+    budget: number;
+    medkitId: string;
+}
+
+export const Medkit: React.FC<MedkitParams> = ({scenario, budget, medkitId}: MedkitParams) => {
     const [itemsPicked, setItemsPicked] =
         useState<boolean[]>((new Array(DATA.length)).fill(false));
 
@@ -54,14 +59,14 @@ export const Medkit: React.FC = () => {
                 const newList = [...prev];
                 newList[idx] = !newList[idx];
                 // update local storage
-                setMedkitData(idx, newList[idx]);
+                setMedkitData(medkitId, idx, newList[idx]);
                 return newList;
             });
         }
     };
 
     useEffect(() => {
-        initMedkitData();
+        setItemsPicked(initMedkitData(medkitId));
     }, []);
 
     return (
@@ -71,6 +76,8 @@ export const Medkit: React.FC = () => {
                 <div className={'row'}>
                     <div className="col-12">
                         <h1>Medkit sim</h1>
+                        <p className="lead">You have {budget} points.</p>
+                        <p className="lead">{scenario}</p>
                     </div>
                 </div>
                 <div className="row">
