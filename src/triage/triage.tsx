@@ -8,6 +8,8 @@ import { PatientSet } from './index';
 import DATA from '../data/triage.json';
 
 interface TriageSelectionData {
+    timeToAnswer: number;
+    completedOnTime: boolean;
     q1: boolean;
     q2: boolean;
     q3: boolean;
@@ -22,6 +24,8 @@ interface TriageSelectionData {
 
 const resetTriageSelectionData = (): void => {
     const initialData: TriageSelectionData = {
+        timeToAnswer: Infinity,
+        completedOnTime: false,
         q1: false,
         q2: false,
         q3: false,
@@ -50,7 +54,8 @@ export const getTriageSelectionData = (): TriageSelectionData[] => {
     return JSON.parse(window.localStorage.getItem('triage')) as TriageSelectionData[];
 };
 
-export const setTriageSelectionData = (idx: number, key: string, value: string | boolean): void => {
+export const setTriageSelectionData = (
+    idx: number, key: string, value: string | boolean | number): void => {
     const data = JSON.parse(window.localStorage.getItem('triage')) as TriageSelectionData[];
     if (key in data[idx]) {
         data[idx][key] = value;

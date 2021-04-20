@@ -49,6 +49,10 @@ export const PatientSet: React.FC<PatientSetProps> = ({
         interval.current = window.setInterval(countdown, 1000, idx);
     };
 
+    const stopCountdown = (): void => {
+        window.clearInterval(interval.current);
+    };
+
     useEffect(() => {
         if (finished) {
             setSimFinished(true);
@@ -94,17 +98,14 @@ export const PatientSet: React.FC<PatientSetProps> = ({
                         <strong>:{countdownClock}</strong>
                     </div>
                 </div>
-                {lockPanel && (
-                    <div>
-                        <button onClick={() => startPatientPanel(currentPatient + 1)}>
-                            Continue
-                        </button>
-                    </div>
-                )}
-
                 <PatientPanel
                     patient={patients[currentPatient]}
-                    currentPatient={currentPatient}/>
+                    countdownClock={countdownClock}
+                    currentPatient={currentPatient}
+                    stopCountdown={stopCountdown}
+                    startPatientPanel={startPatientPanel}
+                    setLockPanel={setLockPanel}
+                    lockPanel={lockPanel}/>
             </>)}
         </div>
     );
