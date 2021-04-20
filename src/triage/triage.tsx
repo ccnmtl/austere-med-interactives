@@ -20,6 +20,7 @@ interface TriageSelectionData {
     location: string;
     airway: string;
     consult: string;
+    reflection: string;
 }
 
 const resetTriageSelectionData = (): void => {
@@ -35,7 +36,8 @@ const resetTriageSelectionData = (): void => {
         esi: '0',
         location: 'Waiting Room',
         airway: 'No Oxygen',
-        consult: 'Anesthesia'
+        consult: 'Anesthesia',
+        reflection: ''
     };
 
     const initList = [...new Array<TriageSelectionData>(DATA.length)].fill(initialData);

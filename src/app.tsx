@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Switch  } from 'react-router-dom';
 import { NotFound } from './not-found';
 import { Home } from './home';
-import { Triage, TriageSummary } from './triage';
+import { Triage, TriageSummary, TriageReflection } from './triage';
 import { Medkit, MedkitSummary } from './medkit';
 
 export const App: React.FC = () => {
@@ -11,6 +11,7 @@ export const App: React.FC = () => {
             <Switch>
                 <Route exact path="/" component={Home}/>
                 <Route exact path="/triage" component={Triage}/>
+                <Route exact path="/triage/reflection" component={TriageReflection}/>
                 <Route exact path="/triage/summary" component={TriageSummary}/>
                 <Route exact path="/medkit/1">
                     <Medkit
