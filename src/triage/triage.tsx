@@ -7,7 +7,7 @@ import BackgroundImage from '../images/iStock-1217878707.jpg';
 import { PatientSet } from './index';
 import DATA from '../data/triage.json';
 
-interface TriageSelectionData {
+export interface TriageSelectionData {
     timeToAnswer: number;
     completedOnTime: boolean;
     q1: boolean;
