@@ -14,15 +14,16 @@ export const TriageSummary: React.FC = () => {
     useEffect(() => {
         const s = getTriageSelectionData();
         setSelections(s);
-        const csvString = 'Time to answer,Completed on time,Question One Asked,Question Two Asked,Question Three Asked,Question Four Asked,Question Five Asked,Question Six Asked,ESI,Location,Airway,Consult,Reflection\n';
-        setCSV(s.reduce((acc: string, val) => {
-            return acc.concat(
-                `${val['timeToAnswer']},${String(val['completedOnTime'])},${String(val['q1'])},${String(val['q2'])},${String(val['q3'])},${String(val['q4'])},${String(val['q5'])},${String(val['q6'])},${val['esi']},${val['location']},${val['airway']},${val['consult']},${val['reflection']}\n`
-            );
-        }, csvString));
+        if (s) {
+            const csvString = 'Time to answer,Completed on time,Question One Asked,Question Two Asked,Question Three Asked,Question Four Asked,Question Five Asked,Question Six Asked,ESI,Location,Airway,Consult,Reflection\n';
+            setCSV(s.reduce((acc: string, val) => {
+                return acc.concat(
+                    `${val['timeToAnswer']},${String(val['completedOnTime'])},${String(val['q1'])},${String(val['q2'])},${String(val['q3'])},${String(val['q4'])},${String(val['q5'])},${String(val['q6'])},${val['esi']},${val['location']},${val['airway']},${val['consult']},${val['reflection']}\n`
+                );
+            }, csvString));
+        }
 
     }, []);
-    console.log(csv);
 
     const handleDownload = (): void => {
         if (csv) {
@@ -51,182 +52,104 @@ export const TriageSummary: React.FC = () => {
                 </div>
                 <div className="row">
                     <div className="col-12">
-                        <table className={'table table-sm text-center align-middle'}>
-                            <colgroup>
-                                {/* TODO move to stylesheet */}
-                                <col style={{width: '5%'}}/>
-                                <col style={{width: '5%'}}/>
-                                <col style={{width: '5%'}}/>
-                                <col style={{width: '20%'}}/>
-                                <col style={{width: '5%'}}/>
-                                <col style={{width: '15%'}}/>
-                                <col style={{width: '5%'}}/>
-                                <col style={{width: '12%'}}/>
-                            </colgroup>
-                            <thead>
-                                <tr className={'table-dark'}>
-                                    <th>Patient</th>
-                                    <th colSpan={2}>Complete</th>
-                                    <th colSpan={3}>Questions for Patient</th>
-                                    <th colSpan={3}>Patient Assignments</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {selections && DATA.map((patient, idx) => {
-                                    return (
-                                        <React.Fragment key={idx}>
-                                            {/* Row 1 */}
-                                            <tr>
-                                                <th rowSpan={6} className="bg-info">{idx + 1}</th>
-                                                <td rowSpan={6} className="bg-danger text-light">No</td>
-                                                <td rowSpan={6} className="bg-danger text-light">00:60 Elapsed</td>
-                                                <td>{patient.q1Question}</td>
-                                                {!selections[idx].q1 ? (
-                                                    <>
-                                                        <td className="bg-secondary text-light">Didn&apos;t Ask</td>
-                                                        <td className="bg-secondary text-light">{patient.q1Answer}</td>
-                                                    </>
-                                                ) : (
-                                                    <>
-                                                        <td></td>
-                                                        <td>{patient.q1Answer}</td>
-                                                    </>
-                                                )}
-                                                <td>ESI Level Assignment</td>
-                                                {selections[idx].esi ? (
-                                                    <>
-                                                        <td className="bg-success text-light">Yes</td>
-                                                        <td className="bg-success text-light">{selections[idx].esi}</td>
-                                                    </>
-                                                ) : (
-                                                    <>
-                                                        <td className="bg-danger text-light">No</td>
-                                                        <td className="bg-danger text-light">No assignment.</td>
-                                                    </>
-                                                )}
-                                            </tr>
-                                            {/* Row 2 */}
-                                            <tr>
-                                                <td>{patient.q2Question}</td>
-                                                {!selections[idx].q2 ? (
-                                                    <>
-                                                        <td className="bg-secondary text-light">Didn&apos;t Ask</td>
-                                                        <td className="bg-secondary text-light">{patient.q2Answer}</td>
-                                                    </>
-                                                ) : (
-                                                    <>
-                                                        <td></td>
-                                                        <td>{patient.q2Answer}</td>
-                                                    </>
-                                                )}
-                                                <td>Location Assignment</td>
-                                                {selections[idx].location ? (
-                                                    <>
-                                                        <td className="bg-success text-light">Yes</td>
-                                                        <td className="bg-success text-light">{selections[idx].location}</td>
-                                                    </>
-                                                ) : (
-                                                    <>
-                                                        <td className="bg-danger text-light">No</td>
-                                                        <td className="bg-danger text-light">No assignment.</td>
-                                                    </>
-                                                )}
-                                            </tr>
-                                            {/* Row 3 */}
-                                            <tr>
-                                                <td>{patient.q3Question}</td>
-                                                {!selections[idx].q3 ? (
-                                                    <>
-                                                        <td className="bg-secondary text-light">Didn&apos;t Ask</td>
-                                                        <td className="bg-secondary text-light">{patient.q3Answer}</td>
-                                                    </>
-                                                ) : (
-                                                    <>
-                                                        <td></td>
-                                                        <td>{patient.q3Answer}</td>
-                                                    </>
-                                                )}
-                                                <td>Airway Assignment</td>
-                                                {selections[idx].airway ? (
-                                                    <>
-                                                        <td className="bg-success text-light">Yes</td>
-                                                        <td className="bg-success text-light">{selections[idx].airway}</td>
-                                                    </>
-                                                ) : (
-                                                    <>
-                                                        <td className="bg-danger text-light">No</td>
-                                                        <td className="bg-danger text-light">No assignment.</td>
-                                                    </>
-                                                )}
-                                            </tr>
-                                            {/* Row 4 */}
-                                            <tr>
-                                                <td>{patient.q4Question}</td>
-                                                {!selections[idx].q4 ? (
-                                                    <>
-                                                        <td className="bg-secondary text-light">Didn&apos;t Ask</td>
-                                                        <td className="bg-secondary text-light">{patient.q4Answer}</td>
-                                                    </>
-                                                ) : (
-                                                    <>
-                                                        <td></td>
-                                                        <td>{patient.q4Answer}</td>
-                                                    </>
-                                                )}
-                                                <td>Additional Intervention</td>
-                                                {selections[idx].consult ? (
-                                                    <>
-                                                        <td className="bg-success text-light">Yes</td>
-                                                        <td className="bg-success text-light">{selections[idx].consult}</td>
-                                                    </>
-                                                ) : (
-                                                    <>
-                                                        <td className="bg-danger text-light">No</td>
-                                                        <td className="bg-danger text-light">No assignment.</td>
-                                                    </>
-                                                )}
-                                            </tr>
-                                            {/* Row 5 */}
-                                            <tr>
-                                                <td>{patient.q5Question}</td>
-                                                {!selections[idx].q5 ? (
-                                                    <>
-                                                        <td className="bg-secondary text-light">Didn&apos;t Ask</td>
-                                                        <td className="bg-secondary text-light">{patient.q5Answer}</td>
-                                                    </>
-                                                ) : (
-                                                    <>
-                                                        <td></td>
-                                                        <td>{patient.q5Answer}</td>
-                                                    </>
-                                                )}
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                            </tr>
-                                            {/* Row 6 */}
-                                            <tr>
-                                                <td>{patient.q6Question}</td>
-                                                {!selections[idx].q6 ? (
-                                                    <>
-                                                        <td className="bg-secondary text-light">Didn&apos;t Ask</td>
-                                                        <td className="bg-secondary text-light">{patient.q6Answer}</td>
-                                                    </>
-                                                ) : (
-                                                    <>
-                                                        <td></td>
-                                                        <td>{patient.q6Answer}</td>
-                                                    </>
-                                                )}
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                            </tr>
-                                        </React.Fragment>
-                                    );
-                                })}
-                            </tbody>
-                        </table>
+                        {selections && DATA.map((patient, idx) => {
+                            return (<React.Fragment key={idx}>
+                                <div className={'triage-summary__header'}>Patient {idx + 1}</div>
+                                {selections[idx].completedOnTime ? (
+                                    <div className={'triage-summary__status success'}>
+                                        <div className={'triage-summary__status--head'}>Complete</div>
+                                        <div className={'triage-summary__status--value'}>
+                                            {selections[idx].timeToAnswer}
+                                        </div>
+                                    </div>
+                                ) : (
+                                    <div className={'triage-summary__status timeout'}>
+                                        <div className={'triage-summary__status--head'}>Incomplete</div>
+                                        <div className={'triage-summary__status--value'}></div>
+                                    </div>
+                                )}
+                                <table className={'table table-sm table-light triage-summary__assignment-table'}>
+                                    <colgroup>
+                                        <col className={'triage-summary__col-0'} />
+                                        <col className={'triage-summary__col-1'} />
+                                        <col className={'triage-summary__col-2'} />
+                                        <col className={'triage-summary__col-3'} />
+                                    </colgroup>
+                                    <tbody>
+                                        <tr>
+                                            <th rowSpan={4}>Assignment Details</th>
+                                            <td className={selections[idx].esi != '' ? ('table-info') : ('table-danger')}>
+                                                ESI Level Assignment
+                                            </td>
+                                            <td className={selections[idx].esi != '' ? ('table-info') : ('table-danger')}>
+                                                {selections[idx].esi}
+                                            </td>
+                                            <td className={selections[idx].esi != '' ? ('table-info') : ('table-danger')}>
+                                                {selections[idx].esi == '' && (<span className={'badge bg-danger'}>Unassigned</span>)}
+                                            </td>
+                                        </tr>
+                                        <tr className={selections[idx].location != '' ? ('table-info') : ('table-danger')}>
+                                            <td>Location</td>
+                                            <td>{selections[idx].location}</td>
+                                            <td>{selections[idx].location == '' && (<span className={'badge bg-danger'}>Unassigned</span>)}</td>
+                                        </tr>
+                                        <tr className={selections[idx].airway != '' ? ('table-info') : ('table-danger')}>
+                                            <td>Airway</td>
+                                            <td>{selections[idx].airway}</td>
+                                            <td>{selections[idx].airway == '' && (<span className={'badge bg-danger'}>Unassigned</span>)}</td>
+                                        </tr>
+                                        <tr className={selections[idx].consult != '' ? ('table-info') : ('table-danger')}>
+                                            <td>Consult</td>
+                                            <td>{selections[idx].consult}</td>
+                                            <td>{selections[idx].consult == '' && (<span className={'badge bg-danger'}>Unassigned</span>)}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <table className={'table table-sm table-light'}>
+                                    <colgroup>
+                                        <col className={'triage-summary__col-0'} />
+                                        <col className={'triage-summary__col-1'} />
+                                        <col className={'triage-summary__col-2'} />
+                                        <col className={'triage-summary__col-3'} />
+                                    </colgroup>
+                                    <tbody>
+                                        <tr>
+                                            <th rowSpan={6}>Questions</th>
+                                            <td className={!selections[idx].q1 && ('table-secondary')}>{patient.q1Question}</td>
+                                            <td className={!selections[idx].q1 && ('table-secondary')}>{patient.q1Answer}</td>
+                                            <td className={!selections[idx].q1 && ('table-secondary')}>
+                                                {!selections[idx].q2 && (<span className={'badge bg-secondary'}>Unasked</span>)}
+                                            </td>
+                                        </tr>
+                                        <tr className={!selections[idx].q2 && ('table-secondary')}>
+                                            <td>{patient.q2Question}</td>
+                                            <td>{patient.q2Answer}</td>
+                                            <td>{!selections[idx].q2 && (<span className={'badge bg-secondary'}>Unasked</span>)}</td>
+                                        </tr>
+                                        <tr className={!selections[idx].q3 && ('table-secondary')}>
+                                            <td>{patient.q3Question}</td>
+                                            <td>{patient.q3Answer}</td>
+                                            <td>{!selections[idx].q3 && (<span className={'badge bg-secondary'}>Unasked</span>)}</td>
+                                        </tr>
+                                        <tr className={!selections[idx].q4 && ('table-secondary')}>
+                                            <td>{patient.q4Question}</td>
+                                            <td>{patient.q4Answer}</td>
+                                            <td>{!selections[idx].q4 && (<span className={'badge bg-secondary'}>Unasked</span>)}</td>
+                                        </tr>
+                                        <tr className={!selections[idx].q5 && ('table-secondary')}>
+                                            <td>{patient.q5Question}</td>
+                                            <td>{patient.q5Answer}</td>
+                                            <td>{!selections[idx].q5 && (<span className={'badge bg-secondary'}>Unasked</span>)}</td>
+                                        </tr>
+                                        <tr className={!selections[idx].q6 && ('table-secondary')}>
+                                            <td>{patient.q6Question}</td>
+                                            <td>{patient.q6Answer}</td>
+                                            <td>{!selections[idx].q6 && (<span className={'badge bg-secondary'}>Unasked</span>)}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </React.Fragment>);
+                        })}
                     </div>
                 </div>
             </div>

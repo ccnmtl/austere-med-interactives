@@ -10,3 +10,51 @@
 .triage__progress { 
     margin: 1em 0em 1em 0em;
 }
+
+.triage-summary__header {
+    @extend .p-1;
+    @extend .text-light;
+    @extend .bg-dark;
+    width: 100%;
+    font-weight: bold;
+}
+
+.triage-summary__assignment-table {
+    margin-bottom: 0px;
+}
+
+.triage-summary__status {
+    @extend .p-1;
+    width: 100%;
+    font-weight: bold;
+    &.success {
+        @extend .text-success;
+        background-color: #d1e7dd;
+    }
+    &.timeout {
+        @extend .text-danger;
+        background-color: #f8d7da;
+    }
+
+    .triage-summary__status--head {
+        display: inline-block;    
+        width: 25%;
+    }
+
+    .triage-summary__status--value {
+        display: inline-block;    
+        width: 75%;
+    }
+}
+
+.triage-summary__col-0 {
+    width: 25%; 
+}
+
+.triage-summary__col-1, .triage-summary__col-2 {
+    width: 30%; 
+}
+
+.triage-summary__col-3 {
+    width: 15%; 
+}

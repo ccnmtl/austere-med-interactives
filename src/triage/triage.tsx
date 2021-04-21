@@ -33,10 +33,10 @@ const resetTriageSelectionData = (): void => {
         q4: false,
         q5: false,
         q6: false,
-        esi: '0',
-        location: 'Waiting Room',
-        airway: 'No Oxygen',
-        consult: 'Anesthesia',
+        esi: '',
+        location: '',
+        airway: '',
+        consult: '',
         reflection: ''
     };
 
