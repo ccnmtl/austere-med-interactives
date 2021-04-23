@@ -72,8 +72,7 @@ export const PatientSet: React.FC<PatientSetProps> = ({patients}: PatientSetProp
                     You only have <strong>{patients[currentPatient].countdown} seconds </strong>
                     for questioning before you commit to a final decision for Patient One.
                 </p>
-                {/* TODO remove style */}
-                <div className={'progress'} style={{ height: '3em' }}>
+                <div className={'triage__progress progress'}>
                     <div className={`progress-bar ${getPgBarState(countdownClock, currentPatient)}`}
                         role="progressbar"
                         style={{

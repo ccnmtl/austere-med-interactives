@@ -8,6 +8,7 @@
 }
 
 .triage__progress { 
+    height: 3em;
     margin: 1em 0em 1em 0em;
 }
 
@@ -57,4 +58,9 @@
 
 .triage-summary__col-3 {
     width: 15%; 
+}
+
+.triage-alert-spacer {
+    height: 72px;
+    margin-bottom: 1em;
 }

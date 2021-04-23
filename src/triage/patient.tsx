@@ -121,6 +121,7 @@ const PatientAssignmentChoice: React.FC<PatientAssignmentChoiceProps> = (
                     </React.Fragment>);
                 })}
             </div>
+            <hr />
         </div>);
 };
 
@@ -243,6 +244,9 @@ export const PatientPanel: React.FC<PatientPanelProps> = (
     }, [patient]);
 
     return (<>
+        {!lockPanel && (
+            <div className={'row triage-alert-spacer'}></div>
+        )}
         {lockPanel && (
             <div className="row">
                 <div className="col-12">
@@ -251,14 +255,14 @@ export const PatientPanel: React.FC<PatientPanelProps> = (
                             Great job! &nbsp;
                             {lastPatient ? (
                                 <a href={'/triage/reflection'}
-                                    className={'btn btn-primary btn-small'}>
+                                    className={'btn btn-success btn-small'}>
                                     Proceed to Reflection
                                 </a>
                             ) : (
                                 <button
                                     type={'button'}
                                     onClick={nextPatient}
-                                    className={'btn btn-primary btn-small'}>
+                                    className={'btn btn-success btn-small'}>
                                     Next patient
                                 </button>
                             )}
@@ -268,14 +272,14 @@ export const PatientPanel: React.FC<PatientPanelProps> = (
                             You ran out of time &nbsp;
                             {lastPatient ? (
                                 <a href={'/triage/reflection'}
-                                    className={'btn btn-primary btn-small'}>
+                                    className={'btn btn-success btn-small'}>
                                     Proceed to Reflection
                                 </a>
                             ) : (
                                 <button
                                     type={'button'}
                                     onClick={nextPatient}
-                                    className={'btn btn-primary btn-small'}>
+                                    className={'btn btn-success btn-small'}>
                                     Next patient
                                 </button>
                             )}
@@ -353,7 +357,7 @@ export const PatientPanel: React.FC<PatientPanelProps> = (
                     })}
                     <div className="form-group">
                         <button type={'button'}
-                            className="btn btn-primary btn-sm"
+                            className="btn btn-success btn-sm"
                             aria-disabled={lockPanel}
                             disabled={lockPanel}
                             onClick={handleFormSubmit}>
