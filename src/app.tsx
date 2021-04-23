@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Switch  } from 'react-router-dom';
 import { NotFound } from './not-found';
 import { Home } from './home';
 import { Triage, TriageSummary, TriageReflection } from './triage';
-import { Medkit, MedkitSummary } from './medkit';
+import { Medkit, MedkitSummary, MedkitLanding } from './medkit';
 
 export const App: React.FC = () => {
     return (
@@ -13,6 +13,7 @@ export const App: React.FC = () => {
                 <Route exact path="/triage" component={Triage}/>
                 <Route exact path="/triage/reflection" component={TriageReflection}/>
                 <Route exact path="/triage/summary" component={TriageSummary}/>
+                <Route exact path="/medkit" component={MedkitLanding}/>
                 <Route exact path="/medkit/1">
                     <Medkit
                         budget={300}
