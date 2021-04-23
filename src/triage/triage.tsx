@@ -77,7 +77,6 @@ export const printFSeconds = (seconds: number): string => {
 
 export const Triage: React.FC = () => {
     const [simStarted, setSimStarted] = useState<boolean>(false);
-    const [simFinished, setSimFinished] = useState<boolean>(false);
 
     const handleStart = (evt: React.MouseEvent<HTMLButtonElement>): void => {
         evt.preventDefault();
@@ -96,26 +95,24 @@ export const Triage: React.FC = () => {
         <>
             <Nav />
             <div className={'container triage__content'} data-testid='triage'>
-                {!simStarted && !simFinished && (<>
+                {!simStarted ? (<>
                     {window.localStorage.getItem('triage') ? (<>
                         <p>
-                            You have already completed the triage sim. <a href={'/triage/reflection'}>Reflection</a> <a href={'/triage/summary'}>Summary</a>
+                            You have already completed the triage sim.
+                            &nbsp;<a href={'/triage/reflection'}>Reflection</a>
+                            &nbsp;<a href={'/triage/summary'}>Summary</a>
                         </p>
                         <p>
-                            Click <button className={'btn btn-primary btn-sm'} onClick={handleReset}>here</button> to reset your choices and retake the sim
+                            Click <button className={'btn btn-primary btn-sm'}
+                                onClick={handleReset}>here</button>
+                            &nbsp;to reset your choices and retake the sim
                         </p>
-                    </>) : (<>
+                    </>) : (
                         <button onClick={handleStart} data-testid='triage-start'>Start Sim</button>
-                    </>)}
-                </>)}
-                {simStarted && !simFinished && (
-                    <PatientSet patients={DATA} setSimFinished={setSimFinished} />
+                    )}
+                </>) : (
+                    <PatientSet patients={DATA}/>
                 )}
-                {simStarted && simFinished && (<>
-                    <p>You have completed the sim. Please proceed to the
-                        &nbsp;<a href={'/triage/reflection'}>reflection page</a>.
-                    </p>
-                </>)}
             </div>
             <Background backgroundImageSrc={BackgroundImage as string}/>
         </>

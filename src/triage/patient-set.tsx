@@ -3,29 +3,20 @@ import { Patient, PatientPanel, printFSeconds } from './';
 
 interface PatientSetProps {
     patients: Patient[];
-    setSimFinished: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export const PatientSet: React.FC<PatientSetProps> = ({
-    patients, setSimFinished}: PatientSetProps) => {
+export const PatientSet: React.FC<PatientSetProps> = ({patients}: PatientSetProps) => {
     const [currentPatient, setCurrentPatient] = useState<number | null>(null);
     const [countdownClock, setCountdownClock] = useState<number | null>(null);
     const [lockPanel, setLockPanel] = useState<boolean>(false);
-    const [finished, setFinished] = useState<boolean>(false);
     const interval = useRef<number | null>(null);
 
-    const countdown = (idx: number): void => {
+    const countdown = (): void => {
         setCountdownClock((prev) => {
             if (prev == 0) {
                 window.clearInterval(interval.current);
-                if (idx >= patients.length - 1) {
-                    //setFinished(true);
-                    setLockPanel(true);
-                    return prev;
-                } else {
-                    setLockPanel(true);
-                    return prev;
-                }
+                setLockPanel(true);
+                return prev;
             } else {
                 return prev - 1;
             }
@@ -47,18 +38,12 @@ export const PatientSet: React.FC<PatientSetProps> = ({
 
         // Now start timer, and countdown clock
         // eslint-disable-next-line scanjs-rules/call_setInterval
-        interval.current = window.setInterval(countdown, 1000, idx);
+        interval.current = window.setInterval(countdown, 1000);
     };
 
     const stopCountdown = (): void => {
         window.clearInterval(interval.current);
     };
-
-    useEffect(() => {
-        if (finished) {
-            setSimFinished(true);
-        }
-    }, [finished]);
 
     useEffect(() => {
         startPatientPanel(0);
