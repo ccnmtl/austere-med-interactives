@@ -4,7 +4,7 @@ import { Nav } from '../nav';
 import { Background } from '../background';
 import BackgroundImage from '../images/iStock-1217878707.jpg';
 import DATA from '../data/triage.json';
-import {getTriageSelectionData, TriageSelectionData} from './';
+import {getTriageSelectionData, TriageSelectionData, printFSeconds} from './';
 import { saveAs } from 'file-saver';
 
 export const TriageSummary: React.FC = () => {
@@ -59,7 +59,7 @@ export const TriageSummary: React.FC = () => {
                                     <div className={'triage-summary__status success'}>
                                         <div className={'triage-summary__status--head'}>Complete</div>
                                         <div className={'triage-summary__status--value'}>
-                                            {selections[idx].timeToAnswer}
+                                            {printFSeconds(selections[idx].timeToAnswer)}
                                         </div>
                                     </div>
                                 ) : (

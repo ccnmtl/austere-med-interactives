@@ -68,6 +68,13 @@ export const setTriageSelectionData = (
     }
 };
 
+export const printFSeconds = (seconds: number): string => {
+    const t = new Date(seconds * 1000);
+    const m = t.getMinutes();
+    const s = t.getSeconds();
+    return `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+};
+
 export const Triage: React.FC = () => {
     const [simStarted, setSimStarted] = useState<boolean>(false);
     const [simFinished, setSimFinished] = useState<boolean>(false);

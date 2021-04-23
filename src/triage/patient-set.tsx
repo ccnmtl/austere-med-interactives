@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Patient, PatientPanel } from './index';
+import { Patient, PatientPanel, printFSeconds } from './';
 
 interface PatientSetProps {
     patients: Patient[];
@@ -96,7 +96,7 @@ export const PatientSet: React.FC<PatientSetProps> = ({
                         aria-valuenow={countdownClock}
                         aria-valuemin={0}
                         aria-valuemax={Number(patients[currentPatient].countdown)}>
-                        <strong>:{countdownClock}</strong>
+                        <strong>{printFSeconds(countdownClock)}</strong>
                     </div>
                 </div>
                 <PatientPanel
