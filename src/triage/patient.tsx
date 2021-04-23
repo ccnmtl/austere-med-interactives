@@ -128,6 +128,7 @@ const PatientAssignmentChoice: React.FC<PatientAssignmentChoiceProps> = (
 interface PatientPanelProps {
     patient: Patient;
     currentPatient: number;
+    timeAllotted: number;
     lastPatient: boolean;
     countdownClock: number;
     lockPanel: boolean;
@@ -139,7 +140,7 @@ interface PatientPanelProps {
 export const PatientPanel: React.FC<PatientPanelProps> = (
     {
         patient, currentPatient, lastPatient, lockPanel, setLockPanel,
-        startPatientPanel, stopCountdown, countdownClock
+        startPatientPanel, stopCountdown, countdownClock, timeAllotted
     }: PatientPanelProps) => {
     const audioRef = useRef<HTMLAudioElement[]>([]);
     const [activePrompt, setActivePrompt] = useState<number>(0);
@@ -179,11 +180,28 @@ export const PatientPanel: React.FC<PatientPanelProps> = (
         setActivePrompt(activePrompt);
     };
 
-    const nextPatient = (): void => {
-        setTriageSelectionData(currentPatient, 'timeToAnswer', countdownClock);
+    const saveTimeAndCompletedData = (): void => {
         setTriageSelectionData(
-            currentPatient, 'completedOnTime', countdownClock != 0);
+            currentPatient, 'timeToAnswer', timeAllotted - countdownClock);
+        setTriageSelectionData(
+            currentPatient, 'completedOnTime', isComplete());
+    };
+
+    const advanceToNextPatient = (): void => {
+        saveTimeAndCompletedData();
         startPatientPanel(currentPatient + 1);
+    };
+
+    const advanceToReflection = (): void => {
+        saveTimeAndCompletedData();
+        //eslint-disable-next-line scanjs-rules/assign_to_pathname
+        window.location.pathname = '/triage/reflection';
+    };
+
+    const isComplete = (): boolean => {
+        return [esiState, locationState, airwayState, consultState].every((val) => {
+            return val != '';
+        });
     };
 
     const outcomeMenuItems: PatientAssignmentChoiceProps[] = [
@@ -250,41 +268,24 @@ export const PatientPanel: React.FC<PatientPanelProps> = (
         {lockPanel && (
             <div className="row">
                 <div className="col-12">
-                    {countdownClock > 0 ? (
-                        <div className={'alert alert-success'}>
-                            Great job! &nbsp;
+                    <div className={
+                        'alert ' + (isComplete() ? 'alert-success' : 'alert-danger')}>
+                        {isComplete() ? (
+                            <>Great job! &nbsp;</>
+                        ) : (
+                            <>Your selections were incomplete &nbsp;</>
+                        )}
+                        <button
+                            type={'button'}
+                            onClick={lastPatient ? advanceToReflection : advanceToNextPatient}
+                            className={'btn btn-success btn-small'}>
                             {lastPatient ? (
-                                <a href={'/triage/reflection'}
-                                    className={'btn btn-success btn-small'}>
-                                    Proceed to Reflection
-                                </a>
+                                <>Proceed to Reflection</>
                             ) : (
-                                <button
-                                    type={'button'}
-                                    onClick={nextPatient}
-                                    className={'btn btn-success btn-small'}>
-                                    Next patient
-                                </button>
+                                <>Next patient</>
                             )}
-                        </div>
-                    ) : (
-                        <div className={'alert alert-danger'}>
-                            You ran out of time &nbsp;
-                            {lastPatient ? (
-                                <a href={'/triage/reflection'}
-                                    className={'btn btn-success btn-small'}>
-                                    Proceed to Reflection
-                                </a>
-                            ) : (
-                                <button
-                                    type={'button'}
-                                    onClick={nextPatient}
-                                    className={'btn btn-success btn-small'}>
-                                    Next patient
-                                </button>
-                            )}
-                        </div>
-                    )}
+                        </button>
+                    </div>
                 </div>
             </div>
         )}

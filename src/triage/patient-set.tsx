@@ -89,6 +89,8 @@ export const PatientSet: React.FC<PatientSetProps> = ({patients}: PatientSetProp
                 <PatientPanel
                     patient={patients[currentPatient]}
                     countdownClock={countdownClock}
+                    timeAllotted={
+                        Number(patients[currentPatient].countdown)}
                     currentPatient={currentPatient}
                     lastPatient={currentPatient == patients.length - 1}
                     stopCountdown={stopCountdown}

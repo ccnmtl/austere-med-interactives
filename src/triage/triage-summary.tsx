@@ -59,13 +59,15 @@ export const TriageSummary: React.FC = () => {
                                     <div className={'triage-summary__status success'}>
                                         <div className={'triage-summary__status--head'}>Complete</div>
                                         <div className={'triage-summary__status--value'}>
-                                            {printFSeconds(selections[idx].timeToAnswer)}
+                                            {`${printFSeconds(selections[idx].timeToAnswer)} / ${printFSeconds(Number(patient.countdown))}`}
                                         </div>
                                     </div>
                                 ) : (
                                     <div className={'triage-summary__status timeout'}>
                                         <div className={'triage-summary__status--head'}>Incomplete</div>
-                                        <div className={'triage-summary__status--value'}></div>
+                                        <div className={'triage-summary__status--value'}>
+                                            {`${printFSeconds(selections[idx].timeToAnswer)} / ${printFSeconds(Number(patient.countdown))}`}
+                                        </div>
                                     </div>
                                 )}
                                 <table className={'table table-sm table-light triage-summary__assignment-table'}>
@@ -77,7 +79,7 @@ export const TriageSummary: React.FC = () => {
                                     </colgroup>
                                     <tbody>
                                         <tr>
-                                            <th rowSpan={4}>Assignment Details</th>
+                                            <th rowSpan={4} className={'table-info'}>Assignment Details</th>
                                             <td className={selections[idx].esi != '' ? ('table-info') : ('table-danger')}>
                                                 ESI Level Assignment
                                             </td>

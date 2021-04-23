@@ -31,10 +31,12 @@
     &.success {
         @extend .text-success;
         background-color: #d1e7dd;
+        border-bottom: solid 1px #1a8755;
     }
     &.timeout {
         @extend .text-danger;
         background-color: #f8d7da;
+        border-bottom: solid 1px #dc3646;
     }
 
     .triage-summary__status--head {
