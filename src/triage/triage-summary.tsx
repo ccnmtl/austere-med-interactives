@@ -115,33 +115,33 @@ export const TriageSummary: React.FC = () => {
                                     <tbody>
                                         <tr>
                                             <th rowSpan={6}>Questions</th>
-                                            <td className={!selections[idx].q1 && ('table-secondary')}>{patient.q1Question}</td>
-                                            <td className={!selections[idx].q1 && ('table-secondary')}>{patient.q1Answer}</td>
-                                            <td className={!selections[idx].q1 && ('table-secondary')}>
+                                            <td className={!selections[idx].q1 ? ('table-secondary') : ('')}>{patient.q1Question}</td>
+                                            <td className={!selections[idx].q1 ? ('table-secondary') : ('')}>{patient.q1Answer}</td>
+                                            <td className={!selections[idx].q1 ? ('table-secondary') : ('')}>
                                                 {!selections[idx].q2 && (<span className={'badge bg-secondary'}>Unasked</span>)}
                                             </td>
                                         </tr>
-                                        <tr className={!selections[idx].q2 && ('table-secondary')}>
+                                        <tr className={!selections[idx].q2 ? ('table-secondary') : ('')}>
                                             <td>{patient.q2Question}</td>
                                             <td>{patient.q2Answer}</td>
                                             <td>{!selections[idx].q2 && (<span className={'badge bg-secondary'}>Unasked</span>)}</td>
                                         </tr>
-                                        <tr className={!selections[idx].q3 && ('table-secondary')}>
+                                        <tr className={!selections[idx].q3 ? ('table-secondary') : ('')}>
                                             <td>{patient.q3Question}</td>
                                             <td>{patient.q3Answer}</td>
                                             <td>{!selections[idx].q3 && (<span className={'badge bg-secondary'}>Unasked</span>)}</td>
                                         </tr>
-                                        <tr className={!selections[idx].q4 && ('table-secondary')}>
+                                        <tr className={!selections[idx].q4 ? ('table-secondary') : ('')}>
                                             <td>{patient.q4Question}</td>
                                             <td>{patient.q4Answer}</td>
                                             <td>{!selections[idx].q4 && (<span className={'badge bg-secondary'}>Unasked</span>)}</td>
                                         </tr>
-                                        <tr className={!selections[idx].q5 && ('table-secondary')}>
+                                        <tr className={!selections[idx].q5 ? ('table-secondary') : ('')}>
                                             <td>{patient.q5Question}</td>
                                             <td>{patient.q5Answer}</td>
                                             <td>{!selections[idx].q5 && (<span className={'badge bg-secondary'}>Unasked</span>)}</td>
                                         </tr>
-                                        <tr className={!selections[idx].q6 && ('table-secondary')}>
+                                        <tr className={!selections[idx].q6 ? ('table-secondary') : ('')}>
                                             <td>{patient.q6Question}</td>
                                             <td>{patient.q6Answer}</td>
                                             <td>{!selections[idx].q6 && (<span className={'badge bg-secondary'}>Unasked</span>)}</td>

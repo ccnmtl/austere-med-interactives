@@ -126,6 +126,7 @@ const PatientAssignmentChoice: React.FC<PatientAssignmentChoiceProps> = (
 interface PatientPanelProps {
     patient: Patient;
     currentPatient: number;
+    lastPatient: boolean;
     countdownClock: number;
     lockPanel: boolean;
     setLockPanel(lock: boolean): void;
@@ -135,7 +136,7 @@ interface PatientPanelProps {
 
 export const PatientPanel: React.FC<PatientPanelProps> = (
     {
-        patient, currentPatient, lockPanel, setLockPanel,
+        patient, currentPatient, lastPatient, lockPanel, setLockPanel,
         startPatientPanel, stopCountdown, countdownClock
     }: PatientPanelProps) => {
     const audioRef = useRef<HTMLAudioElement[]>([]);
@@ -242,22 +243,36 @@ export const PatientPanel: React.FC<PatientPanelProps> = (
                     {countdownClock > 0 ? (
                         <div className={'alert alert-success'}>
                             Great job! &nbsp;
-                            <button
-                                type={'button'}
-                                onClick={nextPatient}
-                                className={'btn btn-primary btn-small'}>
-                                Next patient
-                            </button>
+                            {lastPatient ? (
+                                <a href={'/triage/reflection'}
+                                    className={'btn btn-primary btn-small'}>
+                                    Proceed to Reflection
+                                </a>
+                            ) : (
+                                <button
+                                    type={'button'}
+                                    onClick={nextPatient}
+                                    className={'btn btn-primary btn-small'}>
+                                    Next patient
+                                </button>
+                            )}
                         </div>
                     ) : (
                         <div className={'alert alert-danger'}>
-                            Great job! &nbsp;
-                            <button
-                                type={'button'}
-                                onClick={() => startPatientPanel(currentPatient + 1)}
-                                className={'btn btn-primary btn-small'}>
-                                Next patient
-                            </button>
+                            You ran out of time &nbsp;
+                            {lastPatient ? (
+                                <a href={'/triage/reflection'}
+                                    className={'btn btn-primary btn-small'}>
+                                    Proceed to Reflection
+                                </a>
+                            ) : (
+                                <button
+                                    type={'button'}
+                                    onClick={nextPatient}
+                                    className={'btn btn-primary btn-small'}>
+                                    Next patient
+                                </button>
+                            )}
                         </div>
                     )}
                 </div>

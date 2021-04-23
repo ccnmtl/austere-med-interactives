@@ -38,6 +38,13 @@ export const TriageReflection: React.FC = () => {
                         </form>
                     </div>
                 </div>
+                <div className="row">
+                    <div className="col-12">
+                        <p>Thank you for your reflections. Please proceed to the
+                            &nbsp;<a href={'/triage/summary'}>summary page</a>.
+                        </p>
+                    </div>
+                </div>
             </div>
             <Background backgroundImageSrc={BackgroundImage as string}/>
         </>

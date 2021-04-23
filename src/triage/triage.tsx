@@ -77,10 +77,10 @@ export const Triage: React.FC = () => {
         setSimStarted(true);
     };
 
-    const handleRestart = (evt: React.MouseEvent<HTMLButtonElement>): void => {
+    const handleReset = (evt: React.MouseEvent<HTMLButtonElement>): void => {
         evt.preventDefault();
+        resetTriageSelectionData();
         setSimStarted(true);
-        setSimFinished(false);
     };
 
     initTriageSelectionData();
@@ -89,15 +89,26 @@ export const Triage: React.FC = () => {
         <>
             <Nav />
             <div className={'container triage__content'} data-testid='triage'>
-                {!simStarted && !simFinished && (
-                    <button onClick={handleStart} data-testid='triage-start'>Start Sim</button>
-                )}
+                {!simStarted && !simFinished && (<>
+                    {window.localStorage.getItem('triage') ? (<>
+                        <p>
+                            You have already completed the triage sim. <a href={'/triage/reflection'}>Reflection</a> <a href={'/triage/summary'}>Summary</a>
+                        </p>
+                        <p>
+                            Click <button className={'btn btn-primary btn-sm'} onClick={handleReset}>here</button> to reset your choices and retake the sim
+                        </p>
+                    </>) : (<>
+                        <button onClick={handleStart} data-testid='triage-start'>Start Sim</button>
+                    </>)}
+                </>)}
                 {simStarted && !simFinished && (
                     <PatientSet patients={DATA} setSimFinished={setSimFinished} />
                 )}
-                {simStarted && simFinished && (
-                    <button onClick={handleRestart}>Restart Sim</button>
-                )}
+                {simStarted && simFinished && (<>
+                    <p>You have completed the sim. Please proceed to the
+                        &nbsp;<a href={'/triage/reflection'}>reflection page</a>.
+                    </p>
+                </>)}
             </div>
             <Background backgroundImageSrc={BackgroundImage as string}/>
         </>

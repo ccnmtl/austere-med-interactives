@@ -19,7 +19,8 @@ export const PatientSet: React.FC<PatientSetProps> = ({
             if (prev == 0) {
                 window.clearInterval(interval.current);
                 if (idx >= patients.length - 1) {
-                    setFinished(true);
+                    //setFinished(true);
+                    setLockPanel(true);
                     return prev;
                 } else {
                     setLockPanel(true);
@@ -102,6 +103,7 @@ export const PatientSet: React.FC<PatientSetProps> = ({
                     patient={patients[currentPatient]}
                     countdownClock={countdownClock}
                     currentPatient={currentPatient}
+                    lastPatient={currentPatient == patients.length - 1}
                     stopCountdown={stopCountdown}
                     startPatientPanel={startPatientPanel}
                     setLockPanel={setLockPanel}
