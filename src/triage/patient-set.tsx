@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Patient, PatientPanel, printFSeconds } from './';
+import {
+    Patient, PatientPanel, resetTriageSelectionData, printFSeconds
+} from './';
 
 interface PatientSetProps {
     patients: Patient[];
@@ -46,6 +48,7 @@ export const PatientSet: React.FC<PatientSetProps> = ({patients}: PatientSetProp
     };
 
     useEffect(() => {
+        resetTriageSelectionData();
         startPatientPanel(0);
     }, []);
 

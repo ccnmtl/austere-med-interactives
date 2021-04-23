@@ -23,7 +23,7 @@ export interface TriageSelectionData {
     reflection: string;
 }
 
-const resetTriageSelectionData = (): void => {
+export const resetTriageSelectionData = (): void => {
     const initialData: TriageSelectionData = {
         timeToAnswer: Infinity,
         completedOnTime: false,
@@ -43,14 +43,6 @@ const resetTriageSelectionData = (): void => {
     const initList = [...new Array<TriageSelectionData>(DATA.length)].fill(initialData);
     window.localStorage.setItem('triage', JSON.stringify(initList));
 };
-
-export const initTriageSelectionData = (): void => {
-    if (window.localStorage.getItem('triage')) {
-        return;
-    }
-    resetTriageSelectionData();
-};
-
 
 export const getTriageSelectionData = (): TriageSelectionData[] => {
     return JSON.parse(window.localStorage.getItem('triage')) as TriageSelectionData[];
@@ -83,14 +75,6 @@ export const Triage: React.FC = () => {
         setSimStarted(true);
     };
 
-    const handleReset = (evt: React.MouseEvent<HTMLButtonElement>): void => {
-        evt.preventDefault();
-        resetTriageSelectionData();
-        setSimStarted(true);
-    };
-
-    initTriageSelectionData();
-
     return (
         <>
             <Nav />
@@ -104,7 +88,7 @@ export const Triage: React.FC = () => {
                         </p>
                         <p>
                             Click <button className={'btn btn-primary btn-sm'}
-                                onClick={handleReset}>here</button>
+                                onClick={handleStart}>here</button>
                             &nbsp;to reset your choices and retake the sim
                         </p>
                     </>) : (
