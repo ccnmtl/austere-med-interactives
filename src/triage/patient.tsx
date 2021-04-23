@@ -112,6 +112,7 @@ const PatientAssignmentChoice: React.FC<PatientAssignmentChoiceProps> = (
                             value={el.text}
                             onChange={changeHandler}
                             checked={state == el.text}
+                            aria-disabled={lockPanel}
                             disabled={lockPanel}
                             autoComplete="off"/>
                         <label className="btn btn-secondary" htmlFor={el.id}>
@@ -141,10 +142,10 @@ export const PatientPanel: React.FC<PatientPanelProps> = (
     }: PatientPanelProps) => {
     const audioRef = useRef<HTMLAudioElement[]>([]);
     const [activePrompt, setActivePrompt] = useState<number>(0);
-    const [esiState, setEsiState] = useState<string>(ESI[0].text);
-    const [locationState, setLocationState] = useState<string>(LOCATION[0].text);
-    const [airwayState, setAirwayState] = useState<string>(AIRWAY[0].text);
-    const [consultState, setConsultState] = useState<string>(CONSULTATION[0].text);
+    const [esiState, setEsiState] = useState<string>('');
+    const [locationState, setLocationState] = useState<string>('');
+    const [airwayState, setAirwayState] = useState<string>('');
+    const [consultState, setConsultState] = useState<string>('');
 
     const handleAudioClick = (evt: React.MouseEvent<HTMLButtonElement>): void => {
         if (evt.currentTarget.dataset && evt.currentTarget.dataset.qaudio) {
@@ -224,7 +225,12 @@ export const PatientPanel: React.FC<PatientPanelProps> = (
     ];
 
     useEffect(() => {
-        // Clean up playing video when patient prop changes
+        setActivePrompt(0);
+        setEsiState('');
+        setLocationState('');
+        setAirwayState('');
+        setConsultState('');
+        // Clean up playing audio when patient prop changes
         return () => {
             for (const audioEl of audioRef.current) {
                 if (!audioEl.ended) {
@@ -289,12 +295,14 @@ export const PatientPanel: React.FC<PatientPanelProps> = (
                         return (
                             <button
                                 key={idx}
-                                className={`nav-link ${activePrompt == idx ? ' active' : ''}`}
+                                className={
+                                    `nav-link ${activePrompt == idx && !lockPanel ? 'active' : ''}`}
                                 id="v-pills-ems-tab"
                                 type="button"
                                 role="tab"
                                 aria-controls="v-pills-ems"
                                 aria-selected={activePrompt == idx}
+                                aria-disabled={lockPanel}
                                 disabled={lockPanel}
                                 onClick={() => handleActivePrompt(idx)}>
                                 {patient[prompt[0]]}
@@ -319,6 +327,7 @@ export const PatientPanel: React.FC<PatientPanelProps> = (
                             <button type="button"
                                 className="btn btn-primary btn-sm"
                                 onClick={handleAudioClick}
+                                aria-disabled={lockPanel}
                                 disabled={lockPanel}
                                 // TODO: simplify
                                 data-qaudio={patient[prompts[activePrompt][2]] as string}>
@@ -345,6 +354,7 @@ export const PatientPanel: React.FC<PatientPanelProps> = (
                     <div className="form-group">
                         <button type={'button'}
                             className="btn btn-primary btn-sm"
+                            aria-disabled={lockPanel}
                             disabled={lockPanel}
                             onClick={handleFormSubmit}>
                             Submit
