@@ -75,9 +75,32 @@ export const Triage: React.FC = () => {
         setSimStarted(true);
     };
 
+    const navItems = [
+        {
+            text: 'Step 1. Introduction',
+            active: true,
+            link: '#'
+        },
+        {
+            text: 'Step 2. Engage',
+            active: simStarted,
+            link: '#'
+        },
+        {
+            text: 'Step 3. Reflect',
+            active: false,
+            link: '/triage/reflection'
+        },
+        {
+            text: 'Step 4. Summary',
+            active: false,
+            link: '/triage/summary'
+        }
+    ];
+
     return (
         <>
-            <Nav />
+            <Nav title={'Triage Simulation'} items={navItems}/>
             <div className={'container triage__content'} data-testid='triage'>
                 {!simStarted ? (<>
                     {window.localStorage.getItem('triage') ? (<>

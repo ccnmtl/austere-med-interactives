@@ -21,7 +21,7 @@ export const Nav: React.FC<NavProps> = ({title, items}: NavProps) => {
             <div className={'container-fluid'}>
                 <a className={'navbar-brand'} href={'/'}>
                     <span id={'am-nav__logotype-outer'}>
-                        <span id={'am-nav__logotype-inner'}>AUSTERE</span>MEDICINE</span>
+                        <span id={'am-nav__logotype-inner'}>AUSTERE</span>MEDICINE</span>&nbsp;
                     {title}
                 </a>
                 <button

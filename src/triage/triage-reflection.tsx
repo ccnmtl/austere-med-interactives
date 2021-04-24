@@ -7,9 +7,31 @@ import DATA from '../data/triage.json';
 import {setTriageSelectionData} from './';
 
 export const TriageReflection: React.FC = () => {
+    const navItems = [
+        {
+            text: 'Step 1. Introduction',
+            active: true,
+            link: '/triage'
+        },
+        {
+            text: 'Step 2. Engage',
+            active: true,
+            link: '/triage'
+        },
+        {
+            text: 'Step 3. Reflect',
+            active: true,
+            link: '/triage/reflection'
+        },
+        {
+            text: 'Step 4. Summary',
+            active: false,
+            link: '/triage/summary'
+        }
+    ];
     return (
         <>
-            <Nav />
+            <Nav title={'Triage Simulation'} items={navItems}/>
             <div className={'container triage__content'} data-testid='triage-summary'>
                 <div className="row">
                     <div className="col-12">

@@ -40,7 +40,8 @@ interface MedkitParams {
     medkitId: string;
 }
 
-export const Medkit: React.FC<MedkitParams> = ({title, scenario, budget, medkitId}: MedkitParams) => {
+export const Medkit: React.FC<MedkitParams> = (
+    {title, scenario, budget, medkitId}: MedkitParams) => {
     const [itemsPicked, setItemsPicked] =
         useState<boolean[]>((new Array(DATA.length)).fill(false));
 
