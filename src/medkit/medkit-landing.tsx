@@ -4,8 +4,26 @@ import { Background } from '../background';
 import BackgroundImage from '../images/iStock-1217277545.jpg';
 
 export const MedkitLanding: React.FC = () => {
+
+    const navItems = [
+        {
+            text: 'Step 1. Understand',
+            active: true,
+            link: '/medkit'
+        },
+        {
+            text: 'Step 2. Engage',
+            active: false,
+            link: '/medkit/1'
+        },
+        {
+            text: 'Step 1. Reflect',
+            active: false,
+            link: '/medkit/summary'
+        }
+    ];
     return (<>
-        <Nav />
+        <Nav title={'Medical Kit Simulation'} items={navItems}/>
         <div className={'container medkit__content'} data-testid='medkit'>
             <div className="row">
                 <div className="col-12">

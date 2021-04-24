@@ -75,9 +75,27 @@ export const Medkit: React.FC<MedkitParams> = ({title, scenario, budget, medkitI
         setItemsPicked(initMedkitData(medkitId));
     }, []);
 
+    const navItems = [
+        {
+            text: 'Step 1. Understand',
+            active: true,
+            link: '/medkit'
+        },
+        {
+            text: 'Step 2. Engage',
+            active: true,
+            link: `/medkit/${medkitId}`
+        },
+        {
+            text: 'Step 1. Reflect',
+            active: false,
+            link: '/medkit/summary'
+        }
+    ];
+
     return (
         <>
-            <Nav />
+            <Nav title={'Medical Kit Simulation'} items={navItems}/>
             <div className={'container medkit__content'} data-testid='medkit'>
                 <div className={'row'}>
                     <div className="col-12">

@@ -50,9 +50,27 @@ export const MedkitSummary: React.FC = () => {
             saveAs(blob, 'medkit-summary.csv');
         }
     };
+
+    const navItems = [
+        {
+            text: 'Step 1. Understand',
+            active: true,
+            link: '/medkit'
+        },
+        {
+            text: 'Step 2. Engage',
+            active: true,
+            link: '/medkit/1'
+        },
+        {
+            text: 'Step 3. Reflect',
+            active: true,
+            link: '/medkit/summary'
+        }
+    ];
     return (
         <>
-            <Nav />
+            <Nav title={'Medical Kit Simulation'} items={navItems}/>
             <div className={'container medkit__content'} data-testid='medkit'>
                 <div className={'row'}>
                     <div className="col-10">
