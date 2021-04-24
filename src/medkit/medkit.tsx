@@ -34,12 +34,13 @@ export const initMedkitData = (medkitId: string): boolean[] => {
 };
 
 interface MedkitParams {
+    title: string;
     scenario: string;
     budget: number;
     medkitId: string;
 }
 
-export const Medkit: React.FC<MedkitParams> = ({scenario, budget, medkitId}: MedkitParams) => {
+export const Medkit: React.FC<MedkitParams> = ({title, scenario, budget, medkitId}: MedkitParams) => {
     const [itemsPicked, setItemsPicked] =
         useState<boolean[]>((new Array(DATA.length)).fill(false));
 
@@ -65,6 +66,11 @@ export const Medkit: React.FC<MedkitParams> = ({scenario, budget, medkitId}: Med
         }
     };
 
+    const resetSelections = (): void => {
+        resetMedkitData(medkitId);
+        setItemsPicked((new Array(DATA.length)).fill(false));
+    };
+
     useEffect(() => {
         setItemsPicked(initMedkitData(medkitId));
     }, []);
@@ -75,27 +81,28 @@ export const Medkit: React.FC<MedkitParams> = ({scenario, budget, medkitId}: Med
             <div className={'container medkit__content'} data-testid='medkit'>
                 <div className={'row'}>
                     <div className="col-12">
-                        <h1>Medkit sim</h1>
-                        <p className="lead">You have {budget} points.</p>
+                        <h1>{title}</h1>
                         <p className="lead">{scenario}</p>
+                        <p className="lead">You have {budget} points.</p>
                     </div>
                 </div>
                 <div className="row">
-                    <div className="col-md-6">
+                    <div className="col-md-7">
                         <form>
                             <table className={'table table-light table-sm'}>
                                 <thead>
                                     <tr>
-                                        <th scope="col">Category</th>
-                                        <th scope="col">Item</th>
-                                        <th scope="col">Points</th>
-                                        <th scope="col">Select</th>
+                                        <th className={'medkit__col-0'} scope="col">Category</th>
+                                        <th className={'medkit__col-1'} scope="col">Item</th>
+                                        <th className={'medkit__col-2'} scope="col">Points</th>
+                                        <th className={'medkit__col-3'} scope="col">Select</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     {DATA.map((el: MedkitItem, idx) => {
                                         return (
-                                            <tr key={idx}>
+                                            <tr key={idx}
+                                                className={itemsPicked[idx] ? 'table-active' : ''}>
                                                 <th scope="row">{el.category}</th>
                                                 <td>{el.item}</td>
                                                 <td>{el.points}</td>
@@ -106,11 +113,11 @@ export const Medkit: React.FC<MedkitParams> = ({scenario, budget, medkitId}: Med
                                                         id={String(idx)}
                                                         onChange={handlePickItem}
                                                         autoComplete={'off'}
-                                                        checked={itemsPicked[idx]}
-                                                        disabled={itemsPicked[idx]}/>
-                                                    <label className={'btn btn-sm btn-danger'}
+                                                        checked={itemsPicked[idx]}/>
+                                                    <label
+                                                        className={'btn btn-sm btn-danger'}
                                                         htmlFor={String(idx)}>
-                                                        Add
+                                                        {itemsPicked[idx] ? 'Remove' : 'Add'}
                                                     </label>
                                                 </td>
                                             </tr>
@@ -120,59 +127,39 @@ export const Medkit: React.FC<MedkitParams> = ({scenario, budget, medkitId}: Med
                             </table>
                         </form>
                     </div>
-                    <div className="col-md-6">
+                    <div className="col-md-5">
                         <div id={'medkit__basket'} className="sticky-top bg-danger">
-                            <table className="table table-dark">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">Category</th>
-                                        <th scope="col">Item</th>
-                                        <th scope="col">Points</th>
-                                        <th scope="col">Select</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {itemsPicked.every((el) => !el) ? (
-                                        <tr>
-                                            <th scope={'row'} colSpan={4}>
-                                                Your kit has not been packed yet.
-                                            </th>
-                                        </tr>
-                                    ) : (
-                                        <>
-                                            {DATA.map((el, idx) => {
-                                                return (
-                                                    <React.Fragment key={idx}>
-                                                        {itemsPicked[idx] && (
-                                                            <tr>
-                                                                <th scope="row">{el.category}</th>
-                                                                <td>{el.item}</td>
-                                                                <td>{el.points}</td>
-                                                                <td>
-                                                                    <button type="button"
-                                                                        className="btn btn-light"
-                                                                        id={String(idx)}
-                                                                        onClick={handlePickItem}>
-                                                                        Remove
-                                                                    </button>
-                                                                </td>
-                                                            </tr>
-                                                        )}
-                                                    </React.Fragment>
-                                                );
-                                            })}
-                                        </>
-                                    )}
-                                </tbody>
-                                <tfoot>
-                                    <tr>
-                                        <td></td>
-                                        <td>{totalItemsPicked} Items</td>
-                                        <td>{totalItemsScore} Points</td>
-                                        <td></td>
-                                    </tr>
-                                </tfoot>
-                            </table>
+                            <div className={'row bg-dark p-3 mx-0 text-light'}>
+                                <div className="col-5">
+                                    <p className="h2">
+                                        {totalItemsPicked} Item{totalItemsPicked == 1 ? '' : 's'}
+                                    </p>
+                                </div>
+                                <div className="col-7">
+                                    <p className="h2">
+                                        {totalItemsScore} / {budget} Points
+                                    </p>
+                                    <p className={'medkit__basket--warning'}>
+                                        {/* eslint-disable-next-line max-len */}
+                                        {totalItemsScore >= budget ? 'Your selections are over budget' : ''}
+                                    </p>
+                                </div>
+                                <div className="col-12 d-flex">
+                                    <button
+                                        type={'button'}
+                                        onClick={resetSelections}
+                                        className={'btn btn-secondary ms-auto me-2'}>
+                                        Reset Selections
+                                    </button>
+                                    <a className="btn btn-danger"
+                                        href={
+                                            // eslint-disable-next-line max-len
+                                            Number(medkitId) < 3 ? `/medkit/${Number(medkitId) + 1}` : '/medkit/summary'
+                                        }>
+                                        {Number(medkitId) < 3 ? 'Next Medkit' : 'Medkit Summary'}
+                                    </a>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -181,4 +168,3 @@ export const Medkit: React.FC<MedkitParams> = ({scenario, budget, medkitId}: Med
         </>
     );
 };
-

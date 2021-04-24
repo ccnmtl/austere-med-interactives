@@ -5,6 +5,24 @@ import { Home } from './home';
 import { Triage, TriageSummary, TriageReflection } from './triage';
 import { Medkit, MedkitSummary, MedkitLanding } from './medkit';
 
+const MEDKIT_1_SCENARIO = `Lorem ipsum dolor sit amet, consetetur sadipscing
+elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna
+aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores
+et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum
+dolor sit amet.`;
+
+const MEDKIT_2_SCENARIO = `Lorem ipsum dolor sit amet, consetetur sadipscing
+elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna
+aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores
+et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum
+dolor sit amet.`;
+
+const MEDKIT_3_SCENARIO = `Lorem ipsum dolor sit amet, consetetur sadipscing
+elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna
+aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores
+et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum
+dolor sit amet.`;
+
 export const App: React.FC = () => {
     return (
         <Router>
@@ -16,33 +34,24 @@ export const App: React.FC = () => {
                 <Route exact path="/medkit" component={MedkitLanding}/>
                 <Route exact path="/medkit/1">
                     <Medkit
-                        budget={300}
-                        scenario={'Secenario One'}
+                        title={'Medkit: Placeholder Scenario'}
+                        budget={5}
+                        scenario={MEDKIT_1_SCENARIO}
                         medkitId={'1'}/>
                 </Route>
                 <Route exact path="/medkit/2">
                     <Medkit
-                        budget={500}
-                        scenario={'Secenario Two'}
+                        title={'Medkit: Placeholder Scenario'}
+                        budget={50}
+                        scenario={MEDKIT_2_SCENARIO}
                         medkitId={'2'}/>
                 </Route>
                 <Route exact path="/medkit/3">
                     <Medkit
-                        budget={800}
-                        scenario={'Secenario Three'}
+                        title={'Medkit: Placeholder Scenario'}
+                        budget={30}
+                        scenario={MEDKIT_3_SCENARIO}
                         medkitId={'3'}/>
-                </Route>
-                <Route exact path="/medkit/4">
-                    <Medkit
-                        budget={100}
-                        scenario={'Secenario Four'}
-                        medkitId={'4'}/>
-                </Route>
-                <Route exact path="/medkit/5">
-                    <Medkit
-                        budget={200}
-                        scenario={'Secenario Five'}
-                        medkitId={'5'}/>
                 </Route>
                 <Route exact path="/medkit/summary">
                     <MedkitSummary />
