@@ -23,15 +23,15 @@ const getMedkitPoints = (items: boolean[]): number => {
     }, 0);
 };
 
-const KIT_1 = getMedkitData('1');
-const KIT_1_POINTS = getMedkitPoints(KIT_1);
-const KIT_2 = getMedkitData('2');
-const KIT_2_POINTS = getMedkitPoints(KIT_2);
-const KIT_3 = getMedkitData('3');
-const KIT_3_POINTS = getMedkitPoints(KIT_3);
-
 export const MedkitSummary: React.FC = () => {
     const [csv, setCSV] = useState<string>('');
+
+    const KIT_1 = getMedkitData('1');
+    const KIT_1_POINTS = getMedkitPoints(KIT_1);
+    const KIT_2 = getMedkitData('2');
+    const KIT_2_POINTS = getMedkitPoints(KIT_2);
+    const KIT_3 = getMedkitData('3');
+    const KIT_3_POINTS = getMedkitPoints(KIT_3);
 
     useEffect(() => {
         // eslint-disable-next-line max-len

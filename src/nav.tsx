@@ -7,8 +7,8 @@ interface NavItems {
 }
 
 interface NavProps {
-    title: string;
-    items: NavItems[];
+    title?: string;
+    items?: NavItems[];
 }
 
 export const Nav: React.FC<NavProps> = ({title, items}: NavProps) => {
@@ -22,7 +22,7 @@ export const Nav: React.FC<NavProps> = ({title, items}: NavProps) => {
                 <a className={'navbar-brand'} href={'/'}>
                     <span id={'am-nav__logotype-outer'}>
                         <span id={'am-nav__logotype-inner'}>AUSTERE</span>MEDICINE</span>&nbsp;
-                    {title}
+                    {title && title}
                 </a>
                 <button
                     className={'navbar-toggler'}
@@ -36,7 +36,7 @@ export const Nav: React.FC<NavProps> = ({title, items}: NavProps) => {
                 <div id='navbarSupportedContent'
                     className={`collapse navbar-collapse${showDropdown ? ' show' : ''}`}>
                     <ul className='navbar-nav me-auto mb-2 mb-lg-0'>
-                        {items.map((el, idx) => {
+                        {items && items.map((el, idx) => {
                             return (
                                 <li key={idx} className='nav-item'>
                                     <a className={'nav-link ' + (el.active ? 'active' : '')}
