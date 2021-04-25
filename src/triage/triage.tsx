@@ -7,7 +7,9 @@ import BackgroundImage from '../images/iStock-1217878707.jpg';
 import { PatientSet } from './index';
 import DATA from '../data/triage.json';
 
-interface TriageSelectionData {
+export interface TriageSelectionData {
+    timeToAnswer: number;
+    completedOnTime: boolean;
     q1: boolean;
     q2: boolean;
     q3: boolean;
@@ -18,39 +20,36 @@ interface TriageSelectionData {
     location: string;
     airway: string;
     consult: string;
+    reflection: string;
 }
 
-const resetTriageSelectionData = (): void => {
+export const resetTriageSelectionData = (): void => {
     const initialData: TriageSelectionData = {
+        timeToAnswer: Infinity,
+        completedOnTime: false,
         q1: false,
         q2: false,
         q3: false,
         q4: false,
         q5: false,
         q6: false,
-        esi: '0',
-        location: 'Waiting Room',
-        airway: 'No Oxygen',
-        consult: 'Anesthesia'
+        esi: '',
+        location: '',
+        airway: '',
+        consult: '',
+        reflection: ''
     };
 
     const initList = [...new Array<TriageSelectionData>(DATA.length)].fill(initialData);
     window.localStorage.setItem('triage', JSON.stringify(initList));
 };
 
-export const initTriageSelectionData = (): void => {
-    if (window.localStorage.getItem('triage')) {
-        return;
-    }
-    resetTriageSelectionData();
-};
-
-
 export const getTriageSelectionData = (): TriageSelectionData[] => {
     return JSON.parse(window.localStorage.getItem('triage')) as TriageSelectionData[];
 };
 
-export const setTriageSelectionData = (idx: number, key: string, value: string | boolean): void => {
+export const setTriageSelectionData = (
+    idx: number, key: string, value: string | boolean | number): void => {
     const data = JSON.parse(window.localStorage.getItem('triage')) as TriageSelectionData[];
     if (key in data[idx]) {
         data[idx][key] = value;
@@ -61,35 +60,42 @@ export const setTriageSelectionData = (idx: number, key: string, value: string |
     }
 };
 
+export const printFSeconds = (seconds: number): string => {
+    const t = new Date(seconds * 1000);
+    const m = t.getMinutes();
+    const s = t.getSeconds();
+    return `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+};
+
 export const Triage: React.FC = () => {
     const [simStarted, setSimStarted] = useState<boolean>(false);
-    const [simFinished, setSimFinished] = useState<boolean>(false);
 
     const handleStart = (evt: React.MouseEvent<HTMLButtonElement>): void => {
         evt.preventDefault();
         setSimStarted(true);
     };
 
-    const handleRestart = (evt: React.MouseEvent<HTMLButtonElement>): void => {
-        evt.preventDefault();
-        setSimStarted(true);
-        setSimFinished(false);
-    };
-
-    initTriageSelectionData();
-
     return (
         <>
             <Nav />
             <div className={'container triage__content'} data-testid='triage'>
-                {!simStarted && !simFinished && (
-                    <button onClick={handleStart} data-testid='triage-start'>Start Sim</button>
-                )}
-                {simStarted && !simFinished && (
-                    <PatientSet patients={DATA} setSimFinished={setSimFinished} />
-                )}
-                {simStarted && simFinished && (
-                    <button onClick={handleRestart}>Restart Sim</button>
+                {!simStarted ? (<>
+                    {window.localStorage.getItem('triage') ? (<>
+                        <p>
+                            You have already completed the triage sim.
+                            &nbsp;<a href={'/triage/reflection'}>Reflection</a>
+                            &nbsp;<a href={'/triage/summary'}>Summary</a>
+                        </p>
+                        <p>
+                            Click <button className={'btn btn-primary btn-sm'}
+                                onClick={handleStart}>here</button>
+                            &nbsp;to reset your choices and retake the sim
+                        </p>
+                    </>) : (
+                        <button onClick={handleStart} data-testid='triage-start'>Start Sim</button>
+                    )}
+                </>) : (
+                    <PatientSet patients={DATA}/>
                 )}
             </div>
             <Background backgroundImageSrc={BackgroundImage as string}/>

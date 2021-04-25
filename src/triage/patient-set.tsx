@@ -1,30 +1,24 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Patient, PatientPanel } from './index';
+import {
+    Patient, PatientPanel, resetTriageSelectionData, printFSeconds
+} from './';
 
 interface PatientSetProps {
     patients: Patient[];
-    setSimFinished: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export const PatientSet: React.FC<PatientSetProps> = ({
-    patients, setSimFinished}: PatientSetProps) => {
+export const PatientSet: React.FC<PatientSetProps> = ({patients}: PatientSetProps) => {
     const [currentPatient, setCurrentPatient] = useState<number | null>(null);
     const [countdownClock, setCountdownClock] = useState<number | null>(null);
     const [lockPanel, setLockPanel] = useState<boolean>(false);
-    const [finished, setFinished] = useState<boolean>(false);
     const interval = useRef<number | null>(null);
 
-    const countdown = (idx: number): void => {
+    const countdown = (): void => {
         setCountdownClock((prev) => {
             if (prev == 0) {
                 window.clearInterval(interval.current);
-                if (idx >= patients.length - 1) {
-                    setFinished(true);
-                    return prev;
-                } else {
-                    setLockPanel(true);
-                    return prev;
-                }
+                setLockPanel(true);
+                return prev;
             } else {
                 return prev - 1;
             }
@@ -46,16 +40,15 @@ export const PatientSet: React.FC<PatientSetProps> = ({
 
         // Now start timer, and countdown clock
         // eslint-disable-next-line scanjs-rules/call_setInterval
-        interval.current = window.setInterval(countdown, 1000, idx);
+        interval.current = window.setInterval(countdown, 1000);
+    };
+
+    const stopCountdown = (): void => {
+        window.clearInterval(interval.current);
     };
 
     useEffect(() => {
-        if (finished) {
-            setSimFinished(true);
-        }
-    }, [finished]);
-
-    useEffect(() => {
+        resetTriageSelectionData();
         startPatientPanel(0);
     }, []);
 
@@ -79,8 +72,7 @@ export const PatientSet: React.FC<PatientSetProps> = ({
                     You only have <strong>{patients[currentPatient].countdown} seconds </strong>
                     for questioning before you commit to a final decision for Patient One.
                 </p>
-                {/* TODO remove style */}
-                <div className={'progress'} style={{ height: '3em' }}>
+                <div className={'triage__progress progress'}>
                     <div className={`progress-bar ${getPgBarState(countdownClock, currentPatient)}`}
                         role="progressbar"
                         style={{
@@ -91,20 +83,20 @@ export const PatientSet: React.FC<PatientSetProps> = ({
                         aria-valuenow={countdownClock}
                         aria-valuemin={0}
                         aria-valuemax={Number(patients[currentPatient].countdown)}>
-                        <strong>:{countdownClock}</strong>
+                        <strong>{printFSeconds(countdownClock)}</strong>
                     </div>
                 </div>
-                {lockPanel && (
-                    <div>
-                        <button onClick={() => startPatientPanel(currentPatient + 1)}>
-                            Continue
-                        </button>
-                    </div>
-                )}
-
                 <PatientPanel
                     patient={patients[currentPatient]}
-                    currentPatient={currentPatient}/>
+                    countdownClock={countdownClock}
+                    timeAllotted={
+                        Number(patients[currentPatient].countdown)}
+                    currentPatient={currentPatient}
+                    lastPatient={currentPatient == patients.length - 1}
+                    stopCountdown={stopCountdown}
+                    startPatientPanel={startPatientPanel}
+                    setLockPanel={setLockPanel}
+                    lockPanel={lockPanel}/>
             </>)}
         </div>
     );

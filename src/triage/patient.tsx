@@ -83,11 +83,12 @@ interface PatientAssignmentChoiceProps {
     state: string;
     setState: React.Dispatch<React.SetStateAction<string>>;
     currentPatient: number;
+    lockPanel: boolean;
 }
 
 const PatientAssignmentChoice: React.FC<PatientAssignmentChoiceProps> = (
     {
-        choices, heading, questionId, state, setState, currentPatient
+        choices, heading, questionId, state, setState, currentPatient, lockPanel
     }: PatientAssignmentChoiceProps) => {
     const changeHandler: React.ChangeEventHandler<HTMLInputElement> = (evt) => {
         setState(evt.target.value);
@@ -111,6 +112,8 @@ const PatientAssignmentChoice: React.FC<PatientAssignmentChoiceProps> = (
                             value={el.text}
                             onChange={changeHandler}
                             checked={state == el.text}
+                            aria-disabled={lockPanel}
+                            disabled={lockPanel}
                             autoComplete="off"/>
                         <label className="btn btn-secondary" htmlFor={el.id}>
                             {el.text}
@@ -118,22 +121,33 @@ const PatientAssignmentChoice: React.FC<PatientAssignmentChoiceProps> = (
                     </React.Fragment>);
                 })}
             </div>
+            <hr />
         </div>);
 };
 
 interface PatientPanelProps {
     patient: Patient;
     currentPatient: number;
+    timeAllotted: number;
+    lastPatient: boolean;
+    countdownClock: number;
+    lockPanel: boolean;
+    setLockPanel(lock: boolean): void;
+    startPatientPanel(panel: number): void;
+    stopCountdown(): void;
 }
 
 export const PatientPanel: React.FC<PatientPanelProps> = (
-    {patient, currentPatient}: PatientPanelProps) => {
+    {
+        patient, currentPatient, lastPatient, lockPanel, setLockPanel,
+        startPatientPanel, stopCountdown, countdownClock, timeAllotted
+    }: PatientPanelProps) => {
     const audioRef = useRef<HTMLAudioElement[]>([]);
     const [activePrompt, setActivePrompt] = useState<number>(0);
-    const [esiState, setEsiState] = useState<string>(ESI[0].text);
-    const [locationState, setLocationState] = useState<string>(LOCATION[0].text);
-    const [airwayState, setAirwayState] = useState<string>(AIRWAY[0].text);
-    const [consultState, setConsultState] = useState<string>(CONSULTATION[0].text);
+    const [esiState, setEsiState] = useState<string>('');
+    const [locationState, setLocationState] = useState<string>('');
+    const [airwayState, setAirwayState] = useState<string>('');
+    const [consultState, setConsultState] = useState<string>('');
 
     const handleAudioClick = (evt: React.MouseEvent<HTMLButtonElement>): void => {
         if (evt.currentTarget.dataset && evt.currentTarget.dataset.qaudio) {
@@ -151,10 +165,43 @@ export const PatientPanel: React.FC<PatientPanelProps> = (
         }
     };
 
+    const handleFormSubmit = (evt: React.MouseEvent<HTMLButtonElement>) => {
+        evt.preventDefault();
+        // Report the seconds left
+        // Freeze the progress bar
+        // Show the user interface to proceed
+        stopCountdown();
+        setLockPanel(true);
+    };
+
     const handleActivePrompt = (activePrompt: number): void => {
         const c = ['q1', 'q2', 'q3', 'q4', 'q5', 'q6'];
         setTriageSelectionData(currentPatient, c[activePrompt - 1], true);
         setActivePrompt(activePrompt);
+    };
+
+    const saveTimeAndCompletedData = (): void => {
+        setTriageSelectionData(
+            currentPatient, 'timeToAnswer', timeAllotted - countdownClock);
+        setTriageSelectionData(
+            currentPatient, 'completedOnTime', isComplete());
+    };
+
+    const advanceToNextPatient = (): void => {
+        saveTimeAndCompletedData();
+        startPatientPanel(currentPatient + 1);
+    };
+
+    const advanceToReflection = (): void => {
+        saveTimeAndCompletedData();
+        //eslint-disable-next-line scanjs-rules/assign_to_pathname
+        window.location.pathname = '/triage/reflection';
+    };
+
+    const isComplete = (): boolean => {
+        return [esiState, locationState, airwayState, consultState].every((val) => {
+            return val != '';
+        });
     };
 
     const outcomeMenuItems: PatientAssignmentChoiceProps[] = [
@@ -164,7 +211,8 @@ export const PatientPanel: React.FC<PatientPanelProps> = (
             questionId: 'esi',
             state: esiState,
             setState: setEsiState,
-            currentPatient: currentPatient
+            currentPatient: currentPatient,
+            lockPanel: lockPanel
         },
         {
             heading: 'Location Assignment',
@@ -172,7 +220,8 @@ export const PatientPanel: React.FC<PatientPanelProps> = (
             questionId: 'location',
             state: locationState,
             setState: setLocationState,
-            currentPatient: currentPatient
+            currentPatient: currentPatient,
+            lockPanel: lockPanel
         },
         {
             heading: 'Airway Decision',
@@ -180,7 +229,8 @@ export const PatientPanel: React.FC<PatientPanelProps> = (
             questionId: 'airway',
             state: airwayState,
             setState: setAirwayState,
-            currentPatient: currentPatient
+            currentPatient: currentPatient,
+            lockPanel: lockPanel
         },
         {
             heading: 'Additional Intervention/Consultation with',
@@ -188,12 +238,18 @@ export const PatientPanel: React.FC<PatientPanelProps> = (
             questionId: 'consult',
             state: consultState,
             setState: setConsultState,
-            currentPatient: currentPatient
+            currentPatient: currentPatient,
+            lockPanel: lockPanel
         }
     ];
 
     useEffect(() => {
-        // Clean up playing video when patient prop changes
+        setActivePrompt(0);
+        setEsiState('');
+        setLocationState('');
+        setAirwayState('');
+        setConsultState('');
+        // Clean up playing audio when patient prop changes
         return () => {
             for (const audioEl of audioRef.current) {
                 if (!audioEl.ended) {
@@ -205,7 +261,34 @@ export const PatientPanel: React.FC<PatientPanelProps> = (
         };
     }, [patient]);
 
-    return (
+    return (<>
+        {!lockPanel && (
+            <div className={'row triage-alert-spacer'}></div>
+        )}
+        {lockPanel && (
+            <div className="row">
+                <div className="col-12">
+                    <div className={
+                        'alert ' + (isComplete() ? 'alert-success' : 'alert-danger')}>
+                        {isComplete() ? (
+                            <>Great job! &nbsp;</>
+                        ) : (
+                            <>Your selections were incomplete &nbsp;</>
+                        )}
+                        <button
+                            type={'button'}
+                            onClick={lastPatient ? advanceToReflection : advanceToNextPatient}
+                            className={'btn btn-success btn-small'}>
+                            {lastPatient ? (
+                                <>Proceed to Reflection</>
+                            ) : (
+                                <>Next patient</>
+                            )}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        )}
         <div className={'row'}>
             <div id="v-pills-tabContent" className="col-md-3 tab-content">
                 <div className="nav flex-column nav-pills me-3 bg-white"
@@ -217,12 +300,15 @@ export const PatientPanel: React.FC<PatientPanelProps> = (
                         return (
                             <button
                                 key={idx}
-                                className={`nav-link ${activePrompt == idx ? ' active' : ''}`}
+                                className={
+                                    `nav-link ${activePrompt == idx && !lockPanel ? 'active' : ''}`}
                                 id="v-pills-ems-tab"
                                 type="button"
                                 role="tab"
                                 aria-controls="v-pills-ems"
                                 aria-selected={activePrompt == idx}
+                                aria-disabled={lockPanel}
+                                disabled={lockPanel}
                                 onClick={() => handleActivePrompt(idx)}>
                                 {patient[prompt[0]]}
                             </button>
@@ -246,6 +332,8 @@ export const PatientPanel: React.FC<PatientPanelProps> = (
                             <button type="button"
                                 className="btn btn-primary btn-sm"
                                 onClick={handleAudioClick}
+                                aria-disabled={lockPanel}
+                                disabled={lockPanel}
                                 // TODO: simplify
                                 data-qaudio={patient[prompts[activePrompt][2]] as string}>
                                 Replay Audio
@@ -264,11 +352,21 @@ export const PatientPanel: React.FC<PatientPanelProps> = (
                                 choices={el.choices}
                                 questionId={el.questionId}
                                 state={el.state}
+                                lockPanel={el.lockPanel}
                                 setState={el.setState}
                                 currentPatient={currentPatient}/>);
                     })}
+                    <div className="form-group">
+                        <button type={'button'}
+                            className="btn btn-success btn-sm"
+                            aria-disabled={lockPanel}
+                            disabled={lockPanel}
+                            onClick={handleFormSubmit}>
+                            Submit
+                        </button>
+                    </div>
                 </form>
             </div>
         </div>
-    );
+    </>);
 };
