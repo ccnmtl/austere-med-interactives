@@ -1,0 +1,19 @@
+.am__hero {
+    background-color: #000;
+}
+
+.am__hero-col {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+
+    @include media-breakpoint-up(md) {
+        #am__logo-type, p {
+            width: 60%;
+        }
+    }
+}
+
+.am__sim-promo-block {
+    @extend .bg-danger;
+}
