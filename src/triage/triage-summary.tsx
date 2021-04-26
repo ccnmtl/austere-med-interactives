@@ -60,17 +60,23 @@ export const TriageSummary: React.FC = () => {
             <Nav title={'Triage Simulation'} items={navItems}/>
             <div className={'container triage__content'} data-testid='triage-summary'>
                 <div className="row">
-                    <div className="col-12">
+                    <div className="col-10">
                         <h1>Summary</h1>
-                        <p className="lead">
-                            Here&apos;s how you did.
-                        </p>
+                    </div>
+                    <div className={'col-2'}>
                         {csv && (<button
                             type={'button'}
-                            className={'btn btn-primary btn-sm'}
+                            className={'btn btn-primary d-block ms-auto'}
                             onClick={handleDownload}>
                             Download Summary
                         </button>)}
+                    </div>
+                </div>
+                <div className="row">
+                    <div className="col-12">
+                        <p className="lead">
+                            Here&apos;s how you did.
+                        </p>
                     </div>
                 </div>
                 <div className="row">
