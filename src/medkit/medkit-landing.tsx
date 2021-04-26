@@ -27,29 +27,40 @@ export const MedkitLanding: React.FC = () => {
         <div className={'container medkit__content'} data-testid='medkit'>
             <div className="row">
                 <div className="col-12">
-                    <h1>Crisis Overview</h1>
+                    <h1>Medical Kit Simulation</h1>
                     <p className="lead">
-                        Lorem ipsum dolor sit amet, consetetur sadipscing elitr.
+                        Pack your kit for different scenarios
                     </p>
                 </div>
             </div>
             <div className="row">
                 <div className="col-md-6">
                     <p>
-                        Lorem ipsum dolor sit amet, consetetur sadipscing elitr,
-                        sed diam nonumy eirmod tempor invidunt ut labore et
-                        dolore magna aliquyam erat, sed diam voluptua. At vero
-                        eos et accusam et justo duo dolores et ea rebum. Stet
-                        clita kasd gubergren, no sea takimata sanctus est Lorem
-                        ipsum dolor sit amet.
+                        For this simulation, you will be “packing” your own
+                        Medical Kit, for three different scenarios - A winter
+                        mountain expedition, a desert mounting biking trip, and a
+                        disaster response.  At the beginning of each scenario you
+                        will receive a set number of points, which you can use to
+                        select items.  Each item is assigned a point value, from
+                        1-6pts, roughly based on weight, size, and cost.  You have
+                        as much time as you like to go through each scenario.  At
+                        the end of all three scenarios, you will be able to print a
+                        copy of your responses.
                     </p>
                     <p>
-                        Lorem ipsum dolor sit amet, consetetur sadipscing elitr,
-                        sed diam nonumy eirmod tempor invidunt ut labore et
-                        dolore magna aliquyam erat, sed diam voluptua. At vero
-                        eos et accusam et justo duo dolores et ea rebum. Stet
-                        clita kasd gubergren, no sea takimata sanctus est Lorem
-                        ipsum dolor sit amet.
+                        There are no &quot;correct&quot; answers to this exercise,
+                        instead you should be thoughtful about what you would
+                        pack and think about why you are selecting each item (for
+                        Columbia University courses, this simulation is followed by
+                        a live group debrief to discuss your selections).
+                    </p>
+                    <p>
+                        Your responses will be automatically saved, in your
+                        browsers cache, so you can revisit this simulation at
+                        any time to review or edit your responses (for Columbia
+                        students, we ask that you go through each scenario only
+                        once, before the debrief session - after which you are welcome
+                        to revisit the scenarios as often as you like).
                     </p>
                     <div><a className={'btn btn-danger'} href={'/medkit/1'}>Engage</a></div>
                 </div>
