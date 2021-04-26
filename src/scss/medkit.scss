@@ -7,6 +7,27 @@
     border-radius: 0.25rem;
 }
 
+.medkit__col-0 {
+    width: 37.5%;
+}
+
+.medkit__col-1 {
+    width: 37.5%;
+}
+
+.medkit__col-2 {
+    width: 10%;
+}
+
+.medkit__col-3 {
+    width: 15%;
+}
+
+
 .medkit-summary__col {
     border-left: 1px solid #000;
+}
+
+.medkit__basket--warning {
+    min-height: 1.5em;
 }

@@ -1,6 +1,17 @@
 import React, { useState } from 'react';
 
-export const Nav: React.FC = () => {
+interface NavItems {
+    text: string;
+    active: boolean;
+    link: string;
+}
+
+interface NavProps {
+    title?: string;
+    items?: NavItems[];
+}
+
+export const Nav: React.FC<NavProps> = ({title, items}: NavProps) => {
     const [showDropdown, setShowDropdown] = useState<boolean>(false);
 
     return (<>
@@ -10,8 +21,8 @@ export const Nav: React.FC = () => {
             <div className={'container-fluid'}>
                 <a className={'navbar-brand'} href={'/'}>
                     <span id={'am-nav__logotype-outer'}>
-                        <span id={'am-nav__logotype-inner'}>AUSTERE</span>MEDICINE</span>
-                        Outbreak Simulation
+                        <span id={'am-nav__logotype-inner'}>AUSTERE</span>MEDICINE</span>&nbsp;
+                    {title && title}
                 </a>
                 <button
                     className={'navbar-toggler'}
@@ -25,15 +36,16 @@ export const Nav: React.FC = () => {
                 <div id='navbarSupportedContent'
                     className={`collapse navbar-collapse${showDropdown ? ' show' : ''}`}>
                     <ul className='navbar-nav me-auto mb-2 mb-lg-0'>
-                        <li className='nav-item'>
-                            <a className='nav-link' aria-current='page' href='#'>Introduction</a>
-                        </li>
-                        <li className='nav-item'>
-                            <a className='nav-link' aria-current='page' href='#'>Medkit</a>
-                        </li>
-                        <li className='nav-item'>
-                            <a className='nav-link' aria-current='page' href='#'>Triage</a>
-                        </li>
+                        {items && items.map((el, idx) => {
+                            return (
+                                <li key={idx} className='nav-item'>
+                                    <a className={'nav-link ' + (el.active ? 'active' : '')}
+                                        aria-current='page' href={el.link}>
+                                        {el.text}
+                                    </a>
+                                </li>
+                            );
+                        })}
                     </ul>
                 </div>
             </div>

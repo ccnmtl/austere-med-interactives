@@ -6,7 +6,7 @@ import { MemoryRouter } from 'react-router-dom';
 describe('Medkit test', () => {
     const renderComponent = () => render(
         <MemoryRouter>
-            <Medkit budget={100} scenario={'test'} medkitId={'1'} />
+            <Medkit title={'Medkit Scenario'} budget={100} scenario={'test'} medkitId={'1'} />
         </MemoryRouter>
     );
     it('Should render the medkit page component', () => {
