@@ -184,7 +184,7 @@ export const Medkit: React.FC<MedkitParams> = (
                                     </p>
                                     <p className={'medkit__basket--warning text-warning'}>
                                         {/* eslint-disable-next-line max-len */}
-                                        {totalItemsScore >= budget ? 'Your selections are over budget' : ''}
+                                        {totalItemsScore > budget ? 'Your selections are over budget' : ''}
                                     </p>
                                 </div>
                                 <div className="col-12 d-flex">
