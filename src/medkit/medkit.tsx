@@ -214,7 +214,7 @@ export const Medkit: React.FC<MedkitParams> = (
                     </div>
                 </div>
             </div>
-            <Background backgroundImageSrc={BackgroundImage as string}/>
+            <Background backgroundImageSrc={BackgroundImage}/>
         </>
     );
 };

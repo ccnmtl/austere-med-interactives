@@ -65,10 +65,10 @@ export const MedkitLanding: React.FC = () => {
                     <div><a className={'btn btn-danger'} href={'/medkit/1'}>Engage</a></div>
                 </div>
                 <div className="col-md-6 px-5">
-                    <img className={'img-fluid'} src={BackgroundImage as string} alt={'Medkit'} />
+                    <img className={'img-fluid'} src={BackgroundImage} alt={'Medkit'} />
                 </div>
             </div>
         </div>
-        <Background backgroundImageSrc={BackgroundImage as string}/>
+        <Background backgroundImageSrc={BackgroundImage}/>
     </>);
 };

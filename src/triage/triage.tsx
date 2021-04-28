@@ -121,7 +121,7 @@ export const Triage: React.FC = () => {
                     <PatientSet patients={DATA}/>
                 )}
             </div>
-            <Background backgroundImageSrc={BackgroundImage as string}/>
+            <Background backgroundImageSrc={BackgroundImage}/>
         </>
     );
 };

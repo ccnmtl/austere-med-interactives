@@ -326,7 +326,7 @@ export const PatientPanel: React.FC<PatientPanelProps> = (
                         <div className="alert alert-info" role="alert">
                             {patient[prompts[activePrompt][1]]}
                         </div>
-                        <img className="img-thumbnail" src={Nurse as string} />
+                        <img className="img-thumbnail" src={Nurse} />
                         {/* TODO: simplify */}
                         {typeof patient[prompts[activePrompt][2]] === 'string' && (
                             <button type="button"

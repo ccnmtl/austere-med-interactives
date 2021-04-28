@@ -140,7 +140,7 @@ export const MedkitSummary: React.FC = () => {
                     </div>
                 </div>
             </div>
-            <Background backgroundImageSrc={BackgroundImage as string}/>
+            <Background backgroundImageSrc={BackgroundImage}/>
         </>
     );
 };

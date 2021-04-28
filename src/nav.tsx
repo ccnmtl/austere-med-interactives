@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import LogoType from './images/logo-austmed-red-white.svg';
 
 interface NavItems {
     text: string;
@@ -20,8 +21,7 @@ export const Nav: React.FC<NavProps> = ({title, items}: NavProps) => {
             data-testid={'nav'}>
             <div className={'container-fluid'}>
                 <a className={'navbar-brand'} href={'/'}>
-                    <span id={'am-nav__logotype-outer'}>
-                        <span id={'am-nav__logotype-inner'}>AUSTERE</span>MEDICINE</span>&nbsp;
+                    <img id={'am__logo-type'} src={LogoType} alt="" />
                     {title && title}
                 </a>
                 <button
