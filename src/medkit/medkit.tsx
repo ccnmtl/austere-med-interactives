@@ -133,17 +133,23 @@ export const Medkit: React.FC<MedkitParams> = (
                                         }
 
                                         return (
-                                            <tr key={idx}
-                                                className={itemsPicked[idx] ? 'table-active' : ''}>
+                                            <tr key={idx}>
                                                 {showRowHeader && (
                                                     <th scope={'rowgroup'}
                                                         rowSpan={CATEGORY_HIST.get(el.category)}>
                                                         {el.category}
                                                     </th>
                                                 )}
-                                                <td>{el.item}</td>
-                                                <td>{el.points}</td>
-                                                <td>
+                                                <td className={
+                                                    itemsPicked[idx] ? 'table-active' : ''}>
+                                                    {el.item}
+                                                </td>
+                                                <td className={
+                                                    itemsPicked[idx] ? 'table-active' : ''}>
+                                                    {el.points}
+                                                </td>
+                                                <td className={
+                                                    itemsPicked[idx] ? 'table-active' : ''}>
                                                     <input
                                                         className={'btn-check'}
                                                         type='checkbox'
@@ -176,7 +182,7 @@ export const Medkit: React.FC<MedkitParams> = (
                                     <p className="h2">
                                         {totalItemsScore} / {budget} Points
                                     </p>
-                                    <p className={'medkit__basket--warning'}>
+                                    <p className={'medkit__basket--warning text-warning'}>
                                         {/* eslint-disable-next-line max-len */}
                                         {totalItemsScore >= budget ? 'Your selections are over budget' : ''}
                                     </p>
