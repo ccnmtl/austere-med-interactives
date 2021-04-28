@@ -5,14 +5,8 @@ import { Nav } from '../nav';
 import { Background } from '../background';
 import BackgroundImage from '../images/iStock-1217277545.jpg';
 import DATA from '../data/medkit.json';
-import { getMedkitData } from './medkit';
+import { getMedkitData, CATEGORY_HIST } from './medkit';
 import { saveAs } from 'file-saver';
-
-const CATEGORY_HIST = DATA.reduce((acc, val) => {
-    const freq = acc.get(val.category);
-    acc.set(val.category, freq ? freq + 1 : 1);
-    return acc;
-}, new Map<string, number>());
 
 const getMedkitPoints = (items: boolean[]): number => {
     return DATA.reduce((acc, val, idx) => {
@@ -73,16 +67,24 @@ export const MedkitSummary: React.FC = () => {
             <Nav title={'Medical Kit Simulation'} items={navItems}/>
             <div className={'container medkit__content'} data-testid='medkit'>
                 <div className={'row'}>
-                    <div className="col-10">
+                    <div className="col-9">
                         <h1>Medkit Summary</h1>
                     </div>
-                    <div className="col-2">
-                        <button
-                            type={'button'}
-                            onClick={handleDownload}
-                            className={'btn btn-primary d-block ms-auto'}>
-                            Download Summary
-                        </button>
+                    <div className="col-3">
+                        <div className={'d-flex justify-content-end'}>
+                            <button
+                                type={'button'}
+                                onClick={() => window.print()}
+                                className={'btn btn-primary me-2'}>
+                                Print
+                            </button>
+                            <button
+                                type={'button'}
+                                onClick={handleDownload}
+                                className={'btn btn-primary'}>
+                                Download Summary
+                            </button>
+                        </div>
                     </div>
                 </div>
                 <div className="row">

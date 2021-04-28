@@ -18,6 +18,12 @@ const resetMedkitData = (medkitId: string): boolean[] => {
     return initList;
 };
 
+export const CATEGORY_HIST = DATA.reduce((acc, val) => {
+    const freq = acc.get(val.category);
+    acc.set(val.category, freq ? freq + 1 : 1);
+    return acc;
+}, new Map<string, number>());
+
 export const getMedkitData = (medkitId: string): boolean[] => {
     return JSON.parse(window.localStorage.getItem('medkit-' + medkitId)) as boolean[];
 };
@@ -88,7 +94,7 @@ export const Medkit: React.FC<MedkitParams> = (
             link: `/medkit/${medkitId}`
         },
         {
-            text: 'Step 1. Reflect',
+            text: 'Step 3. Summary',
             active: false,
             link: '/medkit/summary'
         }
@@ -119,13 +125,31 @@ export const Medkit: React.FC<MedkitParams> = (
                                 </thead>
                                 <tbody>
                                     {DATA.map((el: MedkitItem, idx) => {
+                                        let showRowHeader = false;
+                                        if (idx == 0) {
+                                            showRowHeader = true;
+                                        } else if (DATA[idx].category != DATA[idx - 1].category) {
+                                            showRowHeader = true;
+                                        }
+
                                         return (
-                                            <tr key={idx}
-                                                className={itemsPicked[idx] ? 'table-active' : ''}>
-                                                <th scope="row">{el.category}</th>
-                                                <td>{el.item}</td>
-                                                <td>{el.points}</td>
-                                                <td>
+                                            <tr key={idx}>
+                                                {showRowHeader && (
+                                                    <th scope={'rowgroup'}
+                                                        rowSpan={CATEGORY_HIST.get(el.category)}>
+                                                        {el.category}
+                                                    </th>
+                                                )}
+                                                <td className={
+                                                    itemsPicked[idx] ? 'table-active' : ''}>
+                                                    {el.item}
+                                                </td>
+                                                <td className={
+                                                    itemsPicked[idx] ? 'table-active' : ''}>
+                                                    {el.points}
+                                                </td>
+                                                <td className={
+                                                    itemsPicked[idx] ? 'table-active' : ''}>
                                                     <input
                                                         className={'btn-check'}
                                                         type='checkbox'
@@ -158,12 +182,19 @@ export const Medkit: React.FC<MedkitParams> = (
                                     <p className="h2">
                                         {totalItemsScore} / {budget} Points
                                     </p>
-                                    <p className={'medkit__basket--warning'}>
+                                    <p className={'medkit__basket--warning text-warning'}>
                                         {/* eslint-disable-next-line max-len */}
                                         {totalItemsScore >= budget ? 'Your selections are over budget' : ''}
                                     </p>
                                 </div>
                                 <div className="col-12 d-flex">
+                                    {Number(medkitId) > 1 && (
+                                        <a
+                                            href={`/medkit/${Number(medkitId) - 1}`}
+                                            className={'btn btn-secondary me-auto'}>
+                                            Previous
+                                        </a>
+                                    )}
                                     <button
                                         type={'button'}
                                         onClick={resetSelections}
