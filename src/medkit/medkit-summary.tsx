@@ -57,7 +57,7 @@ export const MedkitSummary: React.FC = () => {
             link: '/medkit/1'
         },
         {
-            text: 'Step 3. Reflect',
+            text: 'Step 3. Summary',
             active: true,
             link: '/medkit/summary'
         }

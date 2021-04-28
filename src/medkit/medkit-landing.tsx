@@ -17,7 +17,7 @@ export const MedkitLanding: React.FC = () => {
             link: '/medkit/1'
         },
         {
-            text: 'Step 3. Reflect',
+            text: 'Step 3. Summary',
             active: false,
             link: '/medkit/summary'
         }
