@@ -182,6 +182,13 @@ export const Medkit: React.FC<MedkitParams> = (
                                     </p>
                                 </div>
                                 <div className="col-12 d-flex">
+                                    {Number(medkitId) > 1 && (
+                                        <a
+                                            href={`/medkit/${Number(medkitId) - 1}`}
+                                            className={'btn btn-secondary me-auto'}>
+                                            Previous
+                                        </a>
+                                    )}
                                     <button
                                         type={'button'}
                                         onClick={resetSelections}
