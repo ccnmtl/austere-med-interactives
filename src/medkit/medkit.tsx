@@ -88,7 +88,7 @@ export const Medkit: React.FC<MedkitParams> = (
             link: `/medkit/${medkitId}`
         },
         {
-            text: 'Step 1. Reflect',
+            text: 'Step 3. Summary',
             active: false,
             link: '/medkit/summary'
         }
