@@ -41,7 +41,7 @@ export const App: React.FC = () => {
                 <Route exact path="/medkit/1">
                     <Medkit
                         title={'Case 1: Mountain Expedition'}
-                        budget={5}
+                        budget={80}
                         scenario={MEDKIT_1_SCENARIO}
                         medkitId={'1'}/>
                 </Route>
