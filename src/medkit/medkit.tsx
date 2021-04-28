@@ -18,6 +18,12 @@ const resetMedkitData = (medkitId: string): boolean[] => {
     return initList;
 };
 
+export const CATEGORY_HIST = DATA.reduce((acc, val) => {
+    const freq = acc.get(val.category);
+    acc.set(val.category, freq ? freq + 1 : 1);
+    return acc;
+}, new Map<string, number>());
+
 export const getMedkitData = (medkitId: string): boolean[] => {
     return JSON.parse(window.localStorage.getItem('medkit-' + medkitId)) as boolean[];
 };
@@ -119,10 +125,22 @@ export const Medkit: React.FC<MedkitParams> = (
                                 </thead>
                                 <tbody>
                                     {DATA.map((el: MedkitItem, idx) => {
+                                        let showRowHeader = false;
+                                        if (idx == 0) {
+                                            showRowHeader = true;
+                                        } else if (DATA[idx].category != DATA[idx - 1].category) {
+                                            showRowHeader = true;
+                                        }
+
                                         return (
                                             <tr key={idx}
                                                 className={itemsPicked[idx] ? 'table-active' : ''}>
-                                                <th scope="row">{el.category}</th>
+                                                {showRowHeader && (
+                                                    <th scope={'rowgroup'}
+                                                        rowSpan={CATEGORY_HIST.get(el.category)}>
+                                                        {el.category}
+                                                    </th>
+                                                )}
                                                 <td>{el.item}</td>
                                                 <td>{el.points}</td>
                                                 <td>

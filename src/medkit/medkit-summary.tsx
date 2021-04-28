@@ -5,14 +5,8 @@ import { Nav } from '../nav';
 import { Background } from '../background';
 import BackgroundImage from '../images/iStock-1217277545.jpg';
 import DATA from '../data/medkit.json';
-import { getMedkitData } from './medkit';
+import { getMedkitData, CATEGORY_HIST } from './medkit';
 import { saveAs } from 'file-saver';
-
-const CATEGORY_HIST = DATA.reduce((acc, val) => {
-    const freq = acc.get(val.category);
-    acc.set(val.category, freq ? freq + 1 : 1);
-    return acc;
-}, new Map<string, number>());
 
 const getMedkitPoints = (items: boolean[]): number => {
     return DATA.reduce((acc, val, idx) => {
