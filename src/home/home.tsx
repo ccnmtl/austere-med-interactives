@@ -1,6 +1,6 @@
 import React from 'react';
 import { Nav } from '../nav';
-import LogoType from '../images/logo-austmed-red-white.svg';
+import { Logo } from '../logo';
 
 export const Home: React.FC = () => {
     return (
@@ -10,7 +10,7 @@ export const Home: React.FC = () => {
                 <div className={'container'} data-testid='home'>
                     <div className="row">
                         <div className="col-12 py-5 am__hero-col">
-                            <img id={'am__logo-type'} src={LogoType} alt="" />
+                            <Logo />
                             <span className={'h1 display-5 fw-bold text-white'}>
                                 Lorem ipsum dolor sit amet.
                             </span>

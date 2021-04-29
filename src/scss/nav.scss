@@ -1,11 +1,9 @@
 nav#am-nav {
     background-color: #000000;
+    @extend .d-print-none
 }
 
-#am-nav__logotype-outer {
-    font-weight: bold;
-}
-
-#am-nav__logotype-inner {
-    color: red;
+nav #am-logo-svg {
+    width: fit-content;
+    margin-right: 0.5em;
 }

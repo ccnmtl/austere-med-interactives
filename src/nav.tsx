@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import LogoType from './images/logo-austmed-red-white.svg';
+import { Logo } from './logo';
 
 interface NavItems {
     text: string;
@@ -21,7 +21,8 @@ export const Nav: React.FC<NavProps> = ({title, items}: NavProps) => {
             data-testid={'nav'}>
             <div className={'container-fluid'}>
                 <a className={'navbar-brand'} href={'/'}>
-                    <img id={'am__logo-type'} src={LogoType} alt="" />
+                    <Logo />
+                    <span className='sr-only'>Austere Medicine</span>
                     {title && title}
                 </a>
                 <button
@@ -51,7 +52,7 @@ export const Nav: React.FC<NavProps> = ({title, items}: NavProps) => {
             </div>
         </nav>
         <div className={'container'}>
-            <div className='alert alert-danger d-block d-xl-none view-only'
+            <div className='alert alert-danger d-block d-xl-none view-only d-print-none'
                 role='alert' aria-hidden='true'>
             Austere Med Sims are optimized for larger screens. Please
             switch to a desktop computer, or expand your browser size.

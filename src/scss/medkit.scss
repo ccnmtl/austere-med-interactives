@@ -31,3 +31,15 @@
 .medkit__basket--warning {
     min-height: 1.5em;
 }
+
+@media print {
+    .medkit-summary__table {
+        font-size: 6px;
+
+        thead tr.table-dark th {
+            vertical-align: middle;
+            -webkit-print-color-adjust: exact !important;
+            color-adjust: exact !important;
+        }
+    }
+}
