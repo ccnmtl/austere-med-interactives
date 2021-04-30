@@ -2,6 +2,10 @@
     @extend %content;
 }
 
+.nav-pills .nav-link.active {
+    @extend .bg-secondary;
+}
+
 .triage__tab-content {
     padding: 1em;
     border-radius: .25rem;

@@ -7,6 +7,7 @@ import BackgroundImage from '../images/iStock-1217277545.jpg';
 import DATA from '../data/medkit.json';
 import { getMedkitData, CATEGORY_HIST } from './medkit';
 import { saveAs } from 'file-saver';
+import { Logo } from '../logo';
 
 const getMedkitPoints = (items: boolean[]): number => {
     return DATA.reduce((acc, val, idx) => {
@@ -33,7 +34,7 @@ export const MedkitSummary: React.FC = () => {
         setCSV(DATA.reduce((acc: string, val, idx) => {
             return acc.concat(
                 // eslint-disable-next-line max-len
-                `${val.category},${val.item},${val.points},${KIT_1[idx] ? 'X' : ''},${KIT_2[idx] ? 'X' : ''},${KIT_3[idx] ? 'X' : ''}\n`
+                `${val.category},${val.item},${val.points},${KIT_1[idx] ? '1' : ''},${KIT_2[idx] ? '1' : ''},${KIT_3[idx] ? '1' : ''}\n`
             );
         }, csvString));
     }, []);
@@ -57,7 +58,7 @@ export const MedkitSummary: React.FC = () => {
             link: '/medkit/1'
         },
         {
-            text: 'Step 3. Reflect',
+            text: 'Step 3. Summary',
             active: true,
             link: '/medkit/summary'
         }
@@ -68,10 +69,13 @@ export const MedkitSummary: React.FC = () => {
             <div className={'container medkit__content'} data-testid='medkit'>
                 <div className={'row'}>
                     <div className="col-9">
+                        <div className="d-none d-print-block">
+                            <Logo />
+                        </div>
                         <h1>Medkit Summary</h1>
                     </div>
                     <div className="col-3">
-                        <div className={'d-flex justify-content-end'}>
+                        <div className={'d-flex d-print-none justify-content-end'}>
                             <button
                                 type={'button'}
                                 onClick={() => window.print()}
@@ -89,7 +93,9 @@ export const MedkitSummary: React.FC = () => {
                 </div>
                 <div className="row">
                     <div className={'col-12'}>
-                        <table className={'table table-sm bg-light text-center align-middle'}>
+                        <table className={
+                            // eslint-disable-next-line max-len
+                            'table table-sm bg-light text-center align-middle medkit-summary__table'}>
                             <colgroup>
                                 <col />
                                 <col />
@@ -105,9 +111,9 @@ export const MedkitSummary: React.FC = () => {
                                     <th scope={'col'}>Category</th>
                                     <th scope={'col'}>Item</th>
                                     <th scope={'col'}>Points</th>
-                                    <th scope={'col'}>Kit 1: {KIT_1_POINTS} Points</th>
-                                    <th scope={'col'}>Kit 2: {KIT_2_POINTS} Points</th>
-                                    <th scope={'col'}>Kit 3: {KIT_3_POINTS} Points</th>
+                                    <th scope={'col'}>Kit 1: {KIT_1_POINTS}&nbsp;Points</th>
+                                    <th scope={'col'}>Kit 2: {KIT_2_POINTS}&nbsp;Points</th>
+                                    <th scope={'col'}>Kit 3: {KIT_3_POINTS}&nbsp;Points</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -140,7 +146,7 @@ export const MedkitSummary: React.FC = () => {
                     </div>
                 </div>
             </div>
-            <Background backgroundImageSrc={BackgroundImage as string}/>
+            <Background backgroundImageSrc={BackgroundImage}/>
         </>
     );
 };

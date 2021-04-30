@@ -6,6 +6,7 @@ import { Background } from '../background';
 import BackgroundImage from '../images/iStock-1217878707.jpg';
 import { PatientSet } from './index';
 import DATA from '../data/triage.json';
+import TriageImg from '../images/iStock-1217878707.jpg';
 
 export interface TriageSelectionData {
     timeToAnswer: number;
@@ -79,7 +80,7 @@ export const Triage: React.FC = () => {
         {
             text: 'Step 1. Introduction',
             active: true,
-            link: '#'
+            link: simStarted ? '/triage' : '#',
         },
         {
             text: 'Step 2. Engage',
@@ -103,25 +104,68 @@ export const Triage: React.FC = () => {
             <Nav title={'Triage Simulation'} items={navItems}/>
             <div className={'container triage__content'} data-testid='triage'>
                 {!simStarted ? (<>
-                    {window.localStorage.getItem('triage') ? (<>
-                        <p>
-                            You have already completed the triage sim.
-                            &nbsp;<a href={'/triage/reflection'}>Reflection</a>
-                            &nbsp;<a href={'/triage/summary'}>Summary</a>
-                        </p>
-                        <p>
-                            Click <button className={'btn btn-primary btn-sm'}
-                                onClick={handleStart}>here</button>
-                            &nbsp;to reset your choices and retake the sim
-                        </p>
-                    </>) : (
-                        <button onClick={handleStart} data-testid='triage-start'>Start Sim</button>
-                    )}
+                    <div className="row">
+                        <div className="col-12">
+                            <h1>Crisis Overview</h1>
+                            <p className="lead">
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                            </p>
+                        </div>
+                    </div>
+                    <div className="row">
+                        <div className="col-6">
+                            <p>
+                                Duis et sagittis purus. Aenean convallis ligula
+                                eleifend enim volutpat auctor. Praesent in volutpat
+                                quam. Pellentesque sodales lectus semper augue scelerisque
+                                egestas. Praesent libero augue, tempus eget interdum vel,
+                                vestibulum et tortor. Quisque rhoncus leo tortor, nec
+                                pretium lacus venenatis interdum. Aenean varius suscipit
+                                tempus.
+                            </p>
+                            <p>
+                                Vestibulum at aliquet arcu, et auctor lectus.
+                                Phasellus a eros elit. Nulla quis mi ac nunc
+                                consectetur mattis. Integer sed malesuada ligula.
+                                Curabitur venenatis turpis in ex facilisis rhoncus.
+                                Morbi feugiat sagittis vestibulum. Nam rhoncus, lectus
+                                in mattis pretium, augue nunc vestibulum velit,
+                                dignissim hendrerit nibh purus in libero. Nunc sagittis
+                                ullamcorper mi, vel luctus risus dapibus eu. Integer
+                                vehicula vitae tortor vel fermentum. Phasellus
+                                pellentesque felis sed consectetur elementum. Curabitur
+                                vitae lectus velit. Phasellus at lacus diam. Aenean
+                                fermentum lorem non velit faucibus rutrum. Mauris id
+                                eros bibendum, dictum erat sit amet, bibendum orci.
+                                Donec sit amet nisl et libero venenatis hendrerit. Duis
+                                non fermentum lacus.
+                            </p>
+                            {window.localStorage.getItem('triage') ? (<>
+                                <p>
+                                    You have already completed the triage sim.
+                                    &nbsp;<a href={'/triage/reflection'}>Reflection</a>
+                                    &nbsp;<a href={'/triage/summary'}>Summary</a>
+                                </p>
+                                <p>
+                                    Click <button className={'btn btn-danger btn-lg'}
+                                        onClick={handleStart}>here</button>
+                                    &nbsp;to reset your choices and retake the sim
+                                </p>
+                            </>) : (
+                                <button onClick={handleStart} data-testid='triage-start'>
+                                    Engage
+                                </button>
+                            )}
+                        </div>
+                        <div className="col-6">
+                            <img className={'img-fluid'} src={TriageImg}/>
+                        </div>
+                    </div>
                 </>) : (
                     <PatientSet patients={DATA}/>
                 )}
             </div>
-            <Background backgroundImageSrc={BackgroundImage as string}/>
+            <Background backgroundImageSrc={BackgroundImage}/>
         </>
     );
 };

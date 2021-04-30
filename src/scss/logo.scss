@@ -1,0 +1,14 @@
+#am-logo-svg {
+    .cls-1 {
+        fill: #cd2030;
+    }
+    .cls-2 {
+        fill: #fff;
+    }
+}
+
+@media print {
+    #am-logo-svg .cls-2 {
+        fill: #000;
+    }
+}

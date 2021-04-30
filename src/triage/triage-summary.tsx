@@ -6,6 +6,7 @@ import BackgroundImage from '../images/iStock-1217878707.jpg';
 import DATA from '../data/triage.json';
 import {getTriageSelectionData, TriageSelectionData, printFSeconds} from './';
 import { saveAs } from 'file-saver';
+import { Logo } from '../logo';
 
 export const TriageSummary: React.FC = () => {
     const [selections, setSelections] = useState<TriageSelectionData[]>(null);
@@ -60,16 +61,27 @@ export const TriageSummary: React.FC = () => {
             <Nav title={'Triage Simulation'} items={navItems}/>
             <div className={'container triage__content'} data-testid='triage-summary'>
                 <div className="row">
-                    <div className="col-10">
-                        <h1>Summary</h1>
+                    <div className="col-9">
+                        <div className="d-none d-print-block">
+                            <Logo />
+                        </div>
+                        <h1>Triage Simulation Summary</h1>
                     </div>
-                    <div className={'col-2'}>
-                        {csv && (<button
-                            type={'button'}
-                            className={'btn btn-primary d-block ms-auto'}
-                            onClick={handleDownload}>
-                            Download Summary
-                        </button>)}
+                    <div className="col-3">
+                        <div className={'d-flex d-print-none justify-content-end'}>
+                            <button
+                                type={'button'}
+                                onClick={() => window.print()}
+                                className={'btn btn-primary me-2'}>
+                                Print
+                            </button>
+                            <button
+                                type={'button'}
+                                onClick={handleDownload}
+                                className={'btn btn-primary'}>
+                                Download Summary
+                            </button>
+                        </div>
                     </div>
                 </div>
                 <div className="row">
@@ -184,7 +196,7 @@ export const TriageSummary: React.FC = () => {
                     </div>
                 </div>
             </div>
-            <Background backgroundImageSrc={BackgroundImage as string}/>
+            <Background backgroundImageSrc={BackgroundImage}/>
         </>
     );
 };
