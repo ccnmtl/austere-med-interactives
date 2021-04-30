@@ -100,9 +100,9 @@ const PatientAssignmentChoice: React.FC<PatientAssignmentChoiceProps> = (
                 <label >{heading}</label>
             </div>
             <div
-                className="btn-group btn-group-sm"
+                className="btn-group"
                 role="group"
-                aria-label="Basic radio toggle button group">
+                aria-label="Patient triage selections">
                 {choices.map((el, idx) => {
                     return (<React.Fragment key={idx}>
                         <input type="radio"
@@ -115,7 +115,10 @@ const PatientAssignmentChoice: React.FC<PatientAssignmentChoiceProps> = (
                             aria-disabled={lockPanel}
                             disabled={lockPanel}
                             autoComplete="off"/>
-                        <label className="btn btn-secondary" htmlFor={el.id}>
+                        <label
+                            className={'btn ' + (
+                                state == el.text ? 'btn-secondary' : 'btn-outline-secondary')}
+                            htmlFor={el.id}>
                             {el.text}
                         </label>
                     </React.Fragment>);
@@ -278,7 +281,7 @@ export const PatientPanel: React.FC<PatientPanelProps> = (
                         <button
                             type={'button'}
                             onClick={lastPatient ? advanceToReflection : advanceToNextPatient}
-                            className={'btn btn-success btn-small'}>
+                            className={'btn btn-primary btn-small'}>
                             {lastPatient ? (
                                 <>Proceed to Reflection</>
                             ) : (
@@ -291,7 +294,7 @@ export const PatientPanel: React.FC<PatientPanelProps> = (
         )}
         <div className={'row'}>
             <div id="v-pills-tabContent" className="col-md-3 tab-content">
-                <div className="nav flex-column nav-pills me-3 bg-white"
+                <div className="nav flex-column nav-pills me-3 bg-white triage-pills"
                     role="tablist"
                     aria-orientation="vertical"
                     // TODO: remove style
@@ -330,7 +333,7 @@ export const PatientPanel: React.FC<PatientPanelProps> = (
                         {/* TODO: simplify */}
                         {typeof patient[prompts[activePrompt][2]] === 'string' && (
                             <button type="button"
-                                className="btn btn-primary btn-sm"
+                                className="btn btn-secondary"
                                 onClick={handleAudioClick}
                                 aria-disabled={lockPanel}
                                 disabled={lockPanel}
@@ -358,7 +361,7 @@ export const PatientPanel: React.FC<PatientPanelProps> = (
                     })}
                     <div className="form-group">
                         <button type={'button'}
-                            className="btn btn-success btn-sm"
+                            className="btn btn-primary"
                             aria-disabled={lockPanel}
                             disabled={lockPanel}
                             onClick={handleFormSubmit}>
