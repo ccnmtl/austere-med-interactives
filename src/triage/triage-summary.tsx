@@ -65,7 +65,7 @@ export const TriageSummary: React.FC = () => {
                         <div className="d-none d-print-block">
                             <Logo />
                         </div>
-                        <h1>Triage Simulation Summary</h1>
+                        <h1>Patient Triage Simulation Summary</h1>
                     </div>
                     <div className="col-3">
                         <div className={'d-flex d-print-none justify-content-end'}>

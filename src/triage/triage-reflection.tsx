@@ -35,7 +35,7 @@ export const TriageReflection: React.FC = () => {
             <div className={'container triage__content'} data-testid='triage-summary'>
                 <div className="row">
                     <div className="col-12">
-                        <h1>Triage Reflection</h1>
+                        <h1>Patient Triage Simulation Reflection</h1>
                     </div>
                 </div>
                 <div className="row">

@@ -8,9 +8,11 @@ interface PromoCardProps {
     text: string;
     linkUrl: string;
     imgUrl: string;
+    disable: boolean;
 }
 
-const PromoCard: React.FC<PromoCardProps> = ({title, text, linkUrl, imgUrl}: PromoCardProps) => {
+const PromoCard: React.FC<PromoCardProps> = (
+    {title, text, linkUrl, imgUrl, disable}: PromoCardProps) => {
     return (
         <div className="col-6">
             <div className="card shadow-sm">
@@ -26,7 +28,11 @@ const PromoCard: React.FC<PromoCardProps> = ({title, text, linkUrl, imgUrl}: Pro
                     <p className="card-text">
                         {text}
                     </p>
-                    <a href={linkUrl} className={'btn btn-lg btn-danger'}>Begin</a>
+                    <a href={disable ? '#' : linkUrl}
+                        className={
+                            'btn btn-lg btn-danger ' + (disable ? 'disabled' : '')}>
+                        {disable ? 'Coming Soon' : 'Begin'}
+                    </a>
                 </div>
             </div>
         </div>
@@ -38,16 +44,18 @@ export const Home: React.FC = () => {
         {
             title: 'Medical Kit Simulation',
             // eslint-disable-next-line max-len
-            text: 'Sed at nulla rutrum, malesuada elit eu, vehicula purus. Vestibulum convallis accumsan eros, in pharetra leo blandit non.',
+            text: '',
             linkUrl: '/medkit',
-            imgUrl: MedkitImg
+            imgUrl: MedkitImg,
+            disable: false
         },
         {
-            title: 'Patient Outbreak Simulation',
+            title: 'Patient Triage Simulation',
             // eslint-disable-next-line max-len
-            text: 'Sed at nulla rutrum, malesuada elit eu, vehicula purus. Vestibulum convallis accumsan eros, in pharetra leo blandit non.',
+            text: '',
             linkUrl: '/triage',
-            imgUrl: TriageImg
+            imgUrl: TriageImg,
+            disable: true
         }
     ];
 
@@ -59,17 +67,11 @@ export const Home: React.FC = () => {
                         <div className="col-12 col-md-8 am__hero-col">
                             <Logo />
                             <span className={'h1 display-5 fw-bold text-white'}>
-                                Lorem ipsum dolor sit amet.
+                                VIRTUAL SIMULATIONS
                             </span>
                             <p className={'fs-5 text-white text-center'}>
-                                A better, longer description goes here. Lorem
-                                ipsum dolor sit amet, consectetur adipiscing
-                                elit. Suspendisse vel erat non ex mollis
-                                placerat ac vitae metus. Mauris commodo nec
-                                erat ut ultricies. Sed at nulla rutrum,
-                                malesuada elit eu, vehicula purus. Vestibulum
-                                convallis accumsan eros, in pharetra leo
-                                blandit non. In vitae elementum nisi.
+                                Experience digital teaching tools for medical
+                                care wilderness and disaster environments.
                             </p>
                         </div>
                     </div>
@@ -85,7 +87,8 @@ export const Home: React.FC = () => {
                                     title={el.title}
                                     text={el.text}
                                     linkUrl={el.linkUrl}
-                                    imgUrl={el.imgUrl}/>
+                                    imgUrl={el.imgUrl}
+                                    disable={el.disable}/>
                             );
                         })}
                     </div>
@@ -95,30 +98,18 @@ export const Home: React.FC = () => {
                 <div className="container py-5">
                     <div className="row py-5">
                         <div className="col-4">
-                            <span className="h2 d-block">Featured Title</span>
+                            <span className="h2 d-block">About</span>
                             <p>
-                                Paragraph of text beneath the heading to
-                                explain the heading. We&apos;ll add onto it with
-                                another sentence and probably just keep going
-                                until we run out of words.
                             </p>
                         </div>
                         <div className="col-4">
-                            <span className="h2 d-block">Featured Title</span>
+                            <span className="h2 d-block">Partners</span>
                             <p>
-                                Paragraph of text beneath the heading to
-                                explain the heading. We&apos;ll add onto it with
-                                another sentence and probably just keep going
-                                until we run out of words.
                             </p>
                         </div>
                         <div className="col-4">
-                            <span className="h2 d-block">Featured Title</span>
+                            <span className="h2 d-block"></span>
                             <p>
-                                Paragraph of text beneath the heading to
-                                explain the heading. We&apos;ll add onto it with
-                                another sentence and probably just keep going
-                                until we run out of words.
                             </p>
                         </div>
                     </div>

@@ -101,12 +101,12 @@ export const Triage: React.FC = () => {
 
     return (
         <>
-            <Nav title={'Triage Simulation'} items={navItems}/>
+            <Nav title={'Patient Triage Simulation'} items={navItems}/>
             <div className={'container triage__content'} data-testid='triage'>
                 {!simStarted ? (<>
                     <div className="row">
                         <div className="col-12">
-                            <h1>Crisis Overview</h1>
+                            <h1>Patient Triage Simulation</h1>
                             <p className="lead">
                                 Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                             </p>
