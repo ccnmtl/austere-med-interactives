@@ -10,7 +10,7 @@ interface NavItems {
 interface NavProps {
     title?: string;
     items?: NavItems[];
-    showAbout: boolean;
+    showAbout?: boolean;
 }
 
 export const Nav: React.FC<NavProps> = ({title, items, showAbout=true}: NavProps) => {

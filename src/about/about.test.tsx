@@ -1,17 +1,17 @@
 import React from 'react';
 import { render } from '@testing-library/react';
-import { Medkit } from './medkit';
+import { About } from './about';
 import { MemoryRouter } from 'react-router-dom';
 
-describe('Medkit test', () => {
+describe('About page test', () => {
     const renderComponent = () => render(
         <MemoryRouter>
-            <Medkit title={'Medkit Scenario'} budget={100} scenario={'test'} medkitId={'1'} />
+            <About />
         </MemoryRouter>
     );
-    it('Should render the medkit page component', () => {
+    it('Should render the about page component', () => {
         const { getByTestId } = renderComponent();
-        const component = getByTestId('medkit');
+        const component = getByTestId('about');
         expect(component).toBeVisible();
     });
 });
