@@ -17,12 +17,12 @@ export const About: React.FC = () => {
                             The Austere Medicine site consists of two
                             independent simulations - the Medical Kit
                             simulation and the Patient Triage simulation. Designed
-                            for us in the VP&amp;S Austere Medicine Elective, the two
+                            for use in the VP&amp;S Austere Medicine Elective, the two
                             simulations aim to provide learners with opportunities to
                             learn about medical care in resource-limited settings. The
                             Medical Kit simulation offers students three different
                             scenarios where they must decide what medical supplies they
-                            would pack, while the Patient Triage simulation puts learners
+                            would pack. The Patient Triage simulation puts learners
                             in the perspective of a triage officer assigned to the EMS triage
                             area to help direct the rapid inflow of patients. The simulations
                             are intended to be part of a learning sequence. It is
