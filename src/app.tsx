@@ -2,8 +2,18 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Switch  } from 'react-router-dom';
 import { NotFound } from './not-found';
 import { Home } from './home';
+import { About } from './about';
 import { Triage, TriageSummary, TriageReflection } from './triage';
 import { Medkit, MedkitSummary, MedkitLanding } from './medkit';
+import { withTracker } from './withTracker';
+import * as Sentry from '@sentry/browser';
+
+/* eslint-disable-next-line */
+if (true) {
+    Sentry.init({
+        dsn: 'https://1ff8147c34ca4105bd6a71ac9489ba49@o46310.ingest.sentry.io/5743963',
+    });
+}
 
 const MEDKIT_1_SCENARIO = `Create a medical kit for a ski mountaineering
     expedition. You’ll be a leading a group of 10 participants on a four-day
@@ -29,31 +39,34 @@ with equipment and luggage, so can be larger — a maximum of 90 points. It must
 be suitable for international travel. Note: this kit is intended to care for
 your team of providers, not the patients at the field hospital.`;
 
+const TrackedMedkit = withTracker(Medkit);
+
 export const App: React.FC = () => {
     return (
         <Router>
             <Switch>
-                <Route exact path="/" component={Home}/>
-                <Route exact path="/triage" component={Triage}/>
-                <Route exact path="/triage/reflection" component={TriageReflection}/>
-                <Route exact path="/triage/summary" component={TriageSummary}/>
-                <Route exact path="/medkit" component={MedkitLanding}/>
+                <Route exact path="/" component={withTracker(Home)}/>
+                <Route exact path="/about" component={withTracker(About)}/>
+                <Route exact path="/triage" component={withTracker(Triage)}/>
+                <Route exact path="/triage/reflection" component={withTracker(TriageReflection)}/>
+                <Route exact path="/triage/summary" component={withTracker(TriageSummary)}/>
+                <Route exact path="/medkit" component={withTracker(MedkitLanding)}/>
                 <Route exact path="/medkit/1">
-                    <Medkit
+                    <TrackedMedkit
                         title={'Case 1: Mountain Expedition'}
                         budget={80}
                         scenario={MEDKIT_1_SCENARIO}
                         medkitId={'1'}/>
                 </Route>
                 <Route exact path="/medkit/2">
-                    <Medkit
+                    <TrackedMedkit
                         title={'Case 2: Desert Mountain Biking'}
                         budget={65}
                         scenario={MEDKIT_2_SCENARIO}
                         medkitId={'2'}/>
                 </Route>
                 <Route exact path="/medkit/3">
-                    <Medkit
+                    <TrackedMedkit
                         title={'Case 3: Disaster Response'}
                         budget={90}
                         scenario={MEDKIT_3_SCENARIO}

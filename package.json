@@ -64,11 +64,13 @@
     "webpack-dev-server": "^3.11.2"
   },
   "dependencies": {
+    "@sentry/browser": "^6.3.5",
     "babel-loader": "^8.2.2",
     "bootstrap": "5.0.0-beta3",
     "file-saver": "^2.0.5",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
+    "react-ga": "^3.3.0",
     "react-router-dom": "^5.2.0"
   }
 }

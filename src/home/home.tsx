@@ -44,7 +44,7 @@ export const Home: React.FC = () => {
         {
             title: 'Medical Kit Simulation',
             // eslint-disable-next-line max-len
-            text: '',
+            text: 'It pays to be prepared for a crisis in the field but you can’t take it all with you What will you take with you? What must you leave behind?',
             linkUrl: '/medkit',
             imgUrl: MedkitImg,
             disable: false
@@ -52,7 +52,7 @@ export const Home: React.FC = () => {
         {
             title: 'Patient Triage Simulation',
             // eslint-disable-next-line max-len
-            text: '',
+            text: 'An outbreak situation has created a crisis in an urban hospital system. Can you work fast and dilligently enough to meet your patients’ needs?',
             linkUrl: '/triage',
             imgUrl: TriageImg,
             disable: true
@@ -100,17 +100,32 @@ export const Home: React.FC = () => {
                         <div className="col-4">
                             <span className="h2 d-block">About</span>
                             <p>
+                                The Austere Medicine initiative is a positive
+                                environment for a community of final-year
+                                medical students to learn about medical care in
+                                resource-limited settings, including wilderness and
+                                disaster environments.
                             </p>
+                            <a href={'/about'} className={'btn btn-danger'}>More</a>
                         </div>
                         <div className="col-4">
                             <span className="h2 d-block">Partners</span>
                             <p>
+                                This project is a joint collaboration between
+                                CUIMC and CTL with additional support from the
+                                Columbia Office of the VPTLI.
                             </p>
                         </div>
                         <div className="col-4">
-                            <span className="h2 d-block"></span>
+                            <span className="h2 d-block">Contact</span>
                             <p>
+                                Please reach out for bugs, questions, or more
+                                information about the project.
                             </p>
+                            <a href={'mailto:ctl-austeremedicine@columbia.edu'}
+                                className={'btn btn-danger'}>
+                                Contact Us
+                            </a>
                         </div>
                     </div>
                 </div>
