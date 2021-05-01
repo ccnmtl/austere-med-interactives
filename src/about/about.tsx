@@ -72,8 +72,9 @@ export const About: React.FC = () => {
                             <strong>Project Management:</strong> Meesha Meksin<br/>
                             <strong>Media Production:</strong> Michael DeLeon<br/>
                             <strong>Programming &amp; Development:</strong> Nick Buonincontri<br/>
-                            <strong>User Interface Design &amp; Interaction:</strong>
-                            Marc Raymond<br/>
+                            <strong>
+                                User Interface Design &amp; Interaction:
+                            </strong> Marc Raymond<br/>
                         </p>
                         <h2>License</h2>
                         <div>
