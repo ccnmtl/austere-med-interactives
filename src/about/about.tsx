@@ -17,20 +17,20 @@ export const About: React.FC = () => {
                             The Austere Medicine site consists of two
                             independent simulations - the Medical Kit
                             simulation and the Patient Triage simulation. Designed
-                            for us in the VP&S Austere Medicine Elective, the two
-                            simulations aim to provide learners with opportunities to to
+                            for us in the VP&amp;S Austere Medicine Elective, the two
+                            simulations aim to provide learners with opportunities to
                             learn about medical care in resource-limited settings. The
                             Medical Kit simulation offers students three different
                             scenarios where they must decide what medical supplies they
                             would pack, while the Patient Triage simulation puts learners
                             in the perspective of a triage officer assigned to the EMS triage
                             area to help direct the rapid inflow of patients. The simulations
-                            are intended to be part of a learning sequence and it is
+                            are intended to be part of a learning sequence. It is
                             recommended that learners have preparatory materials leading up to
                             each simulation, followed by reflection and/or a group discussion
                             focusing on what decisions learners made and why, what they found
                             challenging, what additional information would they have wanted,
-                            and what would they do differently in the future?
+                            and what would they do differently in the future.
                         </p>
                         <p>
                             Through a Provost’s grant at Columbia University,
@@ -38,7 +38,7 @@ export const About: React.FC = () => {
                             Learning, the Austere Medicine site was developed in
                             collaboration with faculty from the Emergency Medicine
                             department at the Columbia University Irving Medical
-                            Center, for use in the VP&S Austere Medicine Elective.
+                            Center, for use in the VP&amp;S Austere Medicine Elective.
                             The site is open to the public and we encourage others
                             to use the simulations and share their feedback with
                             us.
@@ -72,6 +72,7 @@ export const About: React.FC = () => {
                             <strong>Project Management:</strong> Meesha Meksin<br/>
                             <strong>Media Production:</strong> Michael DeLeon<br/>
                             <strong>Programming &amp; Development:</strong> Nick Buonincontri<br/>
+                            <strong>User Interface Design &amp; Interaction:</strong> Marc Raymond<br/>
                         </p>
                         <h2>License</h2>
                         <div>
