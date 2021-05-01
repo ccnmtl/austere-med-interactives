@@ -10,16 +10,17 @@ interface NavItems {
 interface NavProps {
     title?: string;
     items?: NavItems[];
+    showAbout?: boolean;
 }
 
-export const Nav: React.FC<NavProps> = ({title, items}: NavProps) => {
+export const Nav: React.FC<NavProps> = ({title, items, showAbout=true}: NavProps) => {
     const [showDropdown, setShowDropdown] = useState<boolean>(false);
 
     return (<>
         <nav id={'am-nav'}
             className={'navbar navbar-expand-lg navbar-dark bg-dark'}
             data-testid={'nav'}>
-            <div className={'container-fluid'}>
+            <div className={'container'}>
                 <a className={'navbar-brand'} href={'/'}>
                     <Logo />
                     <span className='sr-only'>Austere Medicine</span>
@@ -36,7 +37,7 @@ export const Nav: React.FC<NavProps> = ({title, items}: NavProps) => {
                 </button>
                 <div id='navbarSupportedContent'
                     className={`collapse navbar-collapse${showDropdown ? ' show' : ''}`}>
-                    <ul className='navbar-nav me-auto mb-2 mb-lg-0'>
+                    <ul className='navbar-nav mb-2 mb-lg-0 w-100'>
                         {items && items.map((el, idx) => {
                             return (
                                 <li key={idx} className='nav-item'>
@@ -47,6 +48,13 @@ export const Nav: React.FC<NavProps> = ({title, items}: NavProps) => {
                                 </li>
                             );
                         })}
+                        {showAbout && (
+                            <li className={'nav-item ms-auto'}>
+                                <a className="nav-link" href={'/about'}>
+                                    About
+                                </a>
+                            </li>
+                        )}
                     </ul>
                 </div>
             </div>
