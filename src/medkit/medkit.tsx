@@ -41,7 +41,7 @@ export const initMedkitData = (medkitId: string): boolean[] => {
 
 interface MedkitParams {
     title: string;
-    scenario: string;
+    scenario: React.FC;
     budget: number;
     medkitId: string;
 }
@@ -107,7 +107,7 @@ export const Medkit: React.FC<MedkitParams> = (
                 <div className={'row'}>
                     <div className="col-12">
                         <h1>{title}</h1>
-                        <p className="lead">{scenario}</p>
+                        <p className="lead">{scenario({})}</p>
                         <p className="lead">You have {budget} points.</p>
                     </div>
                 </div>

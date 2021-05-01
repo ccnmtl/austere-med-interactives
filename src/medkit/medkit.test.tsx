@@ -1,12 +1,16 @@
 import React from 'react';
 import { render } from '@testing-library/react';
-import { Medkit } from './medkit';
+import { Medkit, Medkit1Scenario } from './';
 import { MemoryRouter } from 'react-router-dom';
 
 describe('Medkit test', () => {
     const renderComponent = () => render(
         <MemoryRouter>
-            <Medkit title={'Medkit Scenario'} budget={100} scenario={'test'} medkitId={'1'} />
+            <Medkit
+                title={'Medkit Scenario'}
+                budget={100}
+                scenario={Medkit1Scenario}
+                medkitId={'1'} />
         </MemoryRouter>
     );
     it('Should render the medkit page component', () => {
