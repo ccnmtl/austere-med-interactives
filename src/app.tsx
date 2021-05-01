@@ -4,7 +4,10 @@ import { NotFound } from './not-found';
 import { Home } from './home';
 import { About } from './about';
 import { Triage, TriageSummary, TriageReflection } from './triage';
-import { Medkit, MedkitSummary, MedkitLanding } from './medkit';
+import {
+    Medkit, MedkitSummary, MedkitLanding, Medkit1Scenario, Medkit2Scenario,
+    Medkit3Scenario
+} from './medkit';
 import { withTracker } from './withTracker';
 import * as Sentry from '@sentry/browser';
 
@@ -14,30 +17,6 @@ if (true) {
         dsn: 'https://1ff8147c34ca4105bd6a71ac9489ba49@o46310.ingest.sentry.io/5743963',
     });
 }
-
-const MEDKIT_1_SCENARIO = `Create a medical kit for a ski mountaineering
-    expedition. You’ll be a leading a group of 10 participants on a four-day
-trip which will include skiing, snowshoeing, ice climbing and glacier travel in
-a remote alpine environment. Your med kit will have to fit in the gear that you
-carry over the mountain. Your high alpine campsite is at 12,000 feet. The
-trailhead is at 5,000 feet approximately 5 miles from the high camp. You have
-80 total points to spend.`;
-
-const MEDKIT_2_SCENARIO = `You're the doctor for a 10-person group that will
-    bike and camp the Kokopelli Trail from Fruita, Colorado to Moab, Utah  The
-territory is hot and dry and the group will be making camp with the help of
-support vehicles that carry your overnight supplies. While riding, the group is
-isolated and your medical kit will need to travel on your back. The total trip
-is 158 miles and will take four days.  Evacuation from the route could take
-many hours depending on location.  Space and weight are a premium here; you
-have 65 points to spend.`;
-
-const MEDKIT_3_SCENARIO = `You're leading a team to set up a field hospital
-after a magnitude 8.0 earthquake in El Salvador. It’s an urban, tropical
-setting with mostly devastated infrastructure. Your medical kit will travel
-with equipment and luggage, so can be larger — a maximum of 90 points. It must
-be suitable for international travel. Note: this kit is intended to care for
-your team of providers, not the patients at the field hospital.`;
 
 const TrackedMedkit = withTracker(Medkit);
 
@@ -55,21 +34,21 @@ export const App: React.FC = () => {
                     <TrackedMedkit
                         title={'Case 1: Mountain Expedition'}
                         budget={80}
-                        scenario={MEDKIT_1_SCENARIO}
+                        scenario={Medkit1Scenario}
                         medkitId={'1'}/>
                 </Route>
                 <Route exact path="/medkit/2">
                     <TrackedMedkit
                         title={'Case 2: Desert Mountain Biking'}
                         budget={65}
-                        scenario={MEDKIT_2_SCENARIO}
+                        scenario={Medkit2Scenario}
                         medkitId={'2'}/>
                 </Route>
                 <Route exact path="/medkit/3">
                     <TrackedMedkit
                         title={'Case 3: Disaster Response'}
                         budget={90}
-                        scenario={MEDKIT_3_SCENARIO}
+                        scenario={Medkit3Scenario}
                         medkitId={'3'}/>
                 </Route>
                 <Route exact path="/medkit/summary">
