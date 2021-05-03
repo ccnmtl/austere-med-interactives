@@ -16,13 +16,21 @@ const PromoCard: React.FC<PromoCardProps> = (
     return (
         <div className="col-6">
             <div className="card shadow-sm">
-                <a href={linkUrl}>
+                {disable ? (
                     <img src={imgUrl}
                         alt={title}
                         className={'bg-placeholder-img card-img-top'}
                         role="img"
                         aria-label={title}/>
-                </a>
+                ) : (
+                    <a href={linkUrl}>
+                        <img src={imgUrl}
+                            alt={title}
+                            className={'bg-placeholder-img card-img-top'}
+                            role="img"
+                            aria-label={title}/>
+                    </a>
+                )}
                 <div className="card-body">
                     <span className="h3 d-block">{title}</span>
                     <p className="card-text">
