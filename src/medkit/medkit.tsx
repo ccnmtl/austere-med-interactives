@@ -25,11 +25,11 @@ export const CATEGORY_HIST = DATA.reduce((acc, val) => {
 }, new Map<string, number>());
 
 export const getMedkitData = (medkitId: string): boolean[] => {
-    return JSON.parse(window.localStorage.getItem('medkit-' + medkitId)) as boolean[];
+    return JSON.parse(window.localStorage.getItem('medkit-' + medkitId)) as boolean[] || [];
 };
 
 export const setMedkitData = (medkitId: string, idx: number, value: boolean): void => {
-    const data = JSON.parse(window.localStorage.getItem('medkit-' + medkitId)) as boolean[];
+    const data = JSON.parse(window.localStorage.getItem('medkit-' + medkitId)) as boolean[] || [];
     data[idx] = value;
     window.localStorage.setItem('medkit-' + medkitId, JSON.stringify(data));
 };
