@@ -111,9 +111,15 @@ export const MedkitSummary: React.FC = () => {
                                     <th scope={'col'}>Category</th>
                                     <th scope={'col'}>Item</th>
                                     <th scope={'col'}>Points</th>
-                                    <th scope={'col'}>Kit 1: {KIT_1_POINTS}&nbsp;Points</th>
-                                    <th scope={'col'}>Kit 2: {KIT_2_POINTS}&nbsp;Points</th>
-                                    <th scope={'col'}>Kit 3: {KIT_3_POINTS}&nbsp;Points</th>
+                                    <th scope={'col'}>
+                                        Kit 1: {KIT_1_POINTS}/80&nbsp;Points
+                                    </th>
+                                    <th scope={'col'}>
+                                        Kit 2: {KIT_2_POINTS}/65&nbsp;Points
+                                    </th>
+                                    <th scope={'col'}>
+                                        Kit 3: {KIT_3_POINTS}/90&nbsp;Points
+                                    </th>
                                 </tr>
                             </thead>
                             <tbody>
