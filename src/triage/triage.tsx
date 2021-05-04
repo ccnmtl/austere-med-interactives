@@ -55,9 +55,6 @@ export const setTriageSelectionData = (
     if (key in data[idx]) {
         data[idx][key] = value;
         window.localStorage.setItem('triage', JSON.stringify(data));
-    } else {
-        throw Error(
-            `setTriageData called with key: ${key}. This key is not present in Triage object`);
     }
 };
 

@@ -12,6 +12,7 @@ export const PatientSet: React.FC<PatientSetProps> = ({patients}: PatientSetProp
     const [countdownClock, setCountdownClock] = useState<number | null>(null);
     const [lockPanel, setLockPanel] = useState<boolean>(false);
     const interval = useRef<number | null>(null);
+    const audioRef = useRef<HTMLAudioElement[]>([]);
 
     const countdown = (): void => {
         setCountdownClock((prev) => {
@@ -36,7 +37,8 @@ export const PatientSet: React.FC<PatientSetProps> = ({patients}: PatientSetProp
             void a.play();
         });
         // eslint-disable-next-line scanjs-rules/assign_to_src
-        a.src = patients[idx].q1Audio;
+        a.src = patients[idx].promptAudio;
+        audioRef.current.push(a);
 
         // Now start timer, and countdown clock
         // eslint-disable-next-line scanjs-rules/call_setInterval
@@ -96,7 +98,8 @@ export const PatientSet: React.FC<PatientSetProps> = ({patients}: PatientSetProp
                     stopCountdown={stopCountdown}
                     startPatientPanel={startPatientPanel}
                     setLockPanel={setLockPanel}
-                    lockPanel={lockPanel}/>
+                    lockPanel={lockPanel}
+                    audioRef={audioRef}/>
             </>)}
         </div>
     );

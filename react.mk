@@ -15,12 +15,14 @@ data: $(DATA_SENTINAL)
 	make src/data/medkit.json
 
 runserver: $(JS_SENTINAL) $(DATA_SENTINAL)
-	-cp src/images/* dist/images/.
-	npm run serve
+	-cp -r src/images dist/images
+	-cp -r src/audio dist/audio
+	npm run dev
 
 build: $(JS_SENTINAL) $(DATA_SENTINAL)
 	npm run build:dev
-	-cp src/images/* dist/images/.
+	-cp -r src/images dist/images
+	-cp -r src/audio dist/audio
 
 dev: $(JS_SENTINAL) $(DATA_SENTINAL) 
 	npm run dev 
