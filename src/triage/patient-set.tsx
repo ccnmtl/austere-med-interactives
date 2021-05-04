@@ -12,12 +12,34 @@ export const PatientSet: React.FC<PatientSetProps> = ({patients}: PatientSetProp
     const [countdownClock, setCountdownClock] = useState<number | null>(null);
     const [lockPanel, setLockPanel] = useState<boolean>(false);
     const interval = useRef<number | null>(null);
-    const audioRef = useRef<HTMLAudioElement[]>([]);
+    const audioRef = useRef<HTMLAudioElement | null>(null);
+
+    const stopAllAudio = (): void => {
+        if (audioRef.current) {
+            audioRef.current.pause();
+            audioRef.current = null;
+        }
+    };
+
+    const playAudio = (audioURL: string): void => {
+        // Stop all audio
+        stopAllAudio();
+        // Start the first audio
+        const a = new Audio();
+        // eslint-disable-next-line scanjs-rules/call_addEventListener
+        a.addEventListener('canplaythrough', () => {
+            void a.play();
+        });
+        // eslint-disable-next-line scanjs-rules/assign_to_src
+        a.src = audioURL;
+        audioRef.current = a;
+    };
 
     const countdown = (): void => {
         setCountdownClock((prev) => {
             if (prev == 0) {
                 window.clearInterval(interval.current);
+                stopAllAudio();
                 setLockPanel(true);
                 return prev;
             } else {
@@ -30,15 +52,7 @@ export const PatientSet: React.FC<PatientSetProps> = ({patients}: PatientSetProp
         setLockPanel(false);
         setCurrentPatient(idx);
         setCountdownClock(Number(patients[idx].countdown));
-        // Start the first audio
-        const a = new Audio();
-        // eslint-disable-next-line scanjs-rules/call_addEventListener
-        a.addEventListener('canplaythrough', () => {
-            void a.play();
-        });
-        // eslint-disable-next-line scanjs-rules/assign_to_src
-        a.src = patients[idx].promptAudio;
-        audioRef.current.push(a);
+        playAudio(patients[idx].promptAudio);
 
         // Now start timer, and countdown clock
         // eslint-disable-next-line scanjs-rules/call_setInterval
@@ -46,6 +60,7 @@ export const PatientSet: React.FC<PatientSetProps> = ({patients}: PatientSetProp
     };
 
     const stopCountdown = (): void => {
+        stopAllAudio();
         window.clearInterval(interval.current);
     };
 
@@ -99,7 +114,8 @@ export const PatientSet: React.FC<PatientSetProps> = ({patients}: PatientSetProp
                     startPatientPanel={startPatientPanel}
                     setLockPanel={setLockPanel}
                     lockPanel={lockPanel}
-                    audioRef={audioRef}/>
+                    stopAllAudio={stopAllAudio}
+                    playAudio={playAudio}/>
             </>)}
         </div>
     );

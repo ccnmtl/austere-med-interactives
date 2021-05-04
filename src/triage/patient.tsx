@@ -138,13 +138,15 @@ interface PatientPanelProps {
     setLockPanel(lock: boolean): void;
     startPatientPanel(panel: number): void;
     stopCountdown(): void;
-    audioRef: React.RefObject<HTMLAudioElement[]>;
+    stopAllAudio(): void
+    playAudio(audioURL: string): void;
 }
 
 export const PatientPanel: React.FC<PatientPanelProps> = (
     {
         patient, currentPatient, lastPatient, lockPanel, setLockPanel,
-        startPatientPanel, stopCountdown, countdownClock, timeAllotted, audioRef
+        startPatientPanel, stopCountdown, countdownClock, timeAllotted,
+        stopAllAudio, playAudio
     }: PatientPanelProps) => {
     //const audioRef = useRef<HTMLAudioElement[]>([]);
     const [activePrompt, setActivePrompt] = useState<number>(0);
@@ -153,25 +155,8 @@ export const PatientPanel: React.FC<PatientPanelProps> = (
     const [airwayState, setAirwayState] = useState<string>('');
     const [consultState, setConsultState] = useState<string>('');
 
-    const stopAllAudio = (): void => {
-        while (audioRef.current.length > 0) {
-            const a = audioRef.current.pop();
-            a.pause();
-        }
-    };
-
-    const playAudio = (key: string): void => {
-        stopAllAudio();
-        const a = new Audio();
-        // eslint-disable-next-line scanjs-rules/call_addEventListener
-        a.addEventListener('canplaythrough', () => {
-            void a.play();
-        });
-
-        // eslint-disable-next-line max-len
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, scanjs-rules/assign_to_src
-        a.src = patient[key];
-        audioRef.current.push(a);
+    const handlePlayAudio = (key: string): void => {
+        playAudio(patient[key]);
     };
 
     const handleFormSubmit = (evt: React.MouseEvent<HTMLButtonElement>) => {
@@ -179,6 +164,7 @@ export const PatientPanel: React.FC<PatientPanelProps> = (
         // Report the seconds left
         // Freeze the progress bar
         // Show the user interface to proceed
+        stopAllAudio();
         stopCountdown();
         setLockPanel(true);
     };
@@ -194,7 +180,7 @@ export const PatientPanel: React.FC<PatientPanelProps> = (
             q5Audio: 5,
             q6Audio: 6,
         }[activePromptKey]);
-        playAudio(activePromptKey);
+        handlePlayAudio(activePromptKey);
     };
 
     const saveTimeAndCompletedData = (): void => {
@@ -266,10 +252,6 @@ export const PatientPanel: React.FC<PatientPanelProps> = (
         setLocationState('');
         setAirwayState('');
         setConsultState('');
-        // Clean up playing audio when patient prop changes
-        return () => {
-            stopAllAudio();
-        };
     }, [patient]);
 
     return (<>
@@ -342,7 +324,7 @@ export const PatientPanel: React.FC<PatientPanelProps> = (
                         {typeof prompts[activePrompt][2] === 'string' && (
                             <button type="button"
                                 className="btn btn-secondary"
-                                onClick={() => playAudio(prompts[activePrompt][2])}
+                                onClick={() => handlePlayAudio(prompts[activePrompt][2])}
                                 aria-disabled={lockPanel}
                                 disabled={lockPanel}>
                                 Replay Audio
