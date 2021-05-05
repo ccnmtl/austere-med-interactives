@@ -12,7 +12,7 @@ import { withTracker } from './withTracker';
 import * as Sentry from '@sentry/browser';
 
 /* eslint-disable-next-line */
-if (true) {
+if (process.env.NODE_ENV === 'production') {
     Sentry.init({
         dsn: 'https://1ff8147c34ca4105bd6a71ac9489ba49@o46310.ingest.sentry.io/5743963',
     });
