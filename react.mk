@@ -10,22 +10,16 @@ src/data/medkit.json: data/medkit.csv
 	cd data && ./databuild.py medkit.csv
 
 data: $(DATA_SENTINAL)
-	touch $(DATA_SENTINAL)
 	make src/data/triage.json
 	make src/data/medkit.json
 
 runserver: $(JS_SENTINAL) $(DATA_SENTINAL)
-	-cp -r src/images dist/images
-	-cp -r src/audio dist/audio
+	$(INTERMEDIATE_STEPS) && \
 	npm run dev
 
 build: $(JS_SENTINAL) $(DATA_SENTINAL)
-	npm run build:dev
-	-cp -r src/images dist/images
-	-cp -r src/audio dist/audio
-
-dev: $(JS_SENTINAL) $(DATA_SENTINAL) 
-	npm run dev 
+	npm run build:dev && \
+	$(INTERMEDIATE_STEPS)
 
 eslint: $(JS_SENTINAL) $(DATA_SENTINAL)
 	npm run eslint
@@ -44,13 +38,13 @@ snapshot: $(JS_SENTINAL) $(DATA_SENTINAL)
 	npm run test:snapshot
 
 deploy-stage: $(JS_SENTINAL $(DATA_SENTINAL)) 
-	npm run build:prod \
-	&& $(INTERMEDIATE_STEPS) \
-	&& $(S3CMD) $(S3_FLAGS) sync --exclude-from='.s3ignore' . s3://$(STAGING_BUCKET)/
+	npm run build:prod && \
+	$(INTERMEDIATE_STEPS) && \
+	$(S3CMD) $(S3_FLAGS) sync --exclude-from='.s3ignore' . s3://$(STAGING_BUCKET)/
 
 deploy-prod: $(JS_SENTINAL) $(DATA_SENTINAL) 
-	npm run build:prod \
-	&& $(INTERMEDIATE_STEPS) \
-	&& $(S3CMD) $(S3_FLAGS) sync --exclude-from='.s3ignore' . s3://$(PROD_BUCKET)/
+	npm run build:prod && \
+	$(INTERMEDIATE_STEPS) && \
+	$(S3CMD) $(S3_FLAGS) sync --exclude-from='.s3ignore' . s3://$(PROD_BUCKET)/
 
 .PHONY: runserver build dev eslint test cypress deploy-stage deploy-prod cypress data
