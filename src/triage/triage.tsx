@@ -62,12 +62,11 @@ export const printFSeconds = (seconds: number): string => {
     const t = new Date(seconds * 1000);
     const m = t.getMinutes();
     const s = t.getSeconds();
-    return `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+    return `${String(m).padStart(1, '0')}:${String(s).padStart(2, '0')}`;
 };
 
 export const Triage: React.FC = () => {
     const [simStarted, setSimStarted] = useState<boolean>(false);
-    const patientSetRef = useRef(null);
     const audioRef = useRef<HTMLAudioElement | null>(null);
 
     const stopAllAudio = (): void => {
