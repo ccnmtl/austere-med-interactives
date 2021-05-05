@@ -74,7 +74,8 @@ export const PatientSet: React.FC<PatientSetProps> = (
                 patients[currentPatient] && (<>
                 <h1>Patient {currentPatient + 1}</h1>
                 <p className="lead">
-                    You only have <strong>{patients[currentPatient].countdown} seconds </strong>
+                    You only have
+                    <strong> {printFSeconds(Number(patients[currentPatient].countdown))} </strong>
                     for questioning before you commit to a final decision for Patient One.
                 </p>
                 <div className={'triage__progress progress'}>
