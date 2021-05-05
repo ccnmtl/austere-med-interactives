@@ -5,9 +5,12 @@ import {
 
 interface PatientSetProps {
     patients: Patient[];
+    stopAllAudio(): void;
+    playAudio(url: string): void;
 }
 
-export const PatientSet: React.FC<PatientSetProps> = ({patients}: PatientSetProps) => {
+export const PatientSet: React.FC<PatientSetProps> = (
+    {patients, stopAllAudio, playAudio}: PatientSetProps) => {
     const [currentPatient, setCurrentPatient] = useState<number | null>(null);
     const [countdownClock, setCountdownClock] = useState<number | null>(null);
     const [lockPanel, setLockPanel] = useState<boolean>(false);
@@ -17,6 +20,7 @@ export const PatientSet: React.FC<PatientSetProps> = ({patients}: PatientSetProp
         setCountdownClock((prev) => {
             if (prev == 0) {
                 window.clearInterval(interval.current);
+                stopAllAudio();
                 setLockPanel(true);
                 return prev;
             } else {
@@ -29,14 +33,14 @@ export const PatientSet: React.FC<PatientSetProps> = ({patients}: PatientSetProp
         setLockPanel(false);
         setCurrentPatient(idx);
         setCountdownClock(Number(patients[idx].countdown));
-        // Start the first audio
-        const a = new Audio();
-        // eslint-disable-next-line scanjs-rules/call_addEventListener
-        a.addEventListener('canplaythrough', () => {
-            void a.play();
-        });
-        // eslint-disable-next-line scanjs-rules/assign_to_src
-        a.src = patients[idx].q1Audio;
+        // When starting the sim, the initial play event needs to occur
+        // when there's a click event. For idx == 0, the audio is started
+        // by the parent Triage component
+        // This particular corner case is to satify Safari's autoplay policies
+        // https://webkit.org/blog/6784/new-video-policies-for-ios/
+        if (idx > 0) {
+            playAudio(patients[idx].promptAudio);
+        }
 
         // Now start timer, and countdown clock
         // eslint-disable-next-line scanjs-rules/call_setInterval
@@ -44,6 +48,7 @@ export const PatientSet: React.FC<PatientSetProps> = ({patients}: PatientSetProp
     };
 
     const stopCountdown = (): void => {
+        stopAllAudio();
         window.clearInterval(interval.current);
     };
 
@@ -96,7 +101,9 @@ export const PatientSet: React.FC<PatientSetProps> = ({patients}: PatientSetProp
                     stopCountdown={stopCountdown}
                     startPatientPanel={startPatientPanel}
                     setLockPanel={setLockPanel}
-                    lockPanel={lockPanel}/>
+                    lockPanel={lockPanel}
+                    stopAllAudio={stopAllAudio}
+                    playAudio={playAudio}/>
             </>)}
         </div>
     );

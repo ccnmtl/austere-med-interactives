@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { setTriageSelectionData } from './triage';
 import Nurse from '../images/iStock-155705146.jpg';
 
@@ -138,34 +138,25 @@ interface PatientPanelProps {
     setLockPanel(lock: boolean): void;
     startPatientPanel(panel: number): void;
     stopCountdown(): void;
+    stopAllAudio(): void
+    playAudio(audioURL: string): void;
 }
 
 export const PatientPanel: React.FC<PatientPanelProps> = (
     {
         patient, currentPatient, lastPatient, lockPanel, setLockPanel,
-        startPatientPanel, stopCountdown, countdownClock, timeAllotted
+        startPatientPanel, stopCountdown, countdownClock, timeAllotted,
+        stopAllAudio, playAudio
     }: PatientPanelProps) => {
-    const audioRef = useRef<HTMLAudioElement[]>([]);
+    //const audioRef = useRef<HTMLAudioElement[]>([]);
     const [activePrompt, setActivePrompt] = useState<number>(0);
     const [esiState, setEsiState] = useState<string>('');
     const [locationState, setLocationState] = useState<string>('');
     const [airwayState, setAirwayState] = useState<string>('');
     const [consultState, setConsultState] = useState<string>('');
 
-    const handleAudioClick = (evt: React.MouseEvent<HTMLButtonElement>): void => {
-        if (evt.currentTarget.dataset && evt.currentTarget.dataset.qaudio) {
-            const qXAudio = evt.currentTarget.dataset.qaudio;
-            const a = new Audio();
-            // eslint-disable-next-line scanjs-rules/call_addEventListener
-            a.addEventListener('canplaythrough', () => {
-                void a.play();
-            });
-
-            // eslint-disable-next-line max-len
-            // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, scanjs-rules/assign_to_src
-            a.src = patient[qXAudio];
-            audioRef.current.push(a);
-        }
+    const handlePlayAudio = (key: string): void => {
+        playAudio(patient[key]);
     };
 
     const handleFormSubmit = (evt: React.MouseEvent<HTMLButtonElement>) => {
@@ -173,14 +164,23 @@ export const PatientPanel: React.FC<PatientPanelProps> = (
         // Report the seconds left
         // Freeze the progress bar
         // Show the user interface to proceed
+        stopAllAudio();
         stopCountdown();
         setLockPanel(true);
     };
 
-    const handleActivePrompt = (activePrompt: number): void => {
-        const c = ['q1', 'q2', 'q3', 'q4', 'q5', 'q6'];
-        setTriageSelectionData(currentPatient, c[activePrompt - 1], true);
-        setActivePrompt(activePrompt);
+    const handleActivePrompt = (activePromptKey: string): void => {
+        setTriageSelectionData(currentPatient, activePromptKey, true);
+        setActivePrompt({
+            promptAudio: 0,
+            q1Audio: 1,
+            q2Audio: 2,
+            q3Audio: 3,
+            q4Audio: 4,
+            q5Audio: 5,
+            q6Audio: 6,
+        }[activePromptKey]);
+        handlePlayAudio(activePromptKey);
     };
 
     const saveTimeAndCompletedData = (): void => {
@@ -252,16 +252,6 @@ export const PatientPanel: React.FC<PatientPanelProps> = (
         setLocationState('');
         setAirwayState('');
         setConsultState('');
-        // Clean up playing audio when patient prop changes
-        return () => {
-            for (const audioEl of audioRef.current) {
-                if (!audioEl.ended) {
-                    audioEl.pause();
-                }
-            }
-            // GC the audio elements
-            audioRef.current = [];
-        };
     }, [patient]);
 
     return (<>
@@ -312,7 +302,7 @@ export const PatientPanel: React.FC<PatientPanelProps> = (
                                 aria-selected={activePrompt == idx}
                                 aria-disabled={lockPanel}
                                 disabled={lockPanel}
-                                onClick={() => handleActivePrompt(idx)}>
+                                onClick={() => handleActivePrompt(prompt[2])}>
                                 {patient[prompt[0]]}
                             </button>
                         );
@@ -331,14 +321,12 @@ export const PatientPanel: React.FC<PatientPanelProps> = (
                         </div>
                         <img className="img-thumbnail" src={Nurse} />
                         {/* TODO: simplify */}
-                        {typeof patient[prompts[activePrompt][2]] === 'string' && (
+                        {typeof prompts[activePrompt][2] === 'string' && (
                             <button type="button"
                                 className="btn btn-secondary"
-                                onClick={handleAudioClick}
+                                onClick={() => handlePlayAudio(prompts[activePrompt][2])}
                                 aria-disabled={lockPanel}
-                                disabled={lockPanel}
-                                // TODO: simplify
-                                data-qaudio={patient[prompts[activePrompt][2]] as string}>
+                                disabled={lockPanel}>
                                 Replay Audio
                             </button>
                         )}

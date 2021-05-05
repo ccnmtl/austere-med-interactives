@@ -1,6 +1,6 @@
 // eslint-disable-next-line max-len
 /* eslint-disable scanjs-rules/identifier_localStorage, scanjs-rules/property_localStorage */
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { Nav } from '../nav';
 import { Background } from '../background';
 import BackgroundImage from '../images/iStock-1217878707.jpg';
@@ -55,9 +55,6 @@ export const setTriageSelectionData = (
     if (key in data[idx]) {
         data[idx][key] = value;
         window.localStorage.setItem('triage', JSON.stringify(data));
-    } else {
-        throw Error(
-            `setTriageData called with key: ${key}. This key is not present in Triage object`);
     }
 };
 
@@ -70,10 +67,34 @@ export const printFSeconds = (seconds: number): string => {
 
 export const Triage: React.FC = () => {
     const [simStarted, setSimStarted] = useState<boolean>(false);
+    const patientSetRef = useRef(null);
+    const audioRef = useRef<HTMLAudioElement | null>(null);
+
+    const stopAllAudio = (): void => {
+        if (audioRef.current) {
+            audioRef.current.pause();
+            audioRef.current = null;
+        }
+    };
+
+    const playAudio = (audioURL: string): void => {
+        // Stop all audio
+        stopAllAudio();
+        // Start the first audio
+        const a = new Audio();
+        // eslint-disable-next-line scanjs-rules/call_addEventListener
+        a.addEventListener('canplaythrough', () => {
+            void a.play();
+        });
+        // eslint-disable-next-line scanjs-rules/assign_to_src
+        a.src = audioURL;
+        audioRef.current = a;
+    };
 
     const handleStart = (evt: React.MouseEvent<HTMLButtonElement>): void => {
         evt.preventDefault();
         setSimStarted(true);
+        playAudio(DATA[0].promptAudio);
     };
 
     const navItems = [
@@ -162,7 +183,10 @@ export const Triage: React.FC = () => {
                         </div>
                     </div>
                 </>) : (
-                    <PatientSet patients={DATA}/>
+                    <PatientSet
+                        stopAllAudio={stopAllAudio}
+                        playAudio={playAudio}
+                        patients={DATA}/>
                 )}
             </div>
             <Background backgroundImageSrc={BackgroundImage}/>
