@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { setTriageSelectionData } from './triage';
 import Nurse from '../images/iStock-155705146.jpg';
 
