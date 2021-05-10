@@ -26,6 +26,7 @@ export interface Patient {
     q6Question: string;
     q6Answer: string;
     q6Audio: string;
+    iconImg: string;
 }
 
 interface OutcomeChoices {
@@ -176,7 +177,7 @@ const PatientAssignmentChoice: React.FC<PatientAssignmentChoiceProps> = (
     return (
         <div className="form-group">
             <div>
-                <label >{heading}</label>
+                <label className={'fw-bold'}>{heading}</label>
             </div>
             {resourceLimitStatus && resourceLimitStatus({})}
             <div
@@ -423,7 +424,9 @@ export const PatientPanel: React.FC<PatientPanelProps> = (
                                 <div className="alert alert-info" role="alert">
                                     {patient[prompts[lockPanel ? 0 : activePrompt][1]]}
                                 </div>
-                                <img className="img-thumbnail" src={Nurse} />
+                                <div className={'mb-3'}>
+                                    <img className="img-thumbnail" src={patient.iconImg} />
+                                </div>
                                 {/* TODO: simplify */}
                                 {typeof prompts[activePrompt][2] === 'string' && (
                                     <button type="button"
