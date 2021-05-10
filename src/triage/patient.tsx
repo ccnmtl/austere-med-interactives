@@ -414,7 +414,7 @@ export const PatientPanel: React.FC<PatientPanelProps> = (
                         role="tabpanel"
                         aria-labelledby="v-pills-ems-tab">
                         <div className="alert alert-info" role="alert">
-                            {patient[prompts[activePrompt][1]]}
+                            {patient[prompts[lockPanel ? 0 : activePrompt][1]]}
                         </div>
                         <img className="img-thumbnail" src={Nurse} />
                         {/* TODO: simplify */}
