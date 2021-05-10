@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { setTriageSelectionData } from './triage';
+import { getTriageSelectionData, setTriageSelectionData } from './triage';
 import Nurse from '../images/iStock-155705146.jpg';
 
 // NOTE: this interface needs to match the column headings in the data csv
@@ -31,7 +31,84 @@ export interface Patient {
 interface OutcomeChoices {
     text: string;
     id: string;
+    resourceValidator?(): boolean;
 }
+
+const AVAILABLE_TRAUMA_SPOTS = 2;
+const AVAILABLE_HIGH_ACUITY_SPOTS = 5;
+const AVAILABLE_INTUBATION_SPOTS = 3;
+
+// Validators are functions that test if a resource is available
+const traumaBayResourceValidator = () => {
+    const traumaCount = getTriageSelectionData().reduce((acc, val) => {
+        if (val.location == 'Trauma/Resus Bay') {
+            acc += 1;
+        }
+        return acc;
+    }, 0);
+    return traumaCount < AVAILABLE_TRAUMA_SPOTS;
+};
+
+const highAcuityResourceValidator = () => {
+    const highAcuityCount = getTriageSelectionData().reduce((acc, val) => {
+        if (val.location == 'ED, High Acuity') {
+            acc += 1;
+        }
+        return acc;
+    }, 0);
+    return highAcuityCount < AVAILABLE_HIGH_ACUITY_SPOTS;
+};
+
+const intubationResourceValidator = () => {
+    const intubationCount = getTriageSelectionData().reduce((acc, val) => {
+        if (val.airway == 'Intubate') {
+            acc += 1;
+        }
+        return acc;
+    }, 0);
+    return intubationCount < AVAILABLE_INTUBATION_SPOTS;
+};
+
+// Resource Limit Components display if a particular resource is available
+const LocationResourceLimits: React.FC = () => {
+    const [traumaCount, highAcuityCount] = getTriageSelectionData().reduce((acc, val) => {
+        if (val.location == 'Trauma/Resus Bay') {
+            acc[0] += 1;
+        }
+        if (val.location == 'ED, High Acuity') {
+            acc[1] += 1;
+        }
+        return acc;
+    }, [0, 0]);
+    return (<>
+        <div>
+            <span className={traumaCount >= AVAILABLE_TRAUMA_SPOTS ? 'text-danger' : ''}>
+                {traumaCount}/{AVAILABLE_TRAUMA_SPOTS} Trauma Beds Taken
+            </span>
+        </div>
+        <div>
+            <span className={highAcuityCount >= AVAILABLE_HIGH_ACUITY_SPOTS ? 'text-danger' : ''}>
+                {highAcuityCount}/{AVAILABLE_HIGH_ACUITY_SPOTS} High Acuity Beds Taken
+            </span>
+        </div>
+    </>);
+};
+
+const AirwayResourceLimits: React.FC = () => {
+    const intubationCount = getTriageSelectionData().reduce((acc, val) => {
+        if (val.airway == 'Intubate') {
+            acc += 1;
+        }
+        return acc;
+    }, 0);
+    return (
+        <div>
+            <span className={intubationCount >= AVAILABLE_INTUBATION_SPOTS ? 'text-danger' : ''}>
+                {intubationCount}/{AVAILABLE_INTUBATION_SPOTS} Senior Physicians Who Can Intubate
+            </span>
+        </div>
+    );
+};
 
 const prompts = [
     ['promptQuestion', 'promptAnswer', 'promptAudio'],
@@ -52,8 +129,8 @@ const ESI: OutcomeChoices[] = [
 ];
 
 const LOCATION: OutcomeChoices[] = [
-    {text: 'Trauma/Resus Bay', id: 'loc-0'},
-    {text: 'ED, High Acuity', id: 'loc-1'},
+    {text: 'Trauma/Resus Bay', id: 'loc-0', resourceValidator: traumaBayResourceValidator},
+    {text: 'ED, High Acuity', id: 'loc-1', resourceValidator: highAcuityResourceValidator},
     {text: 'ED, Low Acuity', id: 'loc-2'},
     {text: 'Waiting Room', id: 'loc-3'}
 ];
@@ -61,7 +138,7 @@ const LOCATION: OutcomeChoices[] = [
 const AIRWAY: OutcomeChoices[] = [
     {text: 'Bipap', id: 'air-0'},
     {text: 'High Flow Nasal Cannula', id: 'air-1'},
-    {text: 'Intubate', id: 'air-2'},
+    {text: 'Intubate', id: 'air-2', resourceValidator: intubationResourceValidator},
     {text: 'Nasal Cannula', id: 'air-3'},
     {text: 'No Oxygen', id: 'air-4'}
 ];
@@ -84,11 +161,13 @@ interface PatientAssignmentChoiceProps {
     setState: React.Dispatch<React.SetStateAction<string>>;
     currentPatient: number;
     lockPanel: boolean;
+    resourceLimitStatus?: React.FC;
 }
 
 const PatientAssignmentChoice: React.FC<PatientAssignmentChoiceProps> = (
     {
-        choices, heading, questionId, state, setState, currentPatient, lockPanel
+        choices, heading, questionId, state, setState, currentPatient, lockPanel,
+        resourceLimitStatus
     }: PatientAssignmentChoiceProps) => {
     const changeHandler: React.ChangeEventHandler<HTMLInputElement> = (evt) => {
         setState(evt.target.value);
@@ -99,22 +178,38 @@ const PatientAssignmentChoice: React.FC<PatientAssignmentChoiceProps> = (
             <div>
                 <label >{heading}</label>
             </div>
+            {resourceLimitStatus && resourceLimitStatus({})}
             <div
                 className="btn-group"
                 role="group"
                 aria-label="Patient triage selections">
                 {choices.map((el, idx) => {
                     return (<React.Fragment key={idx}>
-                        <input type="radio"
-                            className="btn-check"
-                            id={el.id}
-                            name={questionId}
-                            value={el.text}
-                            onChange={changeHandler}
-                            checked={state == el.text}
-                            aria-disabled={lockPanel}
-                            disabled={lockPanel}
-                            autoComplete="off"/>
+                        {lockPanel ? (
+                            <input type="radio"
+                                className="btn-check"
+                                id={el.id}
+                                name={questionId}
+                                value={el.text}
+                                onChange={changeHandler}
+                                checked={state == el.text}
+                                aria-disabled={lockPanel}
+                                disabled={lockPanel}
+                                autoComplete="off"/>
+                        ) : (
+                            <input type="radio"
+                                className="btn-check"
+                                id={el.id}
+                                name={questionId}
+                                value={el.text}
+                                onChange={changeHandler}
+                                checked={state == el.text}
+                                aria-disabled={
+                                    el.resourceValidator ? !el.resourceValidator() : false}
+                                disabled={
+                                    el.resourceValidator ? !el.resourceValidator() : false}
+                                autoComplete="off"/>
+                        )}
                         <label
                             className={'btn ' + (
                                 state == el.text ? 'btn-secondary' : 'btn-outline-secondary')}
@@ -224,7 +319,8 @@ export const PatientPanel: React.FC<PatientPanelProps> = (
             state: locationState,
             setState: setLocationState,
             currentPatient: currentPatient,
-            lockPanel: lockPanel
+            lockPanel: lockPanel,
+            resourceLimitStatus: LocationResourceLimits
         },
         {
             heading: 'Airway Decision',
@@ -233,7 +329,8 @@ export const PatientPanel: React.FC<PatientPanelProps> = (
             state: airwayState,
             setState: setAirwayState,
             currentPatient: currentPatient,
-            lockPanel: lockPanel
+            lockPanel: lockPanel,
+            resourceLimitStatus: AirwayResourceLimits
         },
         {
             heading: 'Additional Intervention/Consultation with',
@@ -345,7 +442,8 @@ export const PatientPanel: React.FC<PatientPanelProps> = (
                                 state={el.state}
                                 lockPanel={el.lockPanel}
                                 setState={el.setState}
-                                currentPatient={currentPatient}/>);
+                                currentPatient={currentPatient}
+                                resourceLimitStatus={el.resourceLimitStatus || undefined}/>);
                     })}
                     <div className="form-group">
                         <button type={'button'}
