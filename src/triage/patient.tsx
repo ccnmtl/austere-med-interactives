@@ -380,81 +380,100 @@ export const PatientPanel: React.FC<PatientPanelProps> = (
             </div>
         )}
         <div className={'row'}>
-            <div id="v-pills-tabContent" className="col-md-3 tab-content">
-                <div className="nav flex-column nav-pills me-3 bg-white triage-pills"
-                    role="tablist"
-                    aria-orientation="vertical"
-                    // TODO: remove style
-                    style={{borderRadius: '.25rem'}}>
-                    {prompts.map((prompt, idx) => {
-                        return (
-                            <button
-                                key={idx}
-                                className={
-                                    `nav-link ${activePrompt == idx && !lockPanel ? 'active' : ''}`}
-                                id="v-pills-ems-tab"
-                                type="button"
-                                role="tab"
-                                aria-controls="v-pills-ems"
-                                aria-selected={activePrompt == idx}
-                                aria-disabled={lockPanel}
-                                disabled={lockPanel}
-                                onClick={() => handleActivePrompt(prompt[2])}>
-                                {patient[prompt[0]]}
-                            </button>
-                        );
-                    })}
+            <div className="col-md-6">
+                <div className="row">
+                    <div className="col-12">
+                        <h2>Handoff</h2>
+                    </div>
                 </div>
-            </div>
-            <div className="col-md-3">
-                <div className="tab-content" id="v-pills-tabContent">
-                    <div
-                        className="tab-pane fade show active"
-                        id="v-pills-ems"
-                        role="tabpanel"
-                        aria-labelledby="v-pills-ems-tab">
-                        <div className="alert alert-info" role="alert">
-                            {patient[prompts[lockPanel ? 0 : activePrompt][1]]}
+                <div className="row">
+                    <div id="v-pills-tabContent" className="col-6 tab-content">
+                        <div className="nav flex-column nav-pills me-3 bg-white triage-pills"
+                            role="tablist"
+                            aria-orientation="vertical"
+                            // TODO: remove style
+                            style={{borderRadius: '.25rem'}}>
+                            {prompts.map((prompt, idx) => {
+                                return (
+                                    <button
+                                        key={idx}
+                                        className={
+                                            `nav-link ${activePrompt == idx && !lockPanel ? 'active' : ''}`}
+                                        id="v-pills-ems-tab"
+                                        type="button"
+                                        role="tab"
+                                        aria-controls="v-pills-ems"
+                                        aria-selected={activePrompt == idx}
+                                        aria-disabled={lockPanel}
+                                        disabled={lockPanel}
+                                        onClick={() => handleActivePrompt(prompt[2])}>
+                                        {patient[prompt[0]]}
+                                    </button>
+                                );
+                            })}
                         </div>
-                        <img className="img-thumbnail" src={Nurse} />
-                        {/* TODO: simplify */}
-                        {typeof prompts[activePrompt][2] === 'string' && (
-                            <button type="button"
-                                className="btn btn-secondary"
-                                onClick={() => handlePlayAudio(prompts[activePrompt][2])}
-                                aria-disabled={lockPanel}
-                                disabled={lockPanel}>
-                                Replay Audio
-                            </button>
-                        )}
+                    </div>
+                    <div className="col-6">
+                        <div className="tab-content" id="v-pills-tabContent">
+                            <div
+                                className="tab-pane fade show active"
+                                id="v-pills-ems"
+                                role="tabpanel"
+                                aria-labelledby="v-pills-ems-tab">
+                                <div className="alert alert-info" role="alert">
+                                    {patient[prompts[lockPanel ? 0 : activePrompt][1]]}
+                                </div>
+                                <img className="img-thumbnail" src={Nurse} />
+                                {/* TODO: simplify */}
+                                {typeof prompts[activePrompt][2] === 'string' && (
+                                    <button type="button"
+                                        className="btn btn-secondary"
+                                        onClick={() => handlePlayAudio(prompts[activePrompt][2])}
+                                        aria-disabled={lockPanel}
+                                        disabled={lockPanel}>
+                                        Replay Audio
+                                    </button>
+                                )}
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
             <div className="col-md-6">
-                <form>
-                    {outcomeMenuItems.map((el, idx) => {
-                        return (
-                            <PatientAssignmentChoice
-                                key={idx}
-                                heading={el.heading}
-                                choices={el.choices}
-                                questionId={el.questionId}
-                                state={el.state}
-                                lockPanel={el.lockPanel}
-                                setState={el.setState}
-                                currentPatient={currentPatient}
-                                resourceLimitStatus={el.resourceLimitStatus || undefined}/>);
-                    })}
-                    <div className="form-group">
-                        <button type={'button'}
-                            className="btn btn-primary"
-                            aria-disabled={lockPanel}
-                            disabled={lockPanel}
-                            onClick={handleFormSubmit}>
-                            Submit
-                        </button>
+                <div className="row">
+                    <div className="col-12">
+                        <h2>Assignments</h2>
                     </div>
-                </form>
+                </div>
+                <div className="row">
+                    <div className="col-12">
+                        <form>
+                            {outcomeMenuItems.map((el, idx) => {
+                                return (
+                                    <PatientAssignmentChoice
+                                        key={idx}
+                                        heading={el.heading}
+                                        choices={el.choices}
+                                        questionId={el.questionId}
+                                        state={el.state}
+                                        lockPanel={el.lockPanel}
+                                        setState={el.setState}
+                                        currentPatient={currentPatient}
+                                        resourceLimitStatus={
+                                            el.resourceLimitStatus || undefined}/>);
+                            })}
+                            <div className="form-group">
+                                <button type={'button'}
+                                    className="btn btn-primary"
+                                    aria-disabled={lockPanel}
+                                    disabled={lockPanel}
+                                    onClick={handleFormSubmit}>
+                                    Submit
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
     </>);
