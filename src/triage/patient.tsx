@@ -266,7 +266,17 @@ export const PatientPanel: React.FC<PatientPanelProps> = (
     };
 
     const handleActivePrompt = (activePromptKey: string): void => {
-        setTriageSelectionData(currentPatient, activePromptKey, true);
+        const selectionKeys = {
+            q1Audio: 'q1',
+            q2Audio: 'q2',
+            q3Audio: 'q3',
+            q4Audio: 'q4',
+            q5Audio: 'q5',
+            q6Audio: 'q6',
+        };
+        if (activePromptKey in selectionKeys) {
+            setTriageSelectionData(currentPatient, selectionKeys[activePromptKey], true);
+        }
         setActivePrompt({
             promptAudio: 0,
             q1Audio: 1,
@@ -399,6 +409,7 @@ export const PatientPanel: React.FC<PatientPanelProps> = (
                                     <button
                                         key={idx}
                                         className={
+                                            // eslint-disable-next-line max-len
                                             `nav-link ${activePrompt == idx && !lockPanel ? 'active' : ''}`}
                                         id="v-pills-ems-tab"
                                         type="button"
