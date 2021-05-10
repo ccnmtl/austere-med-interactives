@@ -191,6 +191,12 @@ export const TriageSummary: React.FC = () => {
                                         </tr>
                                     </tbody>
                                 </table>
+                                <div className={'row'}>
+                                    <div className="col-6">
+                                        <div className="fw-bold">Reflection</div>
+                                        <p>{selections[idx].reflection ? selections[idx].reflection : 'No reflection submitted.'}</p>
+                                    </div>
+                                </div>
                             </React.Fragment>);
                         })}
                     </div>
