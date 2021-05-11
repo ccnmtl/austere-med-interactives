@@ -430,9 +430,12 @@ export const PatientPanel: React.FC<PatientPanelProps> = (
                                 id="v-pills-ems"
                                 role="tabpanel"
                                 aria-labelledby="v-pills-ems-tab">
-                                <div className="alert alert-info" role="alert">
-                                    {patient[prompts[lockPanel ? 0 : activePrompt][1]]}
-                                </div>
+                                <div
+                                    role="alert"
+                                    className="alert alert-info"
+                                    dangerouslySetInnerHTML={
+                                        // eslint-disable-next-line max-len
+                                        {__html: patient[prompts[lockPanel ? 0 : activePrompt][1]] as string || ''}}/>
                                 <div className={'mb-3'}>
                                     <img className="img-thumbnail" src={patient.iconImg} />
                                 </div>
