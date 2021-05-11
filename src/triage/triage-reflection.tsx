@@ -79,7 +79,7 @@ export const TriageReflection: React.FC = () => {
                 </div>
                 <div className="row">
                     <div className="col-12">
-                        <a className={'btn btn-primary'} href={'/triage/summary'}>Summary</a>.
+                        <a className={'btn btn-danger'} href={'/triage/summary'}>Summary</a>.
                     </div>
                 </div>
             </div>
