@@ -47,13 +47,30 @@ export const TriageReflection: React.FC = () => {
                                     setTriageSelectionData(idx, 'reflection', evt.target.value);
                                 };
                                 return (
-                                    <div key={idx} className={'form-group'}>
-                                        <label htmlFor={`reflection-text-${idx}`}>Reflection for Patient {idx + 1}</label>
-                                        <textarea
-                                            id={`reflection-text-${idx}`}
-                                            className={'form-control'}
-                                            rows={5}
-                                            onChange={handleText}/>
+                                    <div key={idx} className="row mb-5">
+                                        <div className="col">
+                                            <div className={'form-group'}>
+                                                <label className={'fw-bold'} htmlFor={`reflection-text-${idx}`}>
+                                                    Reflection for Patient {idx + 1}
+                                                </label>
+                                                <textarea
+                                                    id={`reflection-text-${idx}`}
+                                                    className={'form-control'}
+                                                    rows={5}
+                                                    onChange={handleText}/>
+                                            </div>
+                                        </div>
+                                        <div className="col pt-4">
+                                            <div className="row">
+                                                <div className="col-6">
+                                                    <div className={'fw-bold'}>Chief Complaint</div>
+                                                    <p>{DATA[idx].promptAnswer}</p>
+                                                </div>
+                                                <div className="col mx-5">
+                                                    <img className={'img-fluid'} src={DATA[idx].iconImg}/>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 );
                             })}
@@ -62,9 +79,7 @@ export const TriageReflection: React.FC = () => {
                 </div>
                 <div className="row">
                     <div className="col-12">
-                        <p>Thank you for your reflections. Please proceed to the
-                            &nbsp;<a href={'/triage/summary'}>summary page</a>.
-                        </p>
+                        <a className={'btn btn-danger'} href={'/triage/summary'}>Summary</a>.
                     </div>
                 </div>
             </div>

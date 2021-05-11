@@ -19,7 +19,7 @@ export const TriageSummary: React.FC = () => {
             const csvString = 'Time to answer,Completed on time,Question One Asked,Question Two Asked,Question Three Asked,Question Four Asked,Question Five Asked,Question Six Asked,ESI,Location,Airway,Consult,Reflection\n';
             setCSV(s.reduce((acc: string, val) => {
                 return acc.concat(
-                    `${val['timeToAnswer']},${String(val['completedOnTime'])},${String(val['q1'])},${String(val['q2'])},${String(val['q3'])},${String(val['q4'])},${String(val['q5'])},${String(val['q6'])},${val['esi']},${val['location']},${val['airway']},${val['consult']},${val['reflection']}\n`
+                    `${val['timeToAnswer']},${String(val['completedOnTime'])},${String(val['q1'])},${String(val['q2'])},${String(val['q3'])},${String(val['q4'])},${String(val['q5'])},${String(val['q6'])},${val['esi']},${val['location']},${val['airway']},${val['consult']},"${val['reflection']}"\n`
                 );
             }, csvString));
         }
@@ -141,10 +141,10 @@ export const TriageSummary: React.FC = () => {
                                             <td>{selections[idx].airway}</td>
                                             <td>{selections[idx].airway == '' && (<span className={'badge bg-danger'}>Unassigned</span>)}</td>
                                         </tr>
-                                        <tr className={selections[idx].consult != '' ? ('table-info') : ('table-danger')}>
+                                        <tr className={'table-info'}>
                                             <td>Consult</td>
                                             <td>{selections[idx].consult}</td>
-                                            <td>{selections[idx].consult == '' && (<span className={'badge bg-danger'}>Unassigned</span>)}</td>
+                                            <td>{selections[idx].consult == '' && (<span className={'badge bg-secondary'}>Unassigned</span>)}</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -191,6 +191,12 @@ export const TriageSummary: React.FC = () => {
                                         </tr>
                                     </tbody>
                                 </table>
+                                <div className={'row'}>
+                                    <div className="col-6">
+                                        <div className="fw-bold">Reflection</div>
+                                        <p>{selections[idx].reflection ? selections[idx].reflection : 'No reflection submitted.'}</p>
+                                    </div>
+                                </div>
                             </React.Fragment>);
                         })}
                     </div>

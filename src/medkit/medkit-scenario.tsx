@@ -15,9 +15,9 @@ export const Medkit1Scenario: React.FC = () => {
 export const Medkit2Scenario: React.FC = () => {
     return (<>
         You&apos;re the doctor for a 10-person group that will bike and camp
-        the <a href={'https://bikepacking.com/routes/kokopelli-trail-bikepacking-route/'}>
+        the <a target={'_blank'} rel={'noreferrer'} href={'https://bikepacking.com/routes/kokopelli-trail-bikepacking-route/'}>
         Kokopelli Trail</a> from Fruita, Colorado
-        to <a href={'https://www.utahmountainbiking.com/trails/kokopelli.htm'}>Moab, Utah</a>.
+        to <a target={'_blank'} rel={'noreferrer'} href={'https://www.utahmountainbiking.com/trails/kokopelli.htm'}>Moab, Utah</a>.
         The territory is hot and dry and the group will be making camp with the
         help of support vehicles that carry your overnight supplies. While
         riding, the group is isolated and your medical kit will need to travel
