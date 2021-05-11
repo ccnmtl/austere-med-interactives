@@ -150,8 +150,6 @@ const CONSULTATION: OutcomeChoices[] = [
     {text: 'OB', id: 'consult-2'},
     {text: 'Palliative', id: 'consult-3'},
     {text: 'Surgery', id: 'consult-4'},
-    {text: 'EKG', id: 'consult-5'},
-    {text: 'FSBG', id: 'consult-6'}
 ];
 
 interface PatientAssignmentChoiceProps {
@@ -308,7 +306,7 @@ export const PatientPanel: React.FC<PatientPanelProps> = (
     };
 
     const isComplete = (): boolean => {
-        return [esiState, locationState, airwayState, consultState].every((val) => {
+        return [esiState, locationState, airwayState].every((val) => {
             return val != '';
         });
     };

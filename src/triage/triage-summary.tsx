@@ -141,10 +141,10 @@ export const TriageSummary: React.FC = () => {
                                             <td>{selections[idx].airway}</td>
                                             <td>{selections[idx].airway == '' && (<span className={'badge bg-danger'}>Unassigned</span>)}</td>
                                         </tr>
-                                        <tr className={selections[idx].consult != '' ? ('table-info') : ('table-danger')}>
+                                        <tr className={'table-info'}>
                                             <td>Consult</td>
                                             <td>{selections[idx].consult}</td>
-                                            <td>{selections[idx].consult == '' && (<span className={'badge bg-danger'}>Unassigned</span>)}</td>
+                                            <td>{selections[idx].consult == '' && (<span className={'badge bg-secondary'}>Unassigned</span>)}</td>
                                         </tr>
                                     </tbody>
                                 </table>
