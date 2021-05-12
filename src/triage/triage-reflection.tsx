@@ -34,25 +34,27 @@ export const TriageReflection: React.FC = () => {
             <Nav title={'Triage Simulation'} items={navItems}/>
             <div className={'container triage__content'} data-testid='triage-summary'>
                 <div className="row">
-                    <div className="col-12">
+                    <div className="col-12 mb-5">
                         <h1>Patient Triage Simulation Reflection</h1>
                     </div>
                 </div>
                 <div className="row">
                     <div className="col-12">
                         <form>
-                            {DATA.map((patient, idx) => {
+                            {DATA.map((patient, idx, lst) => {
                                 const handleText = (evt: React.ChangeEvent<HTMLTextAreaElement>) => {
                                     evt.preventDefault();
                                     setTriageSelectionData(idx, 'reflection', evt.target.value);
                                 };
                                 return (
-                                    <div key={idx} className="row mb-5">
-                                        <div className="col">
+                                    <div key={idx} className="row">
+                                        <div className="col-12">
+                                            <label className={'h2'} htmlFor={`reflection-text-${idx}`}>
+                                                Reflection for Patient {idx + 1}
+                                            </label>
+                                        </div>
+                                        <div className="col-6">
                                             <div className={'form-group'}>
-                                                <label className={'fw-bold'} htmlFor={`reflection-text-${idx}`}>
-                                                    Reflection for Patient {idx + 1}
-                                                </label>
                                                 <textarea
                                                     id={`reflection-text-${idx}`}
                                                     className={'form-control'}
@@ -60,17 +62,19 @@ export const TriageReflection: React.FC = () => {
                                                     onChange={handleText}/>
                                             </div>
                                         </div>
-                                        <div className="col pt-4">
+                                        <div className="col-6">
                                             <div className="row">
-                                                <div className="col-6">
-                                                    <div className={'fw-bold'}>Chief Complaint</div>
+                                                <div className="col-7">
+                                                    <div className={'fw-bold'}>Chief Complaint:</div>
                                                     <p>{DATA[idx].promptAnswer}</p>
-                                                </div>
-                                                <div className="col mx-5">
-                                                    <img className={'img-fluid'} src={DATA[idx].iconImg}/>
                                                 </div>
                                             </div>
                                         </div>
+                                        {(idx < lst.length - 1) && (
+                                            <div className="col-12 pt-4 pb-3">
+                                                <hr/>
+                                            </div>
+                                        )}
                                     </div>
                                 );
                             })}
@@ -78,7 +82,7 @@ export const TriageReflection: React.FC = () => {
                     </div>
                 </div>
                 <div className="row">
-                    <div className="col-12">
+                    <div className="col-12 mt-4">
                         <a className={'btn btn-danger'} href={'/triage/summary'}>Summary</a>.
                     </div>
                 </div>

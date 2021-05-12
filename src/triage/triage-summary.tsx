@@ -16,7 +16,7 @@ export const TriageSummary: React.FC = () => {
         const s = getTriageSelectionData();
         setSelections(s);
         if (s) {
-            const csvString = 'Time to answer,Completed on time,Question One Asked,Question Two Asked,Question Three Asked,Question Four Asked,Question Five Asked,Question Six Asked,ESI,Location,Airway,Consult,Reflection\n';
+            const csvString = 'Time to answer,Completed on time,Question One Asked,Question Two Asked,Question Three Asked,Question Four Asked,Question Five Asked,Question Six Asked,ESI,Location,Airway,Optional Consult,Reflection\n';
             setCSV(s.reduce((acc: string, val) => {
                 return acc.concat(
                     `${val['timeToAnswer']},${String(val['completedOnTime'])},${String(val['q1'])},${String(val['q2'])},${String(val['q3'])},${String(val['q4'])},${String(val['q5'])},${String(val['q6'])},${val['esi']},${val['location']},${val['airway']},${val['consult']},"${val['reflection']}"\n`
@@ -125,7 +125,7 @@ export const TriageSummary: React.FC = () => {
                                                 ESI Level Assignment
                                             </td>
                                             <td className={selections[idx].esi != '' ? ('table-info') : ('table-danger')}>
-                                                {selections[idx].esi}
+                                                {selections[idx].esi ? selections[idx].esi : (<span className={'fw-lighter fst-italic'}>None</span>)}
                                             </td>
                                             <td className={selections[idx].esi != '' ? ('table-info') : ('table-danger')}>
                                                 {selections[idx].esi == '' && (<span className={'badge bg-danger'}>Unassigned</span>)}
@@ -133,18 +133,24 @@ export const TriageSummary: React.FC = () => {
                                         </tr>
                                         <tr className={selections[idx].location != '' ? ('table-info') : ('table-danger')}>
                                             <td>Location</td>
-                                            <td>{selections[idx].location}</td>
-                                            <td>{selections[idx].location == '' && (<span className={'badge bg-danger'}>Unassigned</span>)}</td>
+                                            <td>
+                                                {selections[idx].location ? selections[idx].location : (<span className={'fw-lighter fst-italic'}>None</span>)}
+                                            </td>
+                                            <td>{selections[idx].location == '' && (<span className={'badge bg-danger'}>Undetermined</span>)}</td>
                                         </tr>
                                         <tr className={selections[idx].airway != '' ? ('table-info') : ('table-danger')}>
                                             <td>Airway</td>
-                                            <td>{selections[idx].airway}</td>
-                                            <td>{selections[idx].airway == '' && (<span className={'badge bg-danger'}>Unassigned</span>)}</td>
+                                            <td>
+                                                {selections[idx].airway ? selections[idx].airway : (<span className={'fw-lighter fst-italic'}>None</span>)}
+                                            </td>
+                                            <td>{selections[idx].airway == '' && (<span className={'badge bg-danger'}>Unassessed</span>)}</td>
                                         </tr>
                                         <tr className={'table-info'}>
-                                            <td>Consult</td>
-                                            <td>{selections[idx].consult}</td>
-                                            <td>{selections[idx].consult == '' && (<span className={'badge bg-secondary'}>Unassigned</span>)}</td>
+                                            <td>Optional Consult</td>
+                                            <td>
+                                                {selections[idx].consult ? selections[idx].consult : (<span className={'fw-lighter fst-italic'}>None</span>)}
+                                            </td>
+                                            <td></td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -159,7 +165,7 @@ export const TriageSummary: React.FC = () => {
                                         <tr>
                                             <th rowSpan={6}>Questions</th>
                                             <td className={!selections[idx].q1 ? ('table-secondary') : ('')}>{patient.q1Question}</td>
-                                            <td className={!selections[idx].q1 ? ('table-secondary') : ('')}>{patient.q1Answer}</td>
+                                            <td className={!selections[idx].q1 ? ('table-secondary') : ('')} dangerouslySetInnerHTML={{__html: patient.q1Answer}} />
                                             <td className={!selections[idx].q1 ? ('table-secondary') : ('')}>
                                                 {!selections[idx].q2 && (<span className={'badge bg-secondary'}>Unasked</span>)}
                                             </td>
@@ -194,7 +200,7 @@ export const TriageSummary: React.FC = () => {
                                 <div className={'row'}>
                                     <div className="col-6">
                                         <div className="fw-bold">Reflection</div>
-                                        <p>{selections[idx].reflection ? selections[idx].reflection : 'No reflection submitted.'}</p>
+                                        <p>{selections[idx].reflection ? selections[idx].reflection : (<span className={'fw-lighter fst-italic'}>No reflection submitted</span>)}</p>
                                     </div>
                                 </div>
                             </React.Fragment>);

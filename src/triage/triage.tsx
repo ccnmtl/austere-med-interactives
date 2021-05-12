@@ -96,6 +96,11 @@ export const Triage: React.FC = () => {
         playAudio(DATA[0].promptAudio);
     };
 
+    const handleRestart = (evt: React.MouseEvent<HTMLButtonElement>): void => {
+        evt.preventDefault();
+        // Trigger the modal
+    };
+
     const navItems = [
         {
             text: 'Step 1. Introduction',
@@ -161,19 +166,18 @@ export const Triage: React.FC = () => {
                                 non fermentum lacus.
                             </p>
                             {window.localStorage.getItem('triage') ? (<>
-                                <p>
-                                    You have already completed the triage sim.
-                                    &nbsp;<a href={'/triage/reflection'}>Reflection</a>
-                                    &nbsp;<a href={'/triage/summary'}>Summary</a>
-                                </p>
-                                <p>
-                                    Click <button className={'btn btn-danger btn-lg'}
-                                        onClick={handleStart}>here</button>
-                                    &nbsp;to reset your choices and retake the sim
-                                </p>
+                                <div className="alert alert-success">
+                                    You have already completed the triage sim. Update
+                                    your <a className={'alert-link'} href={'/triage/reflection'}>
+                                    reflection</a> or review
+                                    your <a className={'alert-link'} href={'/triage/summary'}>
+                                    summary</a>.
+                                </div>
+                                <button className={'btn btn-danger btn-lg'}
+                                    onClick={handleStart}>Restart</button>
                             </>) : (
                                 <button onClick={handleStart} data-testid='triage-start'>
-                                    Engage
+                                    Start
                                 </button>
                             )}
                         </div>
