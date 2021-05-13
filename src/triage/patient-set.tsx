@@ -60,9 +60,9 @@ export const PatientSet: React.FC<PatientSetProps> = (
     const getPgBarState = (clock: number, patientIdx: number) => {
         let pgBarState = 'bg-success';
         const patientCountdown = Number(patients[patientIdx].countdown);
-        if (clock < patientCountdown / 2 && clock >= patientCountdown / 3) {
+        if (clock < 20 && clock > 10) {
             pgBarState = 'bg-warning';
-        } else if (clock < patientCountdown / 3) {
+        } else if (clock <= 10) {
             pgBarState = 'bg-danger';
         }
         return pgBarState;

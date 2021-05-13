@@ -5,6 +5,7 @@ import { Nav } from '../nav';
 import { Background } from '../background';
 import BackgroundImage from '../images/iStock-1217878707.jpg';
 import { PatientSet } from './index';
+import { Modal } from '../modal';
 import DATA from '../data/triage.json';
 import TriageImg from '../images/iStock-1217878707.jpg';
 
@@ -67,6 +68,7 @@ export const printFSeconds = (seconds: number): string => {
 
 export const Triage: React.FC = () => {
     const [simStarted, setSimStarted] = useState<boolean>(false);
+    const [showModal, setShowModal] = useState<boolean>(false);
     const audioRef = useRef<HTMLAudioElement | null>(null);
 
     const stopAllAudio = (): void => {
@@ -92,6 +94,21 @@ export const Triage: React.FC = () => {
 
     const handleStart = (evt: React.MouseEvent<HTMLButtonElement>): void => {
         evt.preventDefault();
+        setSimStarted(true);
+        playAudio(DATA[0].promptAudio);
+    };
+
+    const handleRestart = (evt: React.MouseEvent<HTMLButtonElement>): void => {
+        evt.preventDefault();
+        setShowModal(true);
+    };
+
+    const modalCancel = () => {
+        setShowModal(false);
+    };
+
+    const modalConfirm = () => {
+        setShowModal(false);
         setSimStarted(true);
         playAudio(DATA[0].promptAudio);
     };
@@ -161,19 +178,29 @@ export const Triage: React.FC = () => {
                                 non fermentum lacus.
                             </p>
                             {window.localStorage.getItem('triage') ? (<>
-                                <p>
-                                    You have already completed the triage sim.
-                                    &nbsp;<a href={'/triage/reflection'}>Reflection</a>
-                                    &nbsp;<a href={'/triage/summary'}>Summary</a>
-                                </p>
-                                <p>
-                                    Click <button className={'btn btn-danger btn-lg'}
-                                        onClick={handleStart}>here</button>
-                                    &nbsp;to reset your choices and retake the sim
-                                </p>
+                                <div className="alert alert-success">
+                                    You have already completed the triage sim. Update
+                                    your <a className={'alert-link'} href={'/triage/reflection'}>
+                                    reflection</a> or review
+                                    your <a className={'alert-link'} href={'/triage/summary'}>
+                                    summary</a>.
+                                </div>
+                                <button className={'btn btn-danger btn-lg'}
+                                    onClick={handleRestart}>Restart
+                                </button>
+                                {showModal && (
+                                    <Modal
+                                        title={'Restart Triage Simulation'}
+                                        // eslint-disable-next-line max-len
+                                        bodyText={'Restarting the simulation will clear your previously selections. Are you sure that you would like to proceed?'}
+                                        cancelText={'Cancel'}
+                                        confirmText={'Restart Simulation'}
+                                        cancelFunc={modalCancel}
+                                        confirmFunc={modalConfirm}/>
+                                )}
                             </>) : (
                                 <button onClick={handleStart} data-testid='triage-start'>
-                                    Engage
+                                    Start
                                 </button>
                             )}
                         </div>

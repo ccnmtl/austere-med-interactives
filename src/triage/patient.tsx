@@ -342,7 +342,7 @@ export const PatientPanel: React.FC<PatientPanelProps> = (
             resourceLimitStatus: AirwayResourceLimits
         },
         {
-            heading: 'Additional Intervention/Consultation with',
+            heading: 'Optional - Additional Intervention/Consultation',
             choices: CONSULTATION,
             questionId: 'consult',
             state: consultState,
@@ -377,7 +377,7 @@ export const PatientPanel: React.FC<PatientPanelProps> = (
                         <button
                             type={'button'}
                             onClick={lastPatient ? advanceToReflection : advanceToNextPatient}
-                            className={'btn btn-primary btn-small'}>
+                            className={'btn btn-danger btn-small'}>
                             {lastPatient ? (
                                 <>Proceed to Reflection</>
                             ) : (
@@ -432,13 +432,10 @@ export const PatientPanel: React.FC<PatientPanelProps> = (
                                 aria-labelledby="v-pills-ems-tab">
                                 <div
                                     role="alert"
-                                    className="alert alert-info"
+                                    className="alert alert-secondary fs-4"
                                     dangerouslySetInnerHTML={
                                         // eslint-disable-next-line max-len
                                         {__html: patient[prompts[lockPanel ? 0 : activePrompt][1]] as string || ''}}/>
-                                <div className={'mb-3'}>
-                                    <img className="img-thumbnail" src={patient.iconImg} />
-                                </div>
                                 {/* TODO: simplify */}
                                 {typeof prompts[activePrompt][2] === 'string' && (
                                     <button type="button"
@@ -479,7 +476,7 @@ export const PatientPanel: React.FC<PatientPanelProps> = (
                             })}
                             <div className="form-group">
                                 <button type={'button'}
-                                    className="btn btn-primary"
+                                    className="btn btn-danger"
                                     aria-disabled={lockPanel}
                                     disabled={lockPanel}
                                     onClick={handleFormSubmit}>
