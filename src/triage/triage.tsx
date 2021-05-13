@@ -5,6 +5,7 @@ import { Nav } from '../nav';
 import { Background } from '../background';
 import BackgroundImage from '../images/iStock-1217878707.jpg';
 import { PatientSet } from './index';
+import { Modal } from '../modal';
 import DATA from '../data/triage.json';
 import TriageImg from '../images/iStock-1217878707.jpg';
 
@@ -67,6 +68,7 @@ export const printFSeconds = (seconds: number): string => {
 
 export const Triage: React.FC = () => {
     const [simStarted, setSimStarted] = useState<boolean>(false);
+    const [showModal, setShowModal] = useState<boolean>(false);
     const audioRef = useRef<HTMLAudioElement | null>(null);
 
     const stopAllAudio = (): void => {
@@ -98,7 +100,17 @@ export const Triage: React.FC = () => {
 
     const handleRestart = (evt: React.MouseEvent<HTMLButtonElement>): void => {
         evt.preventDefault();
-        // Trigger the modal
+        setShowModal(true);
+    };
+
+    const modalCancel = () => {
+        setShowModal(false);
+    };
+
+    const modalConfirm = () => {
+        setShowModal(false);
+        setSimStarted(true);
+        playAudio(DATA[0].promptAudio);
     };
 
     const navItems = [
@@ -174,7 +186,18 @@ export const Triage: React.FC = () => {
                                     summary</a>.
                                 </div>
                                 <button className={'btn btn-danger btn-lg'}
-                                    onClick={handleStart}>Restart</button>
+                                    onClick={handleRestart}>Restart
+                                </button>
+                                {showModal && (
+                                    <Modal
+                                        title={'Restart Triage Simulation'}
+                                        // eslint-disable-next-line max-len
+                                        bodyText={'Restarting the simulation will clear your previously selections. Are you sure that you would like to proceed?'}
+                                        cancelText={'Cancel'}
+                                        confirmText={'Restart Simulation'}
+                                        cancelFunc={modalCancel}
+                                        confirmFunc={modalConfirm}/>
+                                )}
                             </>) : (
                                 <button onClick={handleStart} data-testid='triage-start'>
                                     Start
