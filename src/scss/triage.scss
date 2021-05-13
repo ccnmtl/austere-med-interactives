@@ -22,6 +22,8 @@
     @extend .bg-dark;
     width: 100%;
     font-weight: bold;
+    -webkit-print-color-adjust: exact !important;
+    color-adjust: exact !important;
 }
 
 .triage-summary__assignment-table {
@@ -42,6 +44,8 @@
         background-color: #f8d7da;
         border-bottom: solid 1px #dc3646;
     }
+    -webkit-print-color-adjust: exact !important;
+    color-adjust: exact !important;
 
     .triage-summary__status--head {
         display: inline-block;    

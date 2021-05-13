@@ -15,3 +15,8 @@
     background-repeat: no-repeat;
     background-size: cover;
 }
+
+.table {
+    -webkit-print-color-adjust: exact !important;
+    color-adjust: exact !important;
+}

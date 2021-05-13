@@ -84,7 +84,7 @@ export const TriageSummary: React.FC = () => {
                         </div>
                     </div>
                 </div>
-                <div className="row">
+                <div className="row d-print-none">
                     <div className="col-12">
                         <p className="lead">
                             Here&apos;s how you did.
