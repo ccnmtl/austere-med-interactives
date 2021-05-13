@@ -377,7 +377,7 @@ export const PatientPanel: React.FC<PatientPanelProps> = (
                         <button
                             type={'button'}
                             onClick={lastPatient ? advanceToReflection : advanceToNextPatient}
-                            className={'btn btn-primary btn-small'}>
+                            className={'btn btn-danger btn-small'}>
                             {lastPatient ? (
                                 <>Proceed to Reflection</>
                             ) : (
@@ -476,7 +476,7 @@ export const PatientPanel: React.FC<PatientPanelProps> = (
                             })}
                             <div className="form-group">
                                 <button type={'button'}
-                                    className="btn btn-primary"
+                                    className="btn btn-danger"
                                     aria-disabled={lockPanel}
                                     disabled={lockPanel}
                                     onClick={handleFormSubmit}>
