@@ -7,7 +7,9 @@ import React, { useEffect  } from 'react';
 import ReactGA, { FieldsObject  } from 'react-ga';
 import { RouteComponentProps  } from 'react-router-dom';
 
-ReactGA.initialize('G-6X10DDXG1N');
+const GA_TRACKING_ID = 'UA-51144540-39'
+
+ReactGA.initialize(GA_TRACKING_ID);
 
 export const withTracker = <P extends RouteComponentProps>(
     WrappedComponent: React.ComponentType<P>,

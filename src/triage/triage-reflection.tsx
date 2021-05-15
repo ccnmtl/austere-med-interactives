@@ -33,9 +33,19 @@ export const TriageReflection: React.FC = () => {
         <>
             <Nav title={'Triage Simulation'} items={navItems}/>
             <div className={'container triage__content'} data-testid='triage-summary'>
-                <div className="row">
-                    <div className="col-12 mb-5">
+                <div className="row mb-5">
+                    <div className="col-12">
                         <h1>Patient Triage Simulation Reflection</h1>
+                    </div>
+                    <div className="col-6">
+                        <p>
+                            That experience was likely challenging and has you
+                            a bit flustered - at least that was the goal!
+                            Please take a moment to record any short reflections
+                            you might have for each patient - these can be used
+                            during your debrief session - before moving on to your
+                            summary page.
+                        </p>
                     </div>
                 </div>
                 <div className="row">

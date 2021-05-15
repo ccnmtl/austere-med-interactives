@@ -63,7 +63,7 @@ export const Home: React.FC = () => {
             text: 'An outbreak situation has created a crisis in an urban hospital system. Can you work fast and dilligently enough to meet your patients’ needs?',
             linkUrl: '/triage',
             imgUrl: TriageImg,
-            disable: true
+            disable: false
         }
     ];
 
