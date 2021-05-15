@@ -158,7 +158,7 @@ export const Triage: React.FC = () => {
                                 emergency department at an academic medical center
                                 in New York City. The ED sees only adults and is
                                 located in a tertiary care center with all
-                                available specialities and ICU capacity.  The
+                                available specialities and ICU capacity. The
                                 simulation assumes NYC is in the middle of an
                                 outbreak of an influenza-like illness, with EMS
                                 volumes reaching record highs and more than 300
@@ -172,8 +172,8 @@ export const Triage: React.FC = () => {
                                 succession and will have a finite amount of
                                 time to decide: the patients ESI levels, what
                                 respiratory intervention they need (if any), and
-                                where to send the patient.  You will be presented
-                                (by the EMT) with the patients chief complaint and
+                                where to send the patient. You will be presented
+                                (by the EMT) with the patient's chief complaint and
                                 will have the opportunity to request follow up
                                 information. As in a real ED, there are a limited
                                 number of trauma & High acuity beds available, as
@@ -187,13 +187,13 @@ export const Triage: React.FC = () => {
                                 There are no “correct” answers for this
                                 exercise, instead you should be thoughtful
                                 about the decisions you are making, with the
-                                resources you have available to you.  For Columbia
+                                resources you have available to you. For Columbia
                                 University students, this simulation is followed by
                                 a live group debrief to discuss your experiences.
                             </p>
                             <p>
                                 Your responses will be automatically saved, in
-                                your browsers cache, so you can revisit this
+                                your browser's cache, so you can revisit this
                                 simulation at any time to review or edit your
                                 responses (for Columbia students, we ask that you
                                 go through the simulation only once, before the
