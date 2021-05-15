@@ -145,37 +145,60 @@ export const Triage: React.FC = () => {
                         <div className="col-12">
                             <h1>Patient Triage Simulation</h1>
                             <p className="lead">
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                                Triage an influx of EMS patients
                             </p>
                         </div>
                     </div>
                     <div className="row">
                         <div className="col-6">
                             <p>
-                                Duis et sagittis purus. Aenean convallis ligula
-                                eleifend enim volutpat auctor. Praesent in volutpat
-                                quam. Pellentesque sodales lectus semper augue scelerisque
-                                egestas. Praesent libero augue, tempus eget interdum vel,
-                                vestibulum et tortor. Quisque rhoncus leo tortor, nec
-                                pretium lacus venenatis interdum. Aenean varius suscipit
-                                tempus.
+                                For this simulation, you are part of a team
+                                responsible for emergency preparedness and
+                                clinical operations at a 100K visit per year
+                                emergency department at an academic medical center
+                                in New York City. The ED sees only adults and is
+                                located in a tertiary care center with all
+                                available specialities and ICU capacity.  The
+                                simulation assumes NYC is in the middle of an
+                                outbreak of an influenza-like illness, with EMS
+                                volumes reaching record highs and more than 300
+                                patients per day presenting to the adult ED. You,
+                                the learner, are put in the the role of a triage
+                                officer assigned to the EMS triage area to help
+                                direct the rapid inflow of patients.
                             </p>
                             <p>
-                                Vestibulum at aliquet arcu, et auctor lectus.
-                                Phasellus a eros elit. Nulla quis mi ac nunc
-                                consectetur mattis. Integer sed malesuada ligula.
-                                Curabitur venenatis turpis in ex facilisis rhoncus.
-                                Morbi feugiat sagittis vestibulum. Nam rhoncus, lectus
-                                in mattis pretium, augue nunc vestibulum velit,
-                                dignissim hendrerit nibh purus in libero. Nunc sagittis
-                                ullamcorper mi, vel luctus risus dapibus eu. Integer
-                                vehicula vitae tortor vel fermentum. Phasellus
-                                pellentesque felis sed consectetur elementum. Curabitur
-                                vitae lectus velit. Phasellus at lacus diam. Aenean
-                                fermentum lorem non velit faucibus rutrum. Mauris id
-                                eros bibendum, dictum erat sit amet, bibendum orci.
-                                Donec sit amet nisl et libero venenatis hendrerit. Duis
-                                non fermentum lacus.
+                                You will be presented with 10 patients in rapid
+                                succession and will have a finite amount of
+                                time to decide: the patients ESI levels, what
+                                respiratory intervention they need (if any), and
+                                where to send the patient.  You will be presented
+                                (by the EMT) with the patients chief complaint and
+                                will have the opportunity to request follow up
+                                information. As in a real ED, there are a limited
+                                number of trauma & High acuity beds available, as
+                                well as senior physicians that can support you -
+                                you must use your resources wisely!  Following the
+                                10 patients, you will have a moment to reflect on
+                                your experience and view a summary of what you
+                                selected.
+                            </p>
+                            <p>
+                                There are no “correct” answers for this
+                                exercise, instead you should be thoughtful
+                                about the decisions you are making, with the
+                                resources you have available to you.  For Columbia
+                                University students, this simulation is followed by
+                                a live group debrief to discuss your experiences.
+                            </p>
+                            <p>
+                                Your responses will be automatically saved, in
+                                your browsers cache, so you can revisit this
+                                simulation at any time to review or edit your
+                                responses (for Columbia students, we ask that you
+                                go through the simulation only once, before the
+                                debrief session - after which you are welcome to
+                                engage with the simulation as much as you like).
                             </p>
                             {window.localStorage.getItem('triage') ? (<>
                                 <div className="alert alert-success">
@@ -199,7 +222,10 @@ export const Triage: React.FC = () => {
                                         confirmFunc={modalConfirm}/>
                                 )}
                             </>) : (
-                                <button onClick={handleStart} data-testid='triage-start'>
+                                <button
+                                    className={'btn btn-danger btn-lg'}
+                                    onClick={handleStart}
+                                    data-testid='triage-start'>
                                     Start
                                 </button>
                             )}
