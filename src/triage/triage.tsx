@@ -173,7 +173,7 @@ export const Triage: React.FC = () => {
                                 time to decide: the patients ESI levels, what
                                 respiratory intervention they need (if any), and
                                 where to send the patient. You will be presented
-                                (by the EMT) with the patient's chief complaint and
+                                (by the EMT) with the patient&apos;s chief complaint and
                                 will have the opportunity to request follow up
                                 information. As in a real ED, there are a limited
                                 number of trauma & High acuity beds available, as
@@ -193,7 +193,7 @@ export const Triage: React.FC = () => {
                             </p>
                             <p>
                                 Your responses will be automatically saved, in
-                                your browser's cache, so you can revisit this
+                                your browser&apos;s cache, so you can revisit this
                                 simulation at any time to review or edit your
                                 responses (for Columbia students, we ask that you
                                 go through the simulation only once, before the
