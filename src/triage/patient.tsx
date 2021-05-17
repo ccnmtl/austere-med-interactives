@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { getTriageSelectionData, setTriageSelectionData } from './triage';
-import Nurse from '../images/iStock-155705146.jpg';
 
 // NOTE: this interface needs to match the column headings in the data csv
 export interface Patient {

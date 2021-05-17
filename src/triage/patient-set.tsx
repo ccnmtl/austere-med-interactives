@@ -57,9 +57,8 @@ export const PatientSet: React.FC<PatientSetProps> = (
         startPatientPanel(0);
     }, []);
 
-    const getPgBarState = (clock: number, patientIdx: number) => {
+    const getPgBarState = (clock: number) => {
         let pgBarState = 'bg-success';
-        const patientCountdown = Number(patients[patientIdx].countdown);
         if (clock < 20 && clock > 10) {
             pgBarState = 'bg-warning';
         } else if (clock <= 10) {
@@ -79,7 +78,7 @@ export const PatientSet: React.FC<PatientSetProps> = (
                     for questioning before you commit to a final decision for Patient One.
                 </p>
                 <div className={'triage__progress progress'}>
-                    <div className={`progress-bar ${getPgBarState(countdownClock, currentPatient)}`}
+                    <div className={`progress-bar ${getPgBarState(countdownClock)}`}
                         role="progressbar"
                         style={{
                             width:
