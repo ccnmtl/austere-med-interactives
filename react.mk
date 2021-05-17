@@ -1,6 +1,7 @@
 S3CMD ?= s3cmd
 S3_FLAGS ?= --acl-public --delete-removed --no-progress --no-mime-magic --guess-mime-type
 INTERMEDIATE_STEPS = cp src/images/favicon-am.svg dist/images/favicon-am.svg && cp -r src/audio dist/audio
+DIST_CLEAN = rm -rf dist
 DATA_SENTINAL = src/data/triage.json src/data/medkit.json
 
 src/data/triage.json: data/triage.csv
@@ -39,11 +40,13 @@ snapshot: $(JS_SENTINAL) $(DATA_SENTINAL)
 	npm run test:snapshot
 
 deploy-stage: $(JS_SENTINAL $(DATA_SENTINAL)) 
+	$(DIST_CLEAN) && \
 	npm run build:prod && \
 	$(INTERMEDIATE_STEPS) && \
 	$(S3CMD) $(S3_FLAGS) sync --exclude-from='.s3ignore' . s3://$(STAGING_BUCKET)/
 
 deploy-prod: $(JS_SENTINAL) $(DATA_SENTINAL) 
+	$(DIST_CLEAN) && \
 	npm run build:prod && \
 	$(INTERMEDIATE_STEPS) && \
 	$(S3CMD) $(S3_FLAGS) sync --exclude-from='.s3ignore' . s3://$(PROD_BUCKET)/

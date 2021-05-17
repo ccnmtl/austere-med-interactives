@@ -88,7 +88,7 @@ export const Triage: React.FC = () => {
             void a.play();
         });
         // eslint-disable-next-line scanjs-rules/assign_to_src
-        a.src = audioURL;
+        a.src = audioURL + `?cache=${__BUILD__}`;
         audioRef.current = a;
     };
 

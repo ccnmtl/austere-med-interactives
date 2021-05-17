@@ -1,4 +1,5 @@
 const path = require('path');
+const webpack = require('webpack');
 
 module.exports = {
     entry: './src/index.tsx',
@@ -31,6 +32,11 @@ module.exports = {
             },
         }]
     },
+    plugins: [
+        new webpack.DefinePlugin({
+            __BUILD__: JSON.stringify(Date.now())
+        })
+    ],
     devServer: {
         inline: true,
         publicPath: './',
