@@ -1,6 +1,6 @@
 S3CMD ?= s3cmd
 S3_FLAGS ?= --acl-public --delete-removed --no-progress --no-mime-magic --guess-mime-type
-INTERMEDIATE_STEPS = mkdir dist && mkdir dist/images && cp src/images/favicon-am.svg dist/images/favicon-am.svg && cp -r src/audio dist/audio
+INTERMEDIATE_STEPS = cp src/images/favicon-am.svg dist/images/favicon-am.svg && cp -r src/audio dist/audio
 DATA_SENTINAL = src/data/triage.json src/data/medkit.json
 
 src/data/triage.json: data/triage.csv
@@ -14,6 +14,7 @@ data: $(DATA_SENTINAL)
 	make src/data/medkit.json
 
 runserver: $(JS_SENTINAL) $(DATA_SENTINAL)
+	-mkdir dist && mkdir dist/images
 	$(INTERMEDIATE_STEPS) && \
 	npm run dev
 
