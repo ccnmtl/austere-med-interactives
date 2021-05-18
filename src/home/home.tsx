@@ -2,6 +2,10 @@ import React from 'react';
 import { Logo } from '../logo';
 import MedkitImg from '../images/iStock-1217277545.jpg';
 import TriageImg from '../images/iStock-1217878707.jpg';
+import CUIMCLogo from '../images/CUIMC_logo.png';
+import CTLLogo from '../images/CTL-logo.png';
+import VPTLILogo from '../images/VPTLI_logo.svg';
+import EMLogo from '../images/Emergency_Medicine_logo.png';
 
 interface PromoCardProps {
     title: string;
@@ -105,6 +109,43 @@ export const Home: React.FC = () => {
             <div className="am__hp-footer">
                 <div className="container py-5">
                     <div className="row py-5">
+                        <div className="col-8">
+                            <div className="row">
+                                <div className="col-12">
+                                    <span className="h2 d-block">Partners</span>
+                                </div>
+                            </div>
+                            <div className="row">
+                                <div className="col-md-4">
+                                    <a href={'https://www.cuimc.columbia.edu/'}>
+                                        <img src={CUIMCLogo} className={'img-fluid mb-2'} />
+                                    </a>
+                                    <a href={'https://www.emergencymedicine.columbia.edu/'}>
+                                        <img src={EMLogo} className={'img-fluid'} />
+                                    </a>
+                                </div>
+                                <div className="col-md-1"></div>
+                                <div className="col-md-6">
+                                    <a href={'https://www.ctl.columbia.edu/'}>
+                                        <img src={CTLLogo} className={'img-fluid'} />
+                                    </a>
+                                    <a href={'https://www.vptli.columbia.edu/'}>
+                                        <img src={VPTLILogo} className={'img-fluid'} />
+                                    </a>
+                                </div>
+                            </div>
+                            <div className="row">
+                                <div className="col-8">
+                                    <p>
+                                        This project is a joint collaboration
+                                        between <a href={'https://www.cuimc.columbia.edu/'} className={'link-danger'}>Columbia University Irving Medical Center</a>
+                                        , <a href={'https://www.emergencymedicine.columbia.edu/'} className={'link-danger'}>Columbia University Department of Emergency Medicine</a> and
+                                        the <a href={'https://ctl.columbia.edu'} className={'link-danger'}>Center for Teaching and Learning</a>, with additional support from
+                                        the <a href={'https://www.vptli.columbia.edu/'} className={'link-danger'}>Columbia Office of the Vice Provost for Teaching, Learning, and Innovation</a>.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
                         <div className="col-4">
                             <span className="h2 d-block">About</span>
                             <p>
@@ -114,26 +155,11 @@ export const Home: React.FC = () => {
                                 resource-limited settings, including wilderness and
                                 disaster environments.
                             </p>
-                            <a href={'/about'} className={'btn btn-danger'}>More</a>
-                        </div>
-                        <div className="col-4">
-                            <span className="h2 d-block">Partners</span>
-                            <p>
-                                This project is a joint collaboration between
-                                CUIMC and CTL with additional support from the
-                                Columbia Office of the VPTLI.
-                            </p>
-                        </div>
-                        <div className="col-4">
-                            <span className="h2 d-block">Contact</span>
                             <p>
                                 Please reach out for bugs, questions, or more
                                 information about the project.
                             </p>
-                            <a href={'mailto:ctl-austeremedicine@columbia.edu'}
-                                className={'btn btn-danger'}>
-                                Contact Us
-                            </a>
+                            <a href={'/about'} className={'btn btn-danger'}>More</a>
                         </div>
                     </div>
                 </div>
