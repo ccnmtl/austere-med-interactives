@@ -184,6 +184,17 @@ export const Triage: React.FC = () => {
                                 selected.
                             </p>
                             <p>
+                                A short demo video is available to orient you
+                                to the simulation interface before you begin.
+                            </p>
+                            <div className="ratio ratio-16x9 mb-4">
+                                <iframe
+                                    src="https://www.youtube.com/embed/PC_0zuCAqiY"
+                                    title="Austere Medicine: Triage Simulation Overview"
+                                    allowFullScreen>
+                                </iframe>
+                            </div>
+                            <p>
                                 There are no “correct” answers for this
                                 exercise, instead you should be thoughtful
                                 about the decisions you are making, with the
