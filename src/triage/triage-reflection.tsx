@@ -1,12 +1,21 @@
 /* eslint-disable max-len */
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import { Nav } from '../nav';
 import { Background } from '../background';
 import BackgroundImage from '../images/iStock-1217878707.jpg';
 import DATA from '../data/triage.json';
-import {setTriageSelectionData} from './';
+import {
+    getTriageSelectionData, setTriageSelectionData, TriageSelectionData
+} from './';
 
 export const TriageReflection: React.FC = () => {
+    const [selections, setSelections] = useState<TriageSelectionData[]>(null);
+
+    useEffect(() => {
+        const s = getTriageSelectionData();
+        setSelections(s);
+    }, []);
+
     const navItems = [
         {
             text: 'Step 1. Introduction',
@@ -74,7 +83,16 @@ export const TriageReflection: React.FC = () => {
                                         </div>
                                         <div className="col-6">
                                             <div className="row">
-                                                <div className="col-7">
+                                                <div className="col-6">
+                                                    <div className={'fw-bold'}>Selections Made:</div>
+                                                    <div>
+                                                        ESI: {selections && selections[idx].esi ? selections[idx].esi : ('No selection made')}<br/>
+                                                        Location: {selections && selections[idx].location ? selections[idx].location : ('No selection made')}<br/>
+                                                        Airway: {selections && selections[idx].airway ? selections[idx].airway : ('No selection made')}<br/>
+                                                        Optional Consult: {selections && selections[idx].consult ? selections[idx].consult : ('No selection made')}<br/>
+                                                    </div>
+                                                </div>
+                                                <div className="col-6">
                                                     <div className={'fw-bold'}>Chief Complaint:</div>
                                                     <p>{DATA[idx].promptAnswer}</p>
                                                 </div>
