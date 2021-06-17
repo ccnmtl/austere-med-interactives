@@ -121,26 +121,26 @@ const prompts = [
 ];
 
 const ESI: OutcomeChoices[] = [
-    {text: '5', id: 'esi-5'},
-    {text: '4', id: 'esi-4'},
-    {text: '3', id: 'esi-3'},
+    {text: '1', id: 'esi-1'},
     {text: '2', id: 'esi-2'},
-    {text: '1', id: 'esi-1'}
+    {text: '3', id: 'esi-3'},
+    {text: '4', id: 'esi-4'},
+    {text: '5', id: 'esi-5'}
 ];
 
 const LOCATION: OutcomeChoices[] = [
-    {text: 'Trauma/Resus Bay', id: 'loc-0', resourceValidator: traumaBayResourceValidator},
-    {text: 'ED, High Acuity', id: 'loc-1', resourceValidator: highAcuityResourceValidator},
+    {text: 'Waiting Room', id: 'loc-3'},
     {text: 'ED, Low Acuity', id: 'loc-2'},
-    {text: 'Waiting Room', id: 'loc-3'}
+    {text: 'ED, High Acuity', id: 'loc-1', resourceValidator: highAcuityResourceValidator},
+    {text: 'Trauma/Resus Bay', id: 'loc-0', resourceValidator: traumaBayResourceValidator}
 ];
 
 const AIRWAY: OutcomeChoices[] = [
-    {text: 'Bipap', id: 'air-0'},
-    {text: 'High Flow Nasal Cannula', id: 'air-1'},
-    {text: 'Intubate', id: 'air-2', resourceValidator: intubationResourceValidator},
+    {text: 'No Oxygen', id: 'air-4'},
     {text: 'Nasal Cannula', id: 'air-3'},
-    {text: 'No Oxygen', id: 'air-4'}
+    {text: 'High Flow Nasal Cannula', id: 'air-1'},
+    {text: 'BiPAP', id: 'air-0'},
+    {text: 'Intubate', id: 'air-2', resourceValidator: intubationResourceValidator},
 ];
 
 const CONSULTATION: OutcomeChoices[] = [
