@@ -2,10 +2,10 @@ import React from 'react';
 import { Logo } from '../logo';
 import MedkitImg from '../images/iStock-1217277545.jpg';
 import TriageImg from '../images/iStock-1217878707.jpg';
-import CUIMCLogo from '../images/CUIMC_logo.png';
-import CTLLogo from '../images/CTL-logo.png';
-import VPTLILogo from '../images/VPTLI_logo.svg';
-import EMLogo from '../images/Emergency_Medicine_logo.png';
+import CUIMCLogo from '../images/logo-black-cuimc.svg';
+import CTLLogo from '../images/logo-black-ctl.svg';
+import VPTLILogo from '../images/logo-black-vptli.svg';
+import EMLogo from '../images/logo-black-emergency.svg';
 
 interface PromoCardProps {
     title: string;
@@ -82,8 +82,16 @@ export const Home: React.FC = () => {
                                 VIRTUAL SIMULATIONS
                             </span>
                             <p className={'fs-5 text-white text-center'}>
-                                Experience digital teaching tools for medical
-                                care wilderness and disaster environments.
+                                The Austere Medicine initiative is a positive
+                                environment for a community of final-year
+                                medical students to learn about medical care in
+                                resource-limited settings, including wilderness and
+                                disaster environments.
+                            </p>
+                            <p>
+                                <a href="/about" className={'btn btn-lg btn-light'}>
+                                    Learn More
+                                </a>
                             </p>
                         </div>
                     </div>
@@ -109,57 +117,40 @@ export const Home: React.FC = () => {
             <div className="am__hp-footer">
                 <div className="container py-5">
                     <div className="row py-5">
-                        <div className="col-8">
-                            <div className="row">
-                                <div className="col-12">
-                                    <span className="h2 d-block">Partners</span>
+                        <div className="col-12">
+                            <div className="row justify-content-center">
+                                <div className="col-12 text-center fw-bold">
+                                    This project is a joint collaboration of the
+                                    following institutions:
                                 </div>
                             </div>
-                            <div className="row">
+                            <div className="row justify-content-center">
                                 <div className="col-md-4">
                                     <a href={'https://www.cuimc.columbia.edu/'}>
                                         <img src={CUIMCLogo} className={'img-fluid mb-2'} />
                                     </a>
+                                </div>
+                                <div className="col-md-4">
                                     <a href={'https://www.emergencymedicine.columbia.edu/'}>
                                         <img src={EMLogo} className={'img-fluid'} />
                                     </a>
                                 </div>
-                                <div className="col-md-1"></div>
-                                <div className="col-md-6">
+                                <div className="col-md-4">
                                     <a href={'https://www.ctl.columbia.edu/'}>
                                         <img src={CTLLogo} className={'img-fluid'} />
                                     </a>
+                                </div>
+                            </div>
+                            <div className="row justify-content-center">
+                                <div className="col-12 text-center fw-bold">
+                                    This project was made possible with generous support from:
+                                </div>
+                                <div className="col-md-4">
                                     <a href={'https://www.vptli.columbia.edu/'}>
                                         <img src={VPTLILogo} className={'img-fluid'} />
                                     </a>
                                 </div>
                             </div>
-                            <div className="row">
-                                <div className="col-8">
-                                    <p>
-                                        This project is a joint collaboration
-                                        between <a href={'https://www.cuimc.columbia.edu/'} className={'link-danger'}>Columbia University Irving Medical Center</a>
-                                        , <a href={'https://www.emergencymedicine.columbia.edu/'} className={'link-danger'}>Columbia University Department of Emergency Medicine</a> and
-                                        the <a href={'https://ctl.columbia.edu'} className={'link-danger'}>Center for Teaching and Learning</a>, with additional support from
-                                        the <a href={'https://www.vptli.columbia.edu/'} className={'link-danger'}>Columbia Office of the Vice Provost for Teaching, Learning, and Innovation</a>.
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="col-4">
-                            <span className="h2 d-block">About</span>
-                            <p>
-                                The Austere Medicine initiative is a positive
-                                environment for a community of final-year
-                                medical students to learn about medical care in
-                                resource-limited settings, including wilderness and
-                                disaster environments.
-                            </p>
-                            <p>
-                                Please reach out for bugs, questions, or more
-                                information about the project.
-                            </p>
-                            <a href={'/about'} className={'btn btn-danger'}>More</a>
                         </div>
                     </div>
                 </div>
