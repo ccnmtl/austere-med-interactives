@@ -23,13 +23,7 @@ module.exports = {
         },
         {
             test: /\.(gif|png|jpe?g|svg)$/i,
-            loader: 'file-loader',
-            options: {
-                disable: true,
-                outputPath: 'images/',
-                name: '[name].[ext]',
-                emitFile: true
-            },
+            type: 'asset/resource',
         }]
     },
     plugins: [
@@ -38,11 +32,13 @@ module.exports = {
         })
     ],
     devServer: {
-        inline: true,
-        publicPath: './',
-        contentBase: './',
         port: 3000,
         historyApiFallback: true,
-        writeToDisk: true
-    },
+        devMiddleware: {
+            writeToDisk: true,
+        },
+        static: {
+            directory: './'
+        }
+    }
 };
