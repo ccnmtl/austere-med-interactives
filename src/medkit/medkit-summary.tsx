@@ -145,9 +145,21 @@ export const MedkitSummary: React.FC = () => {
                                             )}
                                             <td>{val.item}</td>
                                             <td>{val.points}</td>
-                                            <td>{KIT_1 && KIT_1[idx] && (<>&#10003;</>)}</td>
-                                            <td>{KIT_2 && KIT_2[idx] && (<>&#10003;</>)}</td>
-                                            <td>{KIT_3 && KIT_3[idx] && (<>&#10003;</>)}</td>
+                                            <td>{KIT_1 && KIT_1[idx] && (<>
+                                                <span aria-hidden={true}>&#10003;</span>
+                                                <span className={'sr-only'}>checked</span>
+                                            </>)}
+                                            </td>
+                                            <td>{KIT_2 && KIT_2[idx] && (<>
+                                                <span aria-hidden={true}>&#10003;</span>
+                                                <span className={'sr-only'}>checked</span>
+                                            </>)}
+                                            </td>
+                                            <td>{KIT_3 && KIT_3[idx] && (<>
+                                                <span aria-hidden={true}>&#10003;</span>
+                                                <span className={'sr-only'}>checked</span>
+                                            </>)}
+                                            </td>
                                         </tr>
                                     );
                                 })}
