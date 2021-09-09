@@ -79,6 +79,10 @@ export const Medkit: React.FC<MedkitParams> = (
     };
 
     useEffect(() => {
+        document.title = `${title} | Austere Medicine Virtual Simulations`;
+    });
+
+    useEffect(() => {
         setItemsPicked(initMedkitData(medkitId));
     }, []);
 

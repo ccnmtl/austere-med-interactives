@@ -136,6 +136,10 @@ export const Triage: React.FC = () => {
         }
     ];
 
+    React.useEffect(() => {
+        document.title = 'Patient Triage Simulation | Austere Medicine Virtual Simulations';
+    });
+
     return (
         <>
             <Nav title={'Patient Triage Simulation'} items={navItems}/>

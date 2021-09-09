@@ -15,6 +15,8 @@ interface PromoCardProps {
     disable: boolean;
 }
 
+const PAGE_TITLE = 'Austere Medicine Virtual Simulations';
+
 const PromoCard: React.FC<PromoCardProps> = (
     {title, text, linkUrl, imgUrl, disable}: PromoCardProps) => {
     return (
@@ -71,12 +73,17 @@ export const Home: React.FC = () => {
         }
     ];
 
+    React.useEffect(() => {
+        document.title = PAGE_TITLE;
+    });
+
     return (
         <>
             <div className="am__hero">
                 <div className={'container py-5'} data-testid='home'>
                     <div className="row justify-content-center py-5">
                         <div className="col-12 col-md-8 am__hero-col">
+                            <h1 className={'sr-only'}>{PAGE_TITLE}</h1>
                             <Logo />
                             <span className={'h1 display-5 fw-bold text-white'}>
                                 VIRTUAL SIMULATIONS
@@ -127,17 +134,27 @@ export const Home: React.FC = () => {
                             <div className="row justify-content-center">
                                 <div className="col-md-4">
                                     <a href={'https://www.cuimc.columbia.edu/'}>
-                                        <img src={CUIMCLogo} className={'img-fluid mb-2'} />
+                                        <img src={CUIMCLogo}
+                                            alt={'Columbia University Irving Medical Center'}
+                                            className={'img-fluid mb-2'} />
                                     </a>
                                 </div>
                                 <div className="col-md-4">
                                     <a href={'https://www.emergencymedicine.columbia.edu/'}>
-                                        <img src={EMLogo} className={'img-fluid'} />
+                                        <img src={EMLogo}
+                                            alt={
+                                                'Columbia University Irving Medical Center ' +
+                                                'Department of Emergency Medicine'}
+                                            className={'img-fluid'} />
                                     </a>
                                 </div>
                                 <div className="col-md-4">
                                     <a href={'https://www.ctl.columbia.edu/'}>
-                                        <img src={CTLLogo} className={'img-fluid'} />
+                                        <img src={CTLLogo}
+                                            alt={
+                                                'Columbia University ' +
+                                                'Center for Teaching and Learning'}
+                                            className={'img-fluid'}/>
                                     </a>
                                 </div>
                             </div>
@@ -147,7 +164,13 @@ export const Home: React.FC = () => {
                                 </div>
                                 <div className="col-md-4">
                                     <a href={'https://www.vptli.columbia.edu/'}>
-                                        <img src={VPTLILogo} className={'img-fluid'} />
+                                        <img
+                                            src={VPTLILogo}
+                                            alt={
+                                                'Columbia University ' +
+                                                'Office of the Vice President for ' +
+                                                'Teaching, Learning, and Innovation'}
+                                            className={'img-fluid'} />
                                     </a>
                                 </div>
                             </div>

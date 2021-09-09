@@ -6,6 +6,10 @@ import { Background } from '../background';
 import BackgroundImage from '../images/iStock-1217277545.jpg';
 
 export const About: React.FC = () => {
+    React.useEffect(() => {
+        document.title = 'About | Austere Medicine Virtual Simulations';
+    });
+
     return (
         <>
             <Nav title={'About'} showAbout={false}/>

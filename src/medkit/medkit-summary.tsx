@@ -29,6 +29,10 @@ export const MedkitSummary: React.FC = () => {
     const KIT_3_POINTS = getMedkitPoints(KIT_3);
 
     useEffect(() => {
+        document.title = 'Medkit Summary | Austere Medicine Virtual Simulations';
+    });
+
+    useEffect(() => {
         // eslint-disable-next-line max-len
         const csvString = `Category,Item,Points,Kit 1: ${KIT_1_POINTS} Points,Kit 2: ${KIT_2_POINTS} Points,Kit 3: ${KIT_3_POINTS} Points\n`;
         setCSV(DATA.reduce((acc: string, val, idx) => {
