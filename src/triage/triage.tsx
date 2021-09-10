@@ -136,6 +136,10 @@ export const Triage: React.FC = () => {
         }
     ];
 
+    React.useEffect(() => {
+        document.title = 'Patient Triage Simulation | Austere Medicine Virtual Simulations';
+    });
+
     return (
         <>
             <Nav title={'Patient Triage Simulation'} items={navItems}/>
@@ -145,7 +149,10 @@ export const Triage: React.FC = () => {
                         <div className="col-12">
                             <h1>Patient Triage Simulation</h1>
                             <p className="lead">
-                                Triage an influx of EMS patients
+                                <span aria-hidden={true}>Triage an influx of EMS patients</span>
+                                <span className={'sr-only'}>
+                                    Triage an influx of E M S patients
+                                </span>
                             </p>
                         </div>
                     </div>
@@ -210,6 +217,16 @@ export const Triage: React.FC = () => {
                                 go through the simulation only once, before the
                                 debrief session - after which you are welcome to
                                 engage with the simulation as much as you like).
+                            </p>
+                            <p className="sr-only">
+                                Please note that this simulation relies on visual elements
+                                to convey information about the simulated cases. If you are a
+                                student of Columbia University and require assistance to use
+                                this interactive, please contact your instructor, or please
+                                contact the office of disability services:
+                                <a href={'https://health.columbia.edu/content/disability-services'}>
+                                    link
+                                </a>.
                             </p>
                             {window.localStorage.getItem('triage') ? (<>
                                 <div className="alert alert-success">

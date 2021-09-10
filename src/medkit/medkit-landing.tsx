@@ -22,6 +22,11 @@ export const MedkitLanding: React.FC = () => {
             link: '/medkit/summary'
         }
     ];
+
+    React.useEffect(() => {
+        document.title = 'Medical Kit Simulation | Austere Medicine Virtual Simulations';
+    });
+
     return (<>
         <Nav title={'Medical Kit Simulation'} items={navItems}/>
         <div className={'container medkit__content'} data-testid='medkit'>

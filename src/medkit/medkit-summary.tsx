@@ -29,6 +29,10 @@ export const MedkitSummary: React.FC = () => {
     const KIT_3_POINTS = getMedkitPoints(KIT_3);
 
     useEffect(() => {
+        document.title = 'Medkit Summary | Austere Medicine Virtual Simulations';
+    });
+
+    useEffect(() => {
         // eslint-disable-next-line max-len
         const csvString = `Category,Item,Points,Kit 1: ${KIT_1_POINTS} Points,Kit 2: ${KIT_2_POINTS} Points,Kit 3: ${KIT_3_POINTS} Points\n`;
         setCSV(DATA.reduce((acc: string, val, idx) => {
@@ -141,9 +145,21 @@ export const MedkitSummary: React.FC = () => {
                                             )}
                                             <td>{val.item}</td>
                                             <td>{val.points}</td>
-                                            <td>{KIT_1 && KIT_1[idx] && (<>&#10003;</>)}</td>
-                                            <td>{KIT_2 && KIT_2[idx] && (<>&#10003;</>)}</td>
-                                            <td>{KIT_3 && KIT_3[idx] && (<>&#10003;</>)}</td>
+                                            <td>{KIT_1 && KIT_1[idx] && (<>
+                                                <span aria-hidden={true}>&#10003;</span>
+                                                <span className={'sr-only'}>checked</span>
+                                            </>)}
+                                            </td>
+                                            <td>{KIT_2 && KIT_2[idx] && (<>
+                                                <span aria-hidden={true}>&#10003;</span>
+                                                <span className={'sr-only'}>checked</span>
+                                            </>)}
+                                            </td>
+                                            <td>{KIT_3 && KIT_3[idx] && (<>
+                                                <span aria-hidden={true}>&#10003;</span>
+                                                <span className={'sr-only'}>checked</span>
+                                            </>)}
+                                            </td>
                                         </tr>
                                     );
                                 })}
