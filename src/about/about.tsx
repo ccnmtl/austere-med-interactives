@@ -1,5 +1,4 @@
 // eslint-disable-next-line max-len
-/* eslint-disable scanjs-rules/identifier_localStorage, scanjs-rules/property_localStorage */
 import React from 'react';
 import { Nav } from '../nav';
 import { Background } from '../background';

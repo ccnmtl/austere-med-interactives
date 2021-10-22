@@ -300,7 +300,6 @@ export const PatientPanel: React.FC<PatientPanelProps> = (
 
     const advanceToReflection = (): void => {
         saveTimeAndCompletedData();
-        //eslint-disable-next-line scanjs-rules/assign_to_pathname
         window.location.pathname = '/triage/reflection';
     };
 

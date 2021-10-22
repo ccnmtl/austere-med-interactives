@@ -43,7 +43,6 @@ export const PatientSet: React.FC<PatientSetProps> = (
         }
 
         // Now start timer, and countdown clock
-        // eslint-disable-next-line scanjs-rules/call_setInterval
         interval.current = window.setInterval(countdown, 1000);
     };
 

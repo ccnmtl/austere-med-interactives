@@ -1,5 +1,4 @@
 // eslint-disable-next-line max-len
-/* eslint-disable scanjs-rules/identifier_localStorage, scanjs-rules/property_localStorage */
 import React, { useState, useRef } from 'react';
 import { Nav } from '../nav';
 import { Background } from '../background';
@@ -83,11 +82,9 @@ export const Triage: React.FC = () => {
         stopAllAudio();
         // Start the first audio
         const a = new Audio();
-        // eslint-disable-next-line scanjs-rules/call_addEventListener
         a.addEventListener('canplaythrough', () => {
             void a.play();
         });
-        // eslint-disable-next-line scanjs-rules/assign_to_src
         a.src = audioURL + `?cache=${__BUILD__}`;
         audioRef.current = a;
     };
