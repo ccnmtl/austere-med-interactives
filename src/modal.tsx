@@ -22,7 +22,6 @@ export const Modal: React.FC<ModalProps> = ({
                 cancelFunc();
             }
         };
-        /* eslint-disable-next-line scanjs-rules/call_addEventListener */
         window.addEventListener('keyup', closeOnEsc);
         return () => {
             const bdy = document.getElementsByTagName('body')[0];
