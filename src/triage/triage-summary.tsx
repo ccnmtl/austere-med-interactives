@@ -75,12 +75,14 @@ export const TriageSummary: React.FC = () => {
                                 className={'btn btn-primary me-2'}>
                                 Print
                             </button>
+                            {/*
                             <button
                                 type={'button'}
                                 onClick={handleDownload}
                                 className={'btn btn-primary'}>
                                 Download Summary
                             </button>
+                            */}
                         </div>
                     </div>
                 </div>
