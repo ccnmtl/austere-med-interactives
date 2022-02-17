@@ -256,7 +256,8 @@ export const Triage: React.FC = () => {
                             )}
                         </div>
                         <div className="col-6">
-                            <img className={'img-fluid'} src={TriageImg} alt={'Triage Background Image'}/>
+                            <img className={'img-fluid'} src={TriageImg}
+                                alt={'Triage Background Image'}/>
                         </div>
                     </div>
                 </>) : (
