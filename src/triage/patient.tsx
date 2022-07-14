@@ -249,6 +249,7 @@ export const PatientPanel: React.FC<PatientPanelProps> = (
     const [consultState, setConsultState] = useState<string>('');
 
     const handlePlayAudio = (key: string): void => {
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
         playAudio(patient[key]);
     };
 
@@ -272,6 +273,7 @@ export const PatientPanel: React.FC<PatientPanelProps> = (
             q6Audio: 'q6',
         };
         if (activePromptKey in selectionKeys) {
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
             setTriageSelectionData(currentPatient, selectionKeys[activePromptKey], true);
         }
         setActivePrompt({
