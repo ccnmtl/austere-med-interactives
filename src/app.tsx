@@ -19,7 +19,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 export const App: React.FC = () => {
-    ReactGA.initialize('51144540');
+    ReactGA.initialize('UA-51144540-39');
 
     useEffect(() => {
         ReactGA.pageview(window.location.pathname + window.location.search);
