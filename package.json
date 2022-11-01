@@ -63,7 +63,7 @@
   },
   "dependencies": {
     "@sentry/browser": "^7.0.0",
-    "babel-loader": "^8.2.2",
+    "babel-loader": "^9.0.1",
     "bootstrap": "5.2.0",
     "file-saver": "^2.0.5",
     "react": "^18.2.0",
