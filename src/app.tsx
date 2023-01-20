@@ -9,7 +9,7 @@ import {
     Medkit3Scenario
 } from './medkit';
 import * as Sentry from '@sentry/browser';
-import ReactGA from 'react-ga';
+import ReactGA from 'react-ga4';
 
 /* eslint-disable-next-line */
 if (process.env.NODE_ENV === 'production') {
@@ -19,10 +19,18 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 export const App: React.FC = () => {
-    ReactGA.initialize('UA-51144540-39');
+    const options = {
+        gtagOptions: {anonymizeIp: true},
+        testMode: process.env.NODE_ENV === 'test'
+    };
+
+    ReactGA.initialize('G-LB0MY68S6D', options);
 
     useEffect(() => {
-        ReactGA.pageview(window.location.pathname + window.location.search);
+        ReactGA.send({
+            hitType: 'pageview',
+            page: window.location.pathname + window.location.search
+        });
     }, []);
     return (
         <Router>
