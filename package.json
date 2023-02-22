@@ -13,7 +13,7 @@
     "test:snapshot": "jest -u",
     "eslint": "eslint --ext .js,.tsx src/",
     "cypress:run": "cypress run",
-    "cypress:test": "start-server-and-test prod http://localhost:3000 cypress:run",
+    "cypress:test": "start-server-and-test prod http://127.0.0.1:3000 cypress:run",
     "cypress:open": "cypress open"
   },
   "repository": {
