@@ -26,12 +26,12 @@ export const TriageSummary: React.FC = () => {
 
     }, []);
 
-    const handleDownload = (): void => {
-        if (csv) {
-            const blob = new Blob([csv], {type: 'text/plain;charset=utf-8'});
-            saveAs(blob, 'triage-summary.csv');
-        }
-    };
+   // const handleDownload = (): void => {
+   //     if (csv) {
+   //        const blob = new Blob([csv], {type: 'text/plain;charset=utf-8'});
+   //        saveAs(blob, 'triage-summary.csv');
+   //     }
+   // };
 
     const navItems = [
         {
