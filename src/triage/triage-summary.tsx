@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable max-len */
 import React, {useState, useEffect} from 'react';
 import { Nav } from '../nav';
@@ -26,12 +27,12 @@ export const TriageSummary: React.FC = () => {
 
     }, []);
 
-   // const handleDownload = (): void => {
-   //     if (csv) {
-   //        const blob = new Blob([csv], {type: 'text/plain;charset=utf-8'});
-   //        saveAs(blob, 'triage-summary.csv');
-   //     }
-   // };
+    const handleDownload = (): void => {
+        if (csv) {
+            const blob = new Blob([csv], {type: 'text/plain;charset=utf-8'});
+            saveAs(blob, 'triage-summary.csv');
+        }
+    };
 
     const navItems = [
         {
