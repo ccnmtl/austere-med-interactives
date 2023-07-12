@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable max-len */
 import React, {useState, useEffect} from 'react';
 import { Nav } from '../nav';
