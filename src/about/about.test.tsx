@@ -2,6 +2,7 @@ import React from 'react';
 import { render } from '@testing-library/react';
 import { About } from './about';
 import { MemoryRouter } from 'react-router-dom';
+import '@testing-library/jest-dom';
 
 describe('About page test', () => {
     const renderComponent = () => render(
