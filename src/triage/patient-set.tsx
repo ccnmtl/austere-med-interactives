@@ -5,8 +5,8 @@ import {
 
 interface PatientSetProps {
     patients: Patient[];
-    stopAllAudio(): void;
-    playAudio(url: string): void;
+    stopAllAudio: void;
+    playAudio: void;
 }
 
 export const PatientSet: React.FC<PatientSetProps> = (
