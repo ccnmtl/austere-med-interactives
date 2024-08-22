@@ -26,15 +26,3 @@ export const Medkit2Scenario: React.FC = () => {
         Space and weight are a premium here; you have 65 points to spend.
     </>);
 };
-
-export const Medkit3Scenario: React.FC = () => {
-    return (<>
-        You&apos;re leading a team to set up a field hospital
-        after a magnitude 8.0 earthquake in El Salvador. It’s an urban, tropical
-        setting with mostly devastated infrastructure. Your medical kit will travel
-        with equipment and luggage, so can be larger — a maximum of 90 points. It must
-        be suitable for international travel. <span className={'fw-bold'}>Note: this kit
-        is intended to care for your team of providers, not the patients at the field
-        hospital.</span>
-    </>);
-};

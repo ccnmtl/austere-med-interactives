@@ -5,8 +5,7 @@ import { Home } from './home';
 import { About } from './about';
 import { Triage, TriageSummary, TriageReflection } from './triage';
 import {
-    Medkit, MedkitSummary, MedkitLanding, Medkit1Scenario, Medkit2Scenario,
-    Medkit3Scenario
+    Medkit, MedkitSummary, MedkitLanding, Medkit1Scenario, Medkit2Scenario
 } from './medkit';
 import * as Sentry from '@sentry/browser';
 import ReactGA from 'react-ga4';
@@ -54,13 +53,6 @@ export const App: React.FC = () => {
                         budget={65}
                         scenario={Medkit2Scenario}
                         medkitId={'2'}/>
-                    } />
-                <Route path="/medkit/3"
-                    element={<Medkit
-                        title={'Case 3: Disaster Response'}
-                        budget={90}
-                        scenario={Medkit3Scenario}
-                        medkitId={'3'}/>
                     } />
                 <Route path="/medkit/summary"
                     element={
