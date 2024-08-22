@@ -207,9 +207,9 @@ export const Medkit: React.FC<MedkitParams> = (
                                     <a className="btn btn-danger"
                                         href={
                                             // eslint-disable-next-line max-len
-                                            Number(medkitId) < 3 ? `/medkit/${Number(medkitId) + 1}` : '/medkit/summary'
+                                            Number(medkitId) < 2 ? `/medkit/${Number(medkitId) + 1}` : '/medkit/summary'
                                         }>
-                                        {Number(medkitId) < 3 ? 'Next Medkit' : 'Medkit Summary'}
+                                        {Number(medkitId) < 2 ? 'Next Medkit' : 'Medkit Summary'}
                                     </a>
                                 </div>
                             </div>

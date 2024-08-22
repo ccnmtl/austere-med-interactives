@@ -24,8 +24,6 @@ export const MedkitSummary: React.FC = () => {
     const KIT_1_POINTS = getMedkitPoints(KIT_1);
     const KIT_2 = getMedkitData('2');
     const KIT_2_POINTS = getMedkitPoints(KIT_2);
-    const KIT_3 = getMedkitData('3');
-    const KIT_3_POINTS = getMedkitPoints(KIT_3);
 
     useEffect(() => {
         document.title = 'Medkit Summary | Austere Medicine Virtual Simulations';
@@ -33,11 +31,11 @@ export const MedkitSummary: React.FC = () => {
 
     useEffect(() => {
         // eslint-disable-next-line max-len
-        const csvString = `Category,Item,Points,Kit 1: ${KIT_1_POINTS} Points,Kit 2: ${KIT_2_POINTS} Points,Kit 3: ${KIT_3_POINTS} Points\n`;
+        const csvString = `Category,Item,Points,Kit 1: ${KIT_1_POINTS} Points,Kit 2: ${KIT_2_POINTS} Points`;
         setCSV(DATA.reduce((acc: string, val, idx) => {
             return acc.concat(
                 // eslint-disable-next-line max-len
-                `${val.category},${val.item},${val.points},${KIT_1[idx] ? '1' : ''},${KIT_2[idx] ? '1' : ''},${KIT_3[idx] ? '1' : ''}\n`
+                `${val.category},${val.item},${val.points},${KIT_1[idx] ? '1' : ''},${KIT_2[idx] ? '1' : ''}\n`
             );
         }, csvString));
     }, []);
@@ -120,9 +118,6 @@ export const MedkitSummary: React.FC = () => {
                                     <th scope={'col'}>
                                         Kit 2: {KIT_2_POINTS}/65&nbsp;Points
                                     </th>
-                                    <th scope={'col'}>
-                                        Kit 3: {KIT_3_POINTS}/90&nbsp;Points
-                                    </th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -150,11 +145,6 @@ export const MedkitSummary: React.FC = () => {
                                             </>)}
                                             </td>
                                             <td>{KIT_2 && KIT_2[idx] && (<>
-                                                <span aria-hidden={true}>&#10003;</span>
-                                                <span className={'sr-only'}>checked</span>
-                                            </>)}
-                                            </td>
-                                            <td>{KIT_3 && KIT_3[idx] && (<>
                                                 <span aria-hidden={true}>&#10003;</span>
                                                 <span className={'sr-only'}>checked</span>
                                             </>)}
