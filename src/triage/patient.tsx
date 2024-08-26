@@ -228,11 +228,11 @@ interface PatientPanelProps {
     lastPatient: boolean;
     countdownClock: number;
     lockPanel: boolean;
-    setLockPanel(lock: boolean): void;
-    startPatientPanel(panel: number): void;
-    stopCountdown(): void;
-    stopAllAudio(): void
-    playAudio(audioURL: string): void;
+    setLockPanel(this: void, lock: boolean): void;
+    startPatientPanel(this: void, panel: number): void;
+    stopCountdown(this: void): void;
+    stopAllAudio(this: void): void
+    playAudio(this: void, audioURL: string): void;
 }
 
 export const PatientPanel: React.FC<PatientPanelProps> = (

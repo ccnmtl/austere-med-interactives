@@ -5,8 +5,8 @@ interface ModalProps {
     bodyText: string;
     cancelText: string;
     confirmText: string;
-    cancelFunc(): void;
-    confirmFunc(): void;
+    cancelFunc(this: void): void;
+    confirmFunc(this: void): void;
 }
 
 export const Modal: React.FC<ModalProps> = ({
