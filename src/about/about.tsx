@@ -23,7 +23,7 @@ export const About: React.FC = () => {
                             for use in the VP&amp;S Austere Medicine Elective, the two
                             simulations aim to provide learners with opportunities to
                             learn about medical care in resource-limited settings. The
-                            Medical Kit simulation offers students three different
+                            Medical Kit simulation offers students
                             scenarios where they must decide what medical supplies they
                             would pack. The Patient Triage simulation puts learners
                             in the perspective of a triage officer assigned to the EMS triage
