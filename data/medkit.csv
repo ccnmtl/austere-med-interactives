@@ -12,7 +12,6 @@ Hemorrhage Control / Trauma,Trauma shears,3
 Hemorrhage Control / Trauma,Chest tube 36F,6
 Wound Care,Kerlex gauze,1
 Wound Care,4x4 gauze,1
-Wound Care,ABD pads,1
 Wound Care,Band-aids,1
 Wound Care,Tegaderm,2
 Wound Care,Vaseline gauze (xeroform),2
@@ -21,6 +20,7 @@ Wound Care,Tissue adhesive (dermabond),2
 Wound Care,Alcohol swabs,1
 Wound Care,Betadine,2
 Wound Care,Topical antibiotic,2
+Wound Care,Skin stapler,4
 Orthopedic Injuries,SAM splint,5
 Orthopedic Injuries,Rigid C collar,3
 Orthopedic Injuries,Soft cervical collar,2
@@ -64,6 +64,8 @@ Misc,EZ-IO,3
 Misc,Glucometer and test strips,3
 Misc,Reflex hammer,2
 Misc,10cc & 20cc syringe with needles,2
+Misc,Tweezers,2
+Misc,Oxygen tank,8
 Antibiotics,Amox / clav,2
 Antibiotics,TMP / SMX,2
 Antibiotics,Doxycycline,2
@@ -72,7 +74,6 @@ Antibiotics,Azithromycin 5d pack,2
 Antibiotics,Fluconazole,2
 Antibiotics,Levofloxacin,3
 Antibiotics,Ceftriaxone IV,4
-Antibiotics,HIV PEP kit,5
 Pain Control,Ibuprofen po,2
 Pain Control,Acetaminophen po,2
 Pain Control,Oxycodone po,3
@@ -86,14 +87,14 @@ GI Medication,Famotidine po,3
 GI Medication,Maalox / mylanta po,2
 GI Medication,Immodium,2
 Respiratory Medication,Albuterol MDI,3
-Respiratory Medication,Fluticasone MDI,3
 Steroids,Dexamethasone po,5
 CV Medication,Nifedipine,5
 CV Medication,Epinehprine auto-injector,5
 CV Medication,Metoprolol,5
 CV Medication,Aspirin,1
-CV Medication,Salmeterol PO,4
 CV Medication,Sildenafil po,5
 CV Medication,Atropine,5
 Additional Medication,Naloxone IN,4
 Additional Medication,PO glucose ge,3
+Additional Medication,Diamox,4
+Additional Medication,TPA,6
