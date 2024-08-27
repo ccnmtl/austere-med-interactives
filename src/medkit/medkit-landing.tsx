@@ -42,9 +42,9 @@ export const MedkitLanding: React.FC = () => {
                 <div className="col-md-6">
                     <p>
                         For this simulation, you will be “packing” your own
-                        Medical Kit, for three different scenarios - A winter
-                        mountain expedition, a desert mounting biking trip, and a
-                        disaster response.  At the beginning of each scenario you
+                        Medical Kit, for scenarios - A winter
+                        mountain expedition, and a desert mounting biking trip.
+                        At the beginning of each scenario you
                         will receive a set number of points, which you can use to
                         select items.  Each item is assigned a point value, from
                         1-6pts, roughly based on weight, size, and cost.  You have
