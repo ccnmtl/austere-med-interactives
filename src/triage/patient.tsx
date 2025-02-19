@@ -176,7 +176,7 @@ const PatientAssignmentChoice: React.FC<PatientAssignmentChoiceProps> = (
             <div>
                 <label className={'fw-bold'}>{heading}</label>
             </div>
-            {resourceLimitStatus && resourceLimitStatus({})}
+            {resourceLimitStatus && resourceLimitStatus({}) as React.ReactNode}
             <div
                 className="btn-group"
                 role="group"
