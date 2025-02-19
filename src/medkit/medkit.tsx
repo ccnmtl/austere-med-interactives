@@ -110,7 +110,7 @@ export const Medkit: React.FC<MedkitParams> = (
                 <div className={'row'}>
                     <div className="col-12">
                         <h1>{title}</h1>
-                        <p className="lead">{scenario({})}</p>
+                        <p className="lead">{scenario({}) as React.ReactNode}</p>
                         <p className="lead">You have {budget} points.</p>
                     </div>
                 </div>
