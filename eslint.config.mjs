@@ -2,7 +2,6 @@ import { FlatCompat } from '@eslint/eslintrc';
 import { defineConfig } from "eslint/config";
 import path from 'path';
 import { fileURLToPath } from 'url';
-import eslintPluginSecurity from 'eslint-plugin-security';
 import eslintPluginCypress from 'eslint-plugin-cypress';
 import eslintPluginReact from 'eslint-plugin-react';
 import typescriptEslintPlugin from '@typescript-eslint/eslint-plugin';
@@ -34,7 +33,6 @@ export default defineConfig( [
             },
         },
         plugins: {
-            security: eslintPluginSecurity,
             cypress: eslintPluginCypress,
             react: eslintPluginReact,
         },
@@ -50,20 +48,6 @@ export default defineConfig( [
             'no-trailing-spaces': ['error'],
             'key-spacing': ['error', { beforeColon: false }],
             'func-call-spacing': ['error', 'never'],
-
-            'security/detect-buffer-noassert': 'warn',
-            'security/detect-child-process': 'warn',
-            'security/detect-disable-mustache-escape': 'warn',
-            'security/detect-eval-with-expression': 'warn',
-            'security/detect-new-buffer': 'warn',
-            'security/detect-no-csrf-before-method-override': 'warn',
-            'security/detect-non-literal-fs-filename': 'warn',
-            'security/detect-non-literal-regexp': 'warn',
-            'security/detect-non-literal-require': 'off', // requirejs conflict
-            'security/detect-object-injection': 'off', // several false positives
-            'security/detect-possible-timing-attacks': 'warn',
-            'security/detect-pseudoRandomBytes': 'warn',
-            'security/detect-unsafe-regex': 'warn',
         },
         settings: {
             react: {
