@@ -46,7 +46,6 @@
     "eslint": "^9.24.0",
     "eslint-plugin-cypress": "^6.0.0",
     "eslint-plugin-react": "^7.22.0",
-    "eslint-plugin-security": "^3.0.0",
     "file-loader": "^6.2.0",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^30.0.0",
